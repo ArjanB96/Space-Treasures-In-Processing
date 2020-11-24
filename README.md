@@ -1,2 +1,3 @@
-# Input a player name in processing
- Schoolproject for processing
+# Input a player name screen in processing
+
+For a schoolproject in processing
