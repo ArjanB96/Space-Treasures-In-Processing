@@ -62,6 +62,7 @@ def mousePressed():
         
 def mouseHoverHandler():
     if isMouseOnButton(10, 10, 130, 55): # Home button
+        image(loadImage('assets/buttons/HomeHover.png'), 10, 10, 130, 55)
         cursor(HAND)
     elif isMouseOnButton(10, height - 65, 195, 55): # Dobbel button
         cursor(HAND)
