@@ -1,3 +1,4 @@
-# Input a player name screen in processing
+# Space Treasures in Processing   
 
-For a schoolproject in processing
+
+A school project called 'Space Treasures' made in Python Processing
