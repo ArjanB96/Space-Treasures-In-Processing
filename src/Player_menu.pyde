@@ -48,7 +48,7 @@ def keyTyped():
         #Backspace, als je op backspace drukt verwijder je nu je hele input
     if (key == BACKSPACE):
         letter = key
-        words = ''
+        words = words[:-1]
         println(key)
         
         #Enter, druk op enter om naar volgende scherm te gaan en de naam op te slaan in een variable
