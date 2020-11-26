@@ -19,14 +19,14 @@ def setup():
     card = Card()
     card.name = 'Bruh'
     card.cooldown = 4
-    card.pos = (100, 100)
+    card.pos = (150, 100)
     cards.append(card)
     
     size(1280, 720)
 
 #Called every frame
 def draw():
-    cycleBackground()
+    cycleBackground()    
     
     #Cards
     for card in cards:    
@@ -35,30 +35,26 @@ def draw():
             cooldown_left = 0
         drawRectangle(card.color, card.pos, (150, 230))
         drawText('Artefact\nCooldown:' + str(cooldown_left), (card.pos[0] + 20, card.pos[1] + 20), (width, height), (0, 0, 0), 20)
+        
+    drawTurnButton()
     
-    #Turn button
-    turn_btn_pos = (width - 125, 50)
-    drawRectangle((255, 231, 48), turn_btn_pos, (75, 75))
-    drawText('Turn: ' + str(turn), (turn_btn_pos[0] + 3, turn_btn_pos[1] - 25), (width, height), (255, 0, 0), 20)
+    # Home Button
+    image(loadImage('assets/buttons/Home.png'), 10, 10, 130, 55)
+    
+    mouseHoverHandler()
     
 def mousePressed():
     global turn
     
     #Artifact
-    if isMouseOnButton(posX=100, posY=100, buttonWidth=150, buttonHeight=230):
-        card = getCard(100, 100)
-        if card.color != red_color:
-            turn += 1
-            card.color = red_color
-            card.turn = turn
+    if isMouseOnButton(posX=150, posY=100, buttonWidth=150, buttonHeight=230):
+        card = getCard(150, 100)
+        artifactClick(card)
             
     #Artifact
     if isMouseOnButton(posX=300, posY=100, buttonWidth=150, buttonHeight=230):
         card = getCard(300, 100)
-        if card.color != red_color:
-            turn += 1
-            card.color = red_color
-            card.turn = turn
+        artifactClick(card)
         
     #Turn
     if isMouseOnButton(posX=width - 125, posY=50, buttonWidth=75, buttonHeight=75):
@@ -67,6 +63,35 @@ def mousePressed():
         for card in cards_loop:    
             if card.turn + card.cooldown <= turn:
                 card.color = (255, 255, 255)
+    
+    if isMouseOnButton(posX=10, posY=10, buttonWidth=130, buttonHeight=55):
+        exit()
+        
+def mouseHoverHandler():
+    if isMouseOnButton(10, 10, 130, 55): # EXIT button
+        cursor(HAND)
+    elif isMouseOnButton(width - 125, 50, 75, 75): # Turn button
+        cursor(HAND)
+        drawTurnButton((255, 170, 0))
+    elif isMouseOnButton(posX=150, posY=100, buttonWidth=150, buttonHeight=230):
+        card = getCard(150, 100)
+        if card and card.color is not red_color:
+            cursor(HAND)
+    else:
+        cursor(ARROW)          
+        
+def artifactClick(card):
+    global turn
+    if card and card.color != red_color:    
+        turn += 1
+        card.color = red_color
+        card.turn = turn
+        
+def drawTurnButton(color = (255, 231, 48)):
+    turn_btn_pos = (width - 125, 50)
+    drawRectangle(color, turn_btn_pos, (75, 75))
+    if color == (255, 231, 48):
+        drawText('Turn: ' + str(turn), (turn_btn_pos[0] + 3, turn_btn_pos[1] - 25), (width, height), (255, 0, 0), 20)
 
 def drawRectangle(card_color, pos, card_size, stroke = ()):
     fill(card_color[0], card_color[1], card_color[2])
@@ -90,7 +115,6 @@ def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
 
 def getCard(posX, posY):
-    global cards
     return next(x for x in cards if x.pos == (posX, posY))
 
 def cycleBackground():
