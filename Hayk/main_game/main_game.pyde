@@ -8,8 +8,9 @@ red_color = (255, 0, 0)
 turn = 1
     
 class Card:
-    def __init__(self, pos, color, name, cooldown, element): 
+    def __init__(self, pos, size, color, name, cooldown, element): 
         self.pos = pos
+        self.size = size
         self.color = color
         self.name = name
         self.cooldown = cooldown
@@ -18,14 +19,16 @@ class Card:
 
 #Called once at start
 def setup():
-    card = Card(pos=(150, 100), color=(255, 255, 255), name='Blockade', cooldown=4, element='Amaterasu')
+    card = Card(pos=(150, 100), size=(150, 230), color=(255, 255, 255), name='Exchange', cooldown=6, element='Kaytsak')
+    card2 = Card(pos=(350, 100), size=(150, 230), color=(255, 255, 255), name='Swap', cooldown=3, element='Aqua')
     cards.append(card)
+    cards.append(card2)
     
     size(1280, 720)
 
 #Called every frame
 def draw():
-    cycleBackground()    
+    cycleBackground()
     
     drawAllCards()    
     drawTurnButton()
@@ -39,17 +42,17 @@ def draw():
 def mousePressed():
     global turn
     
-    #Artifact
+    # Artifact
     if isMouseOnButton(posX=150, posY=100, buttonWidth=150, buttonHeight=230):
         card = getCard(150, 100)
         artifactClick(card)
             
-    #Artifact
-    if isMouseOnButton(posX=300, posY=100, buttonWidth=150, buttonHeight=230):
-        card = getCard(300, 100)
+    # Artifact
+    if isMouseOnButton(posX=350, posY=100, buttonWidth=150, buttonHeight=230):
+        card = getCard(350, 100)
         artifactClick(card)
         
-    #Turn
+    # Turn
     if isMouseOnButton(posX=width - 125, posY=50, buttonWidth=75, buttonHeight=75):
         turn += 1
         cards_loop = [x for x in cards if x.color == red_color]
@@ -57,14 +60,20 @@ def mousePressed():
             if card.turn + card.cooldown <= turn:
                 card.color = (255, 255, 255)
     
+    # Dobbel
+    if isMouseOnButton(posX=10, posY=height - 65, buttonWidth=195, buttonHeight=55):  
+        link('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+    
+    # Home
     if isMouseOnButton(posX=10, posY=10, buttonWidth=130, buttonHeight=55):
         exit()
         
 def mouseHoverHandler():
     if isMouseOnButton(10, 10, 130, 55): # Home button
-        image(loadImage('assets/buttons/HomeHover.png'), 10, 10, 130, 55)
+        image(loadImage('assets/buttons/Home2.png'), 10, 10, 130, 55)
         cursor(HAND)
     elif isMouseOnButton(10, height - 65, 195, 55): # Dobbel button
+        image(loadImage('assets/buttons/Dobbel2.png'), 10, height - 65, 195, 55)
         cursor(HAND)
     elif isMouseOnButton(width - 125, 50, 75, 75): # Turn button
         cursor(HAND)
@@ -78,13 +87,18 @@ def artifactClick(card):
         turn += 1
         card.color = red_color
         card.turn = turn
+    
+    cards_loop = [x for x in cards if x.color == red_color]
+    for card in cards_loop:    
+        if card.turn + card.cooldown <= turn:
+            card.color = (255, 255, 255)
 
 def drawAllCards():
     for card in cards:    
         cooldown_left = card.cooldown - (turn - card.turn)
         if cooldown_left == card.cooldown and card.color != red_color or cooldown_left <= 0 or card.color != red_color:
             cooldown_left = 0
-        drawRectangle(card.color, card.pos, (150, 230))
+        drawRectangle(card.color, card.pos, card.size)
         drawText(card.name + '\n\n\nCooldown: ' + str(cooldown_left) + '\n\n' + card.element, (card.pos[0] - 565, card.pos[1] + 25), (width, height), (0, 0, 0), 20, True)
 
 def drawTurnButton(color = (255, 231, 48)):
@@ -93,16 +107,16 @@ def drawTurnButton(color = (255, 231, 48)):
     if color == (255, 231, 48):
         drawText('Turn: ' + str(turn), (turn_btn_pos[0] + 3, turn_btn_pos[1] - 25), (width, height), color, 20)
 
-def drawRectangle(card_color, pos, card_size, stroke = ()):
-    fill(card_color[0], card_color[1], card_color[2])
+def drawRectangle(color, pos, size, stroke = ()):
+    fill(color[0], color[1], color[2])
     
-    if card_color != red_color and stroke != ():
+    if color != red_color and stroke != ():
         stroke(stroke_color[0], stroke_color[1], stroke_color[2])
         strokeWeight(stroke[3])
     elif stroke != ():
         strokeWeight(0)
         
-    rect(pos[0], pos[1], card_size[0], card_size[1])
+    rect(pos[0], pos[1], size[0], size[1])
     
 def drawText(draw_text, pos, size, color, font_size, center = False):
     fill(color[0], color[1], color[2])
