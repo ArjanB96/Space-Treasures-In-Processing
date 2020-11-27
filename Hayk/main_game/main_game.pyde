@@ -23,27 +23,27 @@ class Player:
 
 #Called once at start
 def setup():
-    global turn_player
+    global turn_player    
     
-    p1 = Player('Hayk')    
+    p1 = Player('VAC Efron')    
     p1.cards.append(Card(size=(200, 100), name='Exchange', cooldown=6, element='Kaytsak'))
     p1.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
     p1.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
     players.append(p1)
     
-    p2 = Player('Arjan')    
+    p2 = Player('FlatN3ck')    
     players.append(p2)
     p2.cards.append(Card(size=(200, 100), name='Blockade', cooldown=3, element='Aqua'))
     p2.cards.append(Card(size=(200, 100), name='EyeDrop', cooldown=3, element='Amaterasu'))
     
-    p3 = Player('Rayan')    
+    p3 = Player('Rayantjhu')    
     players.append(p3)
     p3.cards.append(Card(size=(200, 100), name='Exchange', cooldown=4, element='Kaytsak'))
     p3.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Kaytsak'))
     p3.cards.append(Card(size=(200, 100), name='Haste', cooldown=3, element='Kaytsak'))
     p3.cards.append(Card(size=(200, 100), name='Exchange', cooldown=3, element='Amaterasu'))
     
-    p4 = Player('Waros')    
+    p4 = Player('Ocean Man')    
     players.append(p4)
     p4.cards.append(Card(size=(200, 100), name='Blockade', cooldown=3, element='Amaterasu'))
     p4.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Amaterasu'))
@@ -56,6 +56,8 @@ def setup():
     
     turn_player = players[0]
     
+    loadImages()
+    
     size(1280, 720)
 
 #Called every frame
@@ -67,8 +69,8 @@ def draw():
     drawPlayerNames()    
     
     # Buttons
-    image(loadImage('assets/buttons/Home.png'), 10, 10, 130, 55)
-    image(loadImage('assets/buttons/Dobbel.png'), width - 205, height - 65, 195, 55)
+    image(home_img, 10, 10, 130, 55)
+    image(dobbel_img, width - 205, height - 65, 195, 55)
     
     mouseHoverHandler()
     
@@ -89,7 +91,10 @@ def mousePressed():
         goto_next_turn = True
         for player in players: 
             cards_loop = [x for x in player.cards if x.on_cooldown]
-            for card in cards_loop:    
+            for card in cards_loop:      
+                if player != players[turn_player_index]:
+                    card.turn += 1
+                    continue    
                 if card.turn + card.cooldown <= turn:
                     card.on_cooldown = False
     
@@ -116,16 +121,16 @@ def mouseHoverHandler():
             break 
         
     if isMouseOnButton(10, 10, 130, 55): # Home button
-        image(loadImage('assets/buttons/Home2.png'), 10, 10, 130, 55)
+        image(home2_img, 10, 10, 130, 55)
         cursor(HAND)
     elif isMouseOnButton(width - 205, height - 65, 195, 55): # Dobbel button
-        image(loadImage('assets/buttons/Dobbel2.png'), width - 205, height - 65, 195, 55)
+        image(dobbel2_img, width - 205, height - 65, 195, 55)
         cursor(HAND)
     elif isMouseOnButton(width - 125, 50, 75, 75): # Turn button
         cursor(HAND)
         drawTurnButton((255, 170, 0))
     elif not card_hover:
-        cursor(ARROW)    
+        cursor(ARROW)
         
 def artifactClick(card):
     global turn
@@ -137,34 +142,50 @@ def artifactClick(card):
     
     for player in players:
         cards_loop = [x for x in player.cards if x.on_cooldown]
-        for card in cards_loop:    
+        for card in cards_loop:
+            if player != players[turn_player_index]:
+                card.turn += 1
+                continue 
             if card.turn + card.cooldown <= turn:
                 card.on_cooldown = False    
 
 def drawPlayerNames():
     for i, player in enumerate(players):
         if player == players[turn_player_index]:
-            pos = (25, 70 + (i * 135))        
-            drawText(players[i].name, pos, (200, 50), (255, 255, 255), 30, center = False)
-            image(loadImage('assets/buttons/Verder.png'), pos[0] + 165, pos[1], 30, 45)
+            if len(player.name) > 10:
+                pos = (35, 70 + (i * 135))                    
+                image(verder_img, pos[0] + 240, pos[1], 30, 45)
+            elif len(player.name) > 8:
+                pos = (80, 70 + (i * 135))                    
+                image(verder_img, pos[0] + 195, pos[1], 30, 45)
+            else:
+                pos = (125, 70 + (i * 135))                    
+                image(verder_img, pos[0] + 150, pos[1], 30, 45)
+                
+            drawText(players[i].name, pos, (230, 100), (247, 151, 29), 30, center = False)
     
-def drawAllCards(white_card = None):    
+def drawAllCards(highlight_card = None):    
     for p_index, player in enumerate(players): 
         for c_index, card in enumerate(player.cards):                      
             cooldown_left = card.cooldown - (turn - card.turn)
             if cooldown_left == card.cooldown and not card.on_cooldown or cooldown_left <= 0 or not card.on_cooldown:
                 cooldown_left = 0            
                         
-            card.pos = (240 + (120 * c_index), 40 + (5 * c_index) + (135 * p_index))
+            card.pos = (330 + (120 * c_index), 40 + (5 * c_index) + (135 * p_index))
             
-            image(loadImage('assets/cards/' + card.element + '_card_flipped.png'), card.pos[0], card.pos[1], card.size[0], card.size[1])
-                    
+            if card.element == 'Amaterasu':
+                image(amaterasu_card, card.pos[0], card.pos[1], card.size[0], card.size[1])
+            elif card.element == 'Aqua':
+                image(aqua_card, card.pos[0], card.pos[1], card.size[0], card.size[1])
+            elif card.element == 'Kaytsak':
+                image(kaytsak_card, card.pos[0], card.pos[1], card.size[0], card.size[1])
+            
             if card.on_cooldown:
-                image(loadImage('assets/cards/Red_card_flipped.png'), card.pos[0], card.pos[1], card.size[0], card.size[1]) 
+                image(red_card, card.pos[0], card.pos[1], card.size[0], card.size[1]) 
             if player != players[turn_player_index]:                
-                image(loadImage('assets/cards/Black_card_flipped.png'), card.pos[0], card.pos[1], card.size[0], card.size[1])           
-            elif card == white_card:
-                image(loadImage('assets/cards/White_card_flipped.png'), card.pos[0], card.pos[1], card.size[0], card.size[1])
+                image(black_card, card.pos[0], card.pos[1], card.size[0], card.size[1])           
+            elif card == highlight_card:
+                image(white_card, card.pos[0], card.pos[1], card.size[0], card.size[1])
                 
             drawText(card.name + '\n' + card.element + '\nCooldown: ' + str(cooldown_left), (card.pos[0] + 15, card.pos[1] + 15), (width, height), (0, 0, 0), 16)
 
@@ -192,8 +213,26 @@ def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
 def getCard(posX, posY):
     return next((x for x in cards if x.pos == (posX, posY)), None)
 
+def loadImages():
+    global background_images, home_img, dobbel_img, home2_img, dobbel2_img, verder_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card
+    home_img = loadImage('assets/buttons/Home.png')
+    dobbel_img = loadImage('assets/buttons/Dobbel.png')
+    home2_img = loadImage('assets/buttons/Home2.png')
+    dobbel2_img = loadImage('assets/buttons/Dobbel2.png')
+    verder_img = loadImage('assets/buttons/Verder.png')
+    amaterasu_card = loadImage('assets/cards/Amaterasu_card_flipped.png')
+    kaytsak_card = loadImage('assets/cards/Kaytsak_card_flipped.png')
+    aqua_card = loadImage('assets/cards/Aqua_card_flipped.png')
+    red_card = loadImage('assets/cards/Red_card_flipped.png')
+    black_card = loadImage('assets/cards/Black_card_flipped.png')
+    white_card = loadImage('assets/cards/White_card_flipped.png')
+    
+    background_images = []
+    for i in range(33):
+        background_images.append(loadImage('background/bg' + str(i) + '.jpg'))
+
 def cycleBackground():
     global bg_index
-    background(loadImage('background/bg' + str(bg_index) + '.jpg'))
+    background(background_images[bg_index])
     bg_index = bg_index + 1 if bg_index < 32 else 0
     
