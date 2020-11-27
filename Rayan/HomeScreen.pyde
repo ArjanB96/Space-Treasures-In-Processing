@@ -3,16 +3,15 @@ width = 1280; height = 720
 screen = 0
 resizeWidth = 300
 resizeHeight = 300
-frame = 1
 textResize = 70
+opacityText = 0
+opacityChange = True
 
 def setup():
-    global planet, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, gidsButton, gidsButton2, terugKnopButton, terugKnopButton2
-    
+    global planet, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, gidsButton, gidsButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlTerug, pijlTerug2, pijlVerder, pijlVerder2
     textFont(createFont('PressStart2P.ttf', 40))
     size(width, height)
-    planet = loadImage('images/planeetAqua.png')
-    
+   
     # Buttons
     exitButton = loadImage('images/Exit.png')
     exitButton2 = loadImage('images/Exit2.png')
@@ -26,9 +25,15 @@ def setup():
     gidsButton2 = loadImage('images/Gids2.png')
     terugKnopButton = loadImage('images/TerugKnop.png')
     terugKnopButton2 = loadImage('images/TerugKnop2.png')
+    planet = loadImage('images/planeetAqua.png')
     
+    pijlTerug = loadImage('images/PijlTerug.png')
+    pijlTerug2 = loadImage('images/PijlTerug2.png')
+    pijlVerder = loadImage('images/PijlVerder.png')
+    pijlVerder2 = loadImage('images/PijlVerder2.png')
+     
 def draw():
-    global screen, resizeWidth, resizeHeight, textResize
+    global screen, resizeWidth, resizeHeight, textResize, opacityText, opacityChange
     
     # Background
     cycleBackground()
@@ -168,6 +173,41 @@ def draw():
         else:
             imageMode(CORNER)
             image(terugKnopButton2, 10, 655, 165, 55)
+            
+        # Text test
+        if opacityText == 0:
+            opacityChange = True
+        elif opacityText == 255:
+            opacityChange = False
+        
+        if opacityChange:
+            opacityText += 5
+        else:
+            opacityText -= 5   
+        textAlign(CENTER, CENTER)   
+        fill(opacityText, opacityText, opacityText)
+        text('pagina 1', width / 2, height / 2)
+        #text('pagina 2', width / 2, height / 2)
+        #text('pagina 3', width / 2, height / 2)
+        #text('pagina 4', width / 2, height / 2)     
+             
+         # Terug Button
+        if not isMouseOnButton(width / 2 - 400, height / 2, 78, 78, True):
+            imageMode(CENTER)
+            image(pijlTerug, width / 2 - 400, height / 2, 78, 78)
+        else:
+            imageMode(CENTER)
+            image(pijlTerug2, width / 2 - 400, height / 2, 78, 78)
+        
+        # Verder Button
+        if not isMouseOnButton(width / 2 + 400, height/2, 78, 78, True):
+            imageMode(CENTER)
+            image(pijlVerder, width / 2 + 400, height / 2, 78, 78)
+        else:
+            imageMode(CENTER)
+            image(pijlVerder2, width / 2 + 400, height / 2, 78, 78)
+          
+
     
     
     #############
@@ -259,8 +299,6 @@ def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
       
 # Background
 def cycleBackground():
-    global bg_index, frame    
-    frame = frame + 1 if frame < 60 else 1
-    if frame % 2 == 0:
-        background(loadImage('background/bg' + str(bg_index) + '.jpg'))
-        bg_index = bg_index + 1 if bg_index < 32 else 0
+    global bg_index
+    background(loadImage('background/bg' + str(bg_index) + '.jpg'))
+    bg_index = bg_index + 1 if bg_index < 32 else 0
