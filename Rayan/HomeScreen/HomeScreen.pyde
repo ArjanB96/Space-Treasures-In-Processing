@@ -3,16 +3,18 @@ width = 1280; height = 720
 screen = 0
 resizeWidth = 300
 resizeHeight = 300
-frame = 1
 textResize = 70
+opacityText = 0
+opacityChange = True
+pagina = 0
 
 def setup():
-    global planet, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, gidsButton, gidsButton2, terugKnopButton, terugKnopButton2
+    global planet, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, gidsButton, gidsButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlTerug, pijlTerug2, pijlVerder, pijlVerder2
+    global pijlVerderIdle, pijlTerugIdle
     
     textFont(createFont('PressStart2P.ttf', 40))
     size(width, height)
-    planet = loadImage('images/planeetAqua.png')
-    
+   
     # Buttons
     exitButton = loadImage('images/Exit.png')
     exitButton2 = loadImage('images/Exit2.png')
@@ -26,9 +28,18 @@ def setup():
     gidsButton2 = loadImage('images/Gids2.png')
     terugKnopButton = loadImage('images/TerugKnop.png')
     terugKnopButton2 = loadImage('images/TerugKnop2.png')
+    planet = loadImage('images/planeetAqua.png')
     
+    pijlTerug = loadImage('images/PijlTerug.png')
+    pijlTerug2 = loadImage('images/PijlTerug2.png')
+    pijlTerugIdle = loadImage('images/PijlTerugIdle.png')
+    pijlVerder = loadImage('images/PijlVerder.png')
+    pijlVerder2 = loadImage('images/PijlVerder2.png')
+    pijlVerderIdle = loadImage('images/PijlVerderIdle.png')
+    
+     
 def draw():
-    global screen, resizeWidth, resizeHeight, textResize
+    global screen, resizeWidth, resizeHeight, textResize, opacityText, opacityChange
     
     # Background
     cycleBackground()
@@ -141,14 +152,19 @@ def draw():
             imageMode(CENTER)
             image(gidsButton2, 640, 440, 390, 110)
      
+     
     ############### 
     # Regel Screen       
     if screen == 2:
         
          # To show if hand should be shown or not
-        if isMouseOnButton(10, 10, 130, 55):
+        if isMouseOnButton(10, 10, 130, 55): # Home Button
             cursor(HAND)
-        elif isMouseOnButton(10, 655, 165, 55):
+        elif isMouseOnButton(10, 655, 165, 55): # TerugKnop Button
+            cursor(HAND)
+        elif isMouseOnButton(width / 2 - 590, height / 2, 84, 78, True) and pagina != 0: # Terug Button
+            cursor(HAND)
+        elif isMouseOnButton(width / 2 + 590, height / 2, 84, 78, True): # Verder Button
             cursor(HAND)
         else: 
             cursor(ARROW)
@@ -168,6 +184,49 @@ def draw():
         else:
             imageMode(CORNER)
             image(terugKnopButton2, 10, 655, 165, 55)
+            
+        # Fade in van de tekst
+        if opacityText != 255:
+            opacityText += 10
+
+             
+        # TEKST  
+        textAlign(CORNER, CENTER)   
+        fill(opacityText, opacityText, opacityText)
+        textSize(20)
+        if pagina == 0:
+            text('INHOUD:\n- 10 hexagon map stukken,\n- 38 instructiekaarten,\n- 49 fiches,\n- 5 ruimteschepen,\n- 1 dobbelsteen.\n\nDOEL:\nVind twee Elementen van verschillende element \nsoorten en win!\n\nSPELERS:\nSpace Treasures is te spelen met 4 of 5 mensen. ', 152, height / 2)
+        if pagina == 1:
+            textSize(30)
+            text('TERMENLIJST:', 152, 130)
+            textSize(20)
+            text('-Brandstof:\nMet brandstof kan je andere planeten ontdekken.\n\n-Instructiekaarten:\nDit zijn de kaarten waar een keuze gemaakt moet \nworden tussen stappen zetten of een \nArtefact / Element maken.\n\n-Artefacten:\nDe Artefacten heb je nodig om Elementen te maken. \nTevens kunnen deze aan jou voordelen geven of \nandere spelers hinderen.\n\n-Elementen:\nDit is het voorwerp dat nodig is om te winnen. \n2 verschillende Elementen zijn hiervoor nodig.', 152, height / 2)
+        if pagina == 2:
+            text('pagina 3', width / 2, height / 2)
+        if pagina == 3:
+            text('pagina 4', width / 2, height / 2)     
+        
+                  
+         # Terug Button
+        if pagina == 0:
+            imageMode(CENTER)
+            image(pijlTerugIdle, width / 2 - 590, height / 2, 84, 78)
+        elif not isMouseOnButton(width / 2 - 590, height / 2, 84, 78, True):
+            imageMode(CENTER)
+            image(pijlTerug, width / 2 - 590, height / 2, 84, 78)
+        else:
+            imageMode(CENTER)
+            image(pijlTerug2, width / 2 - 590, height / 2, 84, 78)
+    
+        # Verder Button
+        if not isMouseOnButton(width / 2 + 590, height / 2, 84, 78, True):
+            imageMode(CENTER)
+            image(pijlVerder, width / 2 + 590, height / 2, 84, 78)
+        else:
+            imageMode(CENTER)
+            image(pijlVerder2, width / 2 + 590, height / 2, 84, 78)
+          
+
     
     
     #############
@@ -200,7 +259,7 @@ def draw():
         
                 
 def mousePressed():
-    global screen
+    global screen, pagina, opacityText
     
     # All buttons for Home screen
     if screen == 0:
@@ -234,9 +293,21 @@ def mousePressed():
         # Home Button
         if isMouseOnButton(10, 10, 130, 55):
             screen = 0
-        
+            pagina = 0 # Om pagina te resetten
+            opacityText = 0 # Om te Fade In te resetten
+        # Terug button
         if isMouseOnButton(10, 655, 165, 55):
             screen = 1
+            pagina = 0 # Om pagina te resetten
+            opacityText = 0 # Om te Fade In te resetten
+        # Terug Button
+        if isMouseOnButton(width / 2 - 590, height / 2, 78, 78, True) and pagina != 0:
+            pagina -= 1
+            opacityText = 0 # Om te Fade In te resetten
+        # Verder Button
+        if isMouseOnButton(width / 2 + 590, height / 2, 78, 78, True): #and pagina != ?:
+            pagina += 1
+            opacityText = 0 # Om te Fade In te resetten
         
     # All buttons for Gids Screen
     if screen == 3:
@@ -259,8 +330,6 @@ def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
       
 # Background
 def cycleBackground():
-    global bg_index, frame    
-    frame = frame + 1 if frame < 60 else 1
-    if frame % 2 == 0:
-        background(loadImage('background/bg' + str(bg_index) + '.jpg'))
-        bg_index = bg_index + 1 if bg_index < 32 else 0
+    global bg_index
+    background(loadImage('background/bg' + str(bg_index) + '.jpg'))
+    bg_index = bg_index + 1 if bg_index < 32 else 0
