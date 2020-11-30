@@ -53,7 +53,6 @@ def draw():
         image(loadImage('images/LeegVakJeffrey.png'), 495, 250, 315, 55)
         image(loadImage('images/TerugKnop.png'), 10, 655, 165, 55)
         image(loadImage('images/Toevoegen.png'), 1030, 655, 240, 55)
-        image(loadImage('images/Home.png'), 10, 10, 130, 55)
         image(loadImage('images/Dobbel.png'), 555, 490)
         
         fill(0)
