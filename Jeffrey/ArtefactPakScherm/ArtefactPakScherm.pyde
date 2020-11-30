@@ -17,52 +17,40 @@ scherm = 'Jeffrey'
 def setup():
     size(1280, 720)
     textFont(createFont('PressStart2P.ttf', 5))
-    PijlTerugJeffrey = loadImage('images/PijlTerugJeffrey.png')
-    PijlVerderJeffrey = loadImage('images/PijlVerderJeffrey.png')
-    LeegVakJeffrey =  loadImage('images/LeegVakJeffrey.png')
-    loadImage('images/TerugKnop.png')
-    loadImage('images/Toevoegen.png')
-    loadImage('images/Home.png')
-    loadImage('images/Dobbel.png')
+    loadImages()
+
+
+    
 def draw():
     global scherm
     cycleBackground()
 
     if scherm == 'Jeffrey':
-        #Blokken wit
-        strokeWeight(5)
-        stroke(240, 240, 240)
-        fill(255, 255, 255)
-        rect(600, 350, 100, 100, 15)
-            
         #Selecteer knoppen
-        
                 #Spelers
-        image(loadImage('images/PijlTerugJeffrey.png'), 435, 50, 55, 55 )
-        image(loadImage('images/PijlVerderJeffrey.png'), 815, 50, 55, 55 )
+        image(PijlTerugJeffrey, 435, 50, 55, 55 )
+        image(PijlVerderJeffrey, 815, 50, 55, 55 )
                 #Artefacten
-        image(loadImage('images/PijlTerugJeffrey.png'), 435, 150, 55, 55 )
-        image(loadImage('images/PijlVerderJeffrey.png'), 815, 150, 55, 55 )
+        image(PijlTerugJeffrey, 435, 150, 55, 55 )
+        image(PijlVerderJeffrey, 815, 150, 55, 55 )
                 #Elementen
-        image(loadImage('images/PijlTerugJeffrey.png'), 435, 250, 55, 55 )
-        image(loadImage('images/PijlVerderJeffrey.png'), 815, 250, 55, 55 )
-
+        image(PijlTerugJeffrey, 435, 250, 55, 55 )
+        image(PijlVerderJeffrey, 815, 250, 55, 55 )
         #Variabelen en text
-        image(loadImage('images/LeegVakJeffrey.png'), 495, 50, 315, 55)
-        image(loadImage('images/LeegVakJeffrey.png'), 495, 150, 315, 55)
-        image(loadImage('images/LeegVakJeffrey.png'), 495, 250, 315, 55)
-        image(loadImage('images/TerugKnop.png'), 10, 655, 165, 55)
-        image(loadImage('images/Toevoegen.png'), 1030, 655, 240, 55)
-        image(loadImage('images/Dobbel.png'), 555, 490)
-        
+        image(LeegVakJeffrey, 495, 50, 315, 55)
+        image(LeegVakJeffrey, 495, 150, 315, 55)
+        image(LeegVakJeffrey, 495, 250, 315, 55)
+        image(TerugKnop, 10, 655, 165, 55)
+        image(ToevoegenKnop, 1030, 655, 240, 55)
+    
         fill(0)
         textSize(17)
         text('Speler:', 505 , 70, 300, 50)
         text('Artefact:', 505, 170, 300, 150)
         text('Element:', 505, 270, 300, 250)
-        text(spelers[spelerIndex] , 625, 70, 300, 50)
+        text(spelers[spelerIndex], 625, 70, 300, 50)
         text(artefacts[artefactIndex], 660, 170, 300, 150)
-        text(elements[elementIndex] , 645, 270, 300, 250)
+        text(elements[elementIndex], 645, 270, 300, 250)
         
         #handje als muis op knop
            #terug knop
@@ -171,7 +159,12 @@ def cycleBackground():
     bg_index = bg_index + 1 if bg_index < 32 else 0 
             
 
-        
-    
+def loadImages():
+    global PijlTerugJeffrey, PijlVerderJeffrey, LeegVakJeffrey, TerugKnop, ToevoegenKnop
+    PijlTerugJeffrey = loadImage('images/PijlTerugJeffrey.png')
+    PijlVerderJeffrey = loadImage('images/PijlVerderJeffrey.png')
+    LeegVakJeffrey =  loadImage('images/LeegVakJeffrey.png')
+    TerugKnop = loadImage('images/TerugKnop.png')
+    ToevoegenKnop = loadImage('images/Toevoegen.png')
 
     
