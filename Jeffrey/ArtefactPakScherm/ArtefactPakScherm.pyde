@@ -17,9 +17,9 @@ scherm = 'Jeffrey'
 def setup():
     size(1280, 720)
     textFont(createFont('PressStart2P.ttf', 5))
-    loadImage('images/PijlTerugJeffrey.png')
-    loadImage('images/PijlVerderJeffrey.png')
-    loadImage('images/LeegVakJeffrey.png')
+    PijlTerugJeffrey = loadImage('images/PijlTerugJeffrey.png')
+    PijlVerderJeffrey = loadImage('images/PijlVerderJeffrey.png')
+    LeegVakJeffrey =  loadImage('images/LeegVakJeffrey.png')
     loadImage('images/TerugKnop.png')
     loadImage('images/Toevoegen.png')
     loadImage('images/Home.png')
@@ -68,39 +68,26 @@ def draw():
            #terug knop
         if isMouseOnButton(10, 655, 165, 55):
             cursor(HAND)
-        else: cursor(ARROW)
-        
            #toevoegen knop
-        if isMouseOnButton(1030, 655, 240, 55):
+        elif isMouseOnButton(1030, 655, 240, 55):
             cursor(HAND)
-        else: cursor(ARROW)
-        
            #player knoppen
-        if isMouseOnButton(435, 50, 55, 55):
+        elif isMouseOnButton(435, 50, 55, 55):
             cursor(HAND)
-        else: cursor(ARROW)
-        
-        if isMouseOnButton(815, 50, 55, 55):
+        elif isMouseOnButton(815, 50, 55, 55):
             cursor(HAND)
-        else: cursor(ARROW)
-        
            #artefact knoppen
-        if isMouseOnButton(435, 150, 55, 55):
+        elif isMouseOnButton(435, 150, 55, 55):
             cursor(HAND)
-        else: cursor(ARROW)
-        
-        if isMouseOnButton(815, 150, 55, 55):
+        elif isMouseOnButton(815, 150, 55, 55):
             cursor(HAND)
-        else: cursor(ARROW)
-        
            #element knoppen
-        if isMouseOnButton(435, 250, 55, 55):
+        elif isMouseOnButton(435, 250, 55, 55):
+            cursor(HAND)
+        elif isMouseOnButton(815, 250, 55, 55):
             cursor(HAND)
         else: cursor(ARROW)
-            
-        if isMouseOnButton(815, 250, 55, 55):
-            cursor(HAND)
-        else: cursor(ARROW)
+
 def mousePressed():
     global artefactIndex, elementIndex, spelerIndex, scherm, artefactenLijst
     
