@@ -1,4 +1,5 @@
 bg_index = 0
+current_screen = 'Hayk'
 
 players = []
 
@@ -56,26 +57,30 @@ def setup():
     
     turn_player = players[0]
     
-    loadImages()
+    background(0)
     
+    loadImages()   
+     
     size(1280, 720)
 
 #Called every frame
 def draw():
     cycleBackground()
     
-    drawAllCards()    
-    drawTurnButton()
-    drawPlayerNames()    
-    
-    # Buttons
-    image(home_img, 10, 10, 130, 55)
-    image(dobbel_img, width - 205, height - 65, 195, 55)
-    
-    mouseHoverHandler()
+    if current_screen == 'Hayk':
+        drawAllCards()    
+        drawTurnButton()
+        drawPlayerNames()    
+        
+        # Buttons
+        image(home_img, 10, 10, 130, 55)
+        image(dobbel_img, width - 205, height - 65, 195, 55)
+        
+        mouseHoverHandler()
     
 def mousePressed():
-    global turn, turn_player_index
+    global turn, turn_player_index, current_screen
+    
     goto_next_turn = False
     
     # Cards  
