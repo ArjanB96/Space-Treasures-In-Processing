@@ -83,7 +83,7 @@ def draw():
         else: cursor(ARROW)
 
 def mousePressed():
-    global artefactIndex, elementIndex, spelerIndex, scherm, artefactenLijst
+    global artefactIndex, elementIndex, spelerIndex, scherm
     
     if scherm == 'Jeffrey':
         #Speler selecteer knoppen
