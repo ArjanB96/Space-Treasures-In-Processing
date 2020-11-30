@@ -71,49 +71,49 @@ def mousePressed():
     
     if scherm == 'Jeffrey':
         #Speler selecteer knoppen
-        if 435 < mouseX < 490 and 50 < mouseY < 105:
+        if isMouseOnButton(435, 50, 55, 55):
             if spelerIndex == 0:
                 spelerIndex = spelerIndex
             else:
                 spelerIndex -= 1
     
-        if 815 < mouseX < 870 and 50 < mouseY < 105:
+        if isMouseOnButton(815, 50, 55, 55):
             if spelerIndex == 4:
                 spelerIndex = spelerIndex
             else:
                 spelerIndex += 1
         
         #Artefact selecteer knoppen
-        if 435 < mouseX < 490 and 150 < mouseY < 205:
+        if isMouseOnButton(435, 150, 55, 55):
             if artefactIndex == 0:
                 artefactIndex = artefactIndex
             else:
                 artefactIndex -= 1
                 
-        if 815 < mouseX < 870 and 150 < mouseY < 205:
+        if isMouseOnButton(815, 150, 55, 55):
             if artefactIndex == 5:
                 artefactIndex = artefactIndex
             else:
                 artefactIndex += 1
         
         #Element selecteer knoppen
-        if 435 < mouseX < 490 and 250 < mouseY < 305:
+        if isMouseOnButton(435, 250, 55, 55):
             if elementIndex == 0:
                 elementIndex = elementIndex
             else:
                 elementIndex -= 1
         
-        if 815 < mouseX < 490 and 250 < mouseY < 305:
+        if isMouseOnButton(815, 250, 55, 55):
             if elementIndex == 2:
                 elementIndex = elementIndex
             else:
                 elementIndex += 1
                 
         #terug knop
-        if 10 < mouseX < 175 and 655 < mouseY < 710:
+        if isMouseOnButton(10, 655, 165, 55):
             print('kan niet')
         #toevoegen knop
-        if 1030 < mouseX < 1270 and 655 < mouseY < 710:
+        if isMouseOnButton(1030, 655, 240, 55): 
             #artefact tevoegen aan speler
             if spelerIndex == 0 and len(cards_player1) != 5:
                 cards_player1.append([artefacts[artefactIndex], elements[elementIndex]])
@@ -137,11 +137,10 @@ def mousePressed():
             print('artefacten spelers 5')
             print(cards_player5)
     
-#def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
-  #if centered:
-  #  return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2 
-#else False
-  #return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
+def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
+  if centered:
+   return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2  else False
+  return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
 
                 
 def cycleBackground():
