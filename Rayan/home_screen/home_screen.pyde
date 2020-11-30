@@ -1,12 +1,12 @@
 bg_index = 0
-screen = 2
+screen = 0
 resizeWidth = 300
 resizeHeight = 300
 textResize = 70
 opacityText = 0
 opacityImage = 0
 opacityChange = True
-pagina = 1
+pagina = 0
 
 def setup():
     global planet, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, gidsButton, gidsButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlTerug, pijlTerug2, pijlVerder, pijlVerder2
