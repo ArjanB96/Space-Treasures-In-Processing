@@ -48,7 +48,7 @@ def draw():
         text(artefacts[artefactIndex], 660, 270, 300, 150)
         text(elements[elementIndex], 645, 370, 300, 250)
         
-        #handje als muis op knop
+        #muis en image knoppen veranderen wanneer muis op knop
            #terug knop
         if isMouseOnButton(10, 655, 165, 55):
             image(TerugKnop2, 10, 655, 165, 55)
