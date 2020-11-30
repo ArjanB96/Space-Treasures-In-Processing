@@ -53,7 +53,6 @@ def draw():
         image(loadImage('images/LeegVakJeffrey.png'), 495, 250, 315, 55)
         image(loadImage('images/TerugKnop.png'), 10, 655, 165, 55)
         image(loadImage('images/Toevoegen.png'), 1030, 655, 240, 55)
-        image(loadImage('images/Home.png'), 10, 10, 130, 55)
         image(loadImage('images/Dobbel.png'), 555, 490)
         
         fill(0)
@@ -64,8 +63,44 @@ def draw():
         text(spelers[spelerIndex] , 625, 70, 300, 50)
         text(artefacts[artefactIndex], 660, 170, 300, 150)
         text(elements[elementIndex] , 645, 270, 300, 250)
-   
-   
+        
+        #handje als muis op knop
+           #terug knop
+        if isMouseOnButton(10, 655, 165, 55):
+            cursor(HAND)
+        else: cursor(ARROW)
+        
+           #toevoegen knop
+        if isMouseOnButton(1030, 655, 240, 55):
+            cursor(HAND)
+        else: cursor(ARROW)
+        
+           #player knoppen
+        if isMouseOnButton(435, 50, 55, 55):
+            cursor(HAND)
+        else: cursor(ARROW)
+        
+        if isMouseOnButton(815, 50, 55, 55):
+            cursor(HAND)
+        else: cursor(ARROW)
+        
+           #artefact knoppen
+        if isMouseOnButton(435, 150, 55, 55):
+            cursor(HAND)
+        else: cursor(ARROW)
+        
+        if isMouseOnButton(815, 150, 55, 55):
+            cursor(HAND)
+        else: cursor(ARROW)
+        
+           #element knoppen
+        if isMouseOnButton(435, 250, 55, 55):
+            cursor(HAND)
+        else: cursor(ARROW)
+            
+        if isMouseOnButton(815, 250, 55, 55):
+            cursor(HAND)
+        else: cursor(ARROW)
 def mousePressed():
     global artefactIndex, elementIndex, spelerIndex, scherm, artefactenLijst
     
