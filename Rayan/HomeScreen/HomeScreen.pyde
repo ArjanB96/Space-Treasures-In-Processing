@@ -1,5 +1,4 @@
 bg_index = 0
-width = 1280; height = 720
 screen = 0
 resizeWidth = 300
 resizeHeight = 300
@@ -13,7 +12,7 @@ def setup():
     global pijlVerderIdle, pijlTerugIdle
     
     textFont(createFont('PressStart2P.ttf', 40))
-    size(width, height)
+    size(1280, 720)
    
     # Buttons
     exitButton = loadImage('images/Exit.png')
