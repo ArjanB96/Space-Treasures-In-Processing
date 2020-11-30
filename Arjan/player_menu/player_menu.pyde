@@ -15,22 +15,33 @@ def setup():
     size(1280,720)
     
 def draw():
-    global bg_index, frame
+    global bg_index, frame, words
     
     cycleBackground()
     
-    image(loadImage('images/Home.png'), 10, 10, 130, 55)
+    loadImages()   
+    
+    image(home_img, 10, 10, 130, 55)
         
     #Vak waarin je username kan typen
     if screen != 6:
         image(loadImage('images/LeegVak.png'), 400, 350, 480, 100) 
-        image(loadImage('images/verder.png'), 880, 350, 100, 100)
+        image(loadImage('images/PijlVerder.png'), 880, 350, 100, 100)
         
-    #Pijltje waarmee je naar vorige naam kan:        
+    #Pijltje waarmee je naar vorige naam kan:  
+              
     if screen == 1:
-        image(loadImage('images/terug_grijs.png'), 300, 350, 100, 100)
+        image(loadImage('images/PijlTerugIdle.png'), 300, 350, 100, 100)
     elif screen != 6:
-        image(loadImage('images/terug.png'), 300, 350, 100, 100)
+        image(loadImage('images/PijlTerug.png'), 300, 350, 100, 100)
+        
+    # 'Verder' knop als je minimaal twee spelers hebt ingevoerd
+    
+    if screen == 3 or screen == 4 or screen == 5:
+        image(loadImage('images/VerderKnop.png'), 1070, 650)
+        
+    if screen == 6:
+        image(loadImage('images/Start.png'), 1070, 650)
         
     textSize(36)
     text(words, 370, 120, 540, 300)
@@ -39,8 +50,10 @@ def draw():
  
     if screen != 6:
         text('Player ' + str(screen), 640, 250)
-        if len(words) >= 12:
+        if len(words) >= 11:
             text('Max 12 characters!', 640,550)
+        if len(words) == 12:
+            words = ''
     else:
         for i, player in enumerate(players):            
             text('Player ' + str(i + 1) + ' is :   ', 340, 250 + i * 50)
@@ -68,7 +81,8 @@ def keyTyped():
         words = ''
         
         print([x.name for x in players])
-
+        
+        
 def cycleBackground():
     global bg_index, frame    
     frame = frame + 1 if frame < 60 else 1
@@ -84,19 +98,51 @@ def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
 def mousePressed():
     global screen, words, players
     
+    #Verder (vanaf min. twee spelers)
+    
+    if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55):
+        screen = 6
+    
+    #Start knop
+    
+    if screen == 6 and isMouseOnButton(1070, 650, 165, 55):
+        screen = 6             #Hayk's scherm
+    
     #HOME button
+    
     if screen != 1 and isMouseOnButton(10,10,130,55):
         screen = 1
         players = []
+        words = '' 
             
     #Pijltje verder, zorg ervoor dat de lengte vd naam > 0 moet zijn
     if screen != 6 and isMouseOnButton(880, 350, 100, 100) and len(words) > 0:    
         screen += 1
+        player = Player(words)
+        players.append(player)
         words = ''
+        print([x.name for x in players])
+       
 
-    #Pijltje terug, werkt niet op screen 1 
+    #Pijltje terug
     if screen != 1 and screen != 6 and isMouseOnButton(300, 350, 100, 100):
         screen -= 1
         players.pop(screen - 1)
         words = ''
-            
+
+    
+def mouseHoverHandler():
+    if isMouseOnButton(10, 10, 130, 55): # Home button
+        image(home2_img, 10, 10, 130, 55)
+        cursor(HAND)
+
+# VERWIJDEREN ALS JE GAAT MERGEN
+def loadImages(): 
+    global background_images, home_img, dobbel_img, home2_img, verder_img
+    home_img = loadImage('images/Home.png')
+    dobbel_img = loadImage('assets/buttons/Dobbel.png')
+    home2_img = loadImage('assets/buttons/Home2.png')
+    dobbel2_img = loadImage('assets/buttons/Dobbel2.png')
+    artifact_img = loadImage('assets/buttons/Artefact.png')
+    artifact2_img = loadImage('assets/buttons/Artefact2.png')
+    verder_img = loadImage('assets/buttons/Verder.png')
