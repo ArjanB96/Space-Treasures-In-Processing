@@ -28,7 +28,7 @@ def setup():
     
     p1 = Player('VAC Efron')    
     p1.cards.append(Card(size=(200, 100), name='Exchange', cooldown=6, element='Kaytsak'))
-    p1.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
+    p1.cards.append(Card(size=(200, 100), name='Blockade', cooldown=4, element='Amaterasu'))
     p1.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
     players.append(p1)
     
