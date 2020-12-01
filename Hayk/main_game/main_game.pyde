@@ -60,7 +60,7 @@ def setup():
     background(0)
     
     loadImages()   
-     
+    
     size(1280, 720)
 
 #Called every frame
@@ -219,9 +219,9 @@ def drawText(draw_text, pos, size, color, font_size, center = False):
     text(draw_text, pos[0], pos[1], size[0], size[1])        
     
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
-  if centered:
-    return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2 else False
-  return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
+    if centered:
+        return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2 else False
+    return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
 
 def getCard(posX, posY):
     return next((x for x in cards if x.pos == (posX, posY)), None)
@@ -250,4 +250,3 @@ def cycleBackground():
     global bg_index
     background(background_images[bg_index])
     bg_index = bg_index + 1 if bg_index < 32 else 0
-    
