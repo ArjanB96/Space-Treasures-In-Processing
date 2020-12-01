@@ -1,7 +1,6 @@
 bg_index = 0
 frame = 1
 
-dices = []
 roll_dice = False
 display_dice = 0
 dice_roll_time = 60
@@ -43,6 +42,7 @@ def mousePressed():
 
 def loadImages():
     global dices
+    dices = []
     
     for i in range(1, 7):
         dices.append(loadImage('bot' + str(i) + '.gif'))

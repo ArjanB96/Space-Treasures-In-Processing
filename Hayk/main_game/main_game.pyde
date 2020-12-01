@@ -28,7 +28,7 @@ def setup():
     
     p1 = Player('VAC Efron')    
     p1.cards.append(Card(size=(200, 100), name='Exchange', cooldown=6, element='Kaytsak'))
-    p1.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
+    p1.cards.append(Card(size=(200, 100), name='Blockade', cooldown=4, element='Amaterasu'))
     p1.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
     players.append(p1)
     
@@ -60,7 +60,7 @@ def setup():
     background(0)
     
     loadImages()   
-     
+    
     size(1280, 720)
 
 #Called every frame
@@ -74,7 +74,8 @@ def draw():
         
         # Buttons
         image(home_img, 10, 10, 130, 55)
-        image(dobbel_img, width - 205, height - 65, 195, 55)
+        image(dobbel_img, width - 205, height - 130, 195, 55)
+        image(artifact_img, width - 265, height - 65, 255, 55)
         
         mouseHoverHandler()
     
@@ -104,7 +105,11 @@ def mousePressed():
                     card.on_cooldown = False
     
     # Dobbel
-    if isMouseOnButton(posX=width - 205, posY=height - 65, buttonWidth=195, buttonHeight=55):  
+    if isMouseOnButton(posX=width - 205, posY=height - 130, buttonWidth=195, buttonHeight=55):  
+        link('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+        
+    # Artifact
+    if isMouseOnButton(posX=width - 265, posY=height - 65, buttonWidth=255, buttonHeight=55):  
         link('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
     
     # Home
@@ -128,8 +133,11 @@ def mouseHoverHandler():
     if isMouseOnButton(10, 10, 130, 55): # Home button
         image(home2_img, 10, 10, 130, 55)
         cursor(HAND)
-    elif isMouseOnButton(width - 205, height - 65, 195, 55): # Dobbel button
-        image(dobbel2_img, width - 205, height - 65, 195, 55)
+    elif isMouseOnButton(width - 205, height - 130, 195, 55): # Dobbel button
+        image(dobbel2_img, width - 205, height -130, 195, 55)
+        cursor(HAND)
+    elif isMouseOnButton(width - 265, height - 65, 255, 55): # Artefact button
+        image(artifact2_img, width - 265, height - 65, 255, 55)
         cursor(HAND)
     elif isMouseOnButton(width - 125, 50, 75, 75): # Turn button
         cursor(HAND)
@@ -211,19 +219,21 @@ def drawText(draw_text, pos, size, color, font_size, center = False):
     text(draw_text, pos[0], pos[1], size[0], size[1])        
     
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
-  if centered:
-    return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2 else False
-  return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
+    if centered:
+        return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2 else False
+    return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
 
 def getCard(posX, posY):
     return next((x for x in cards if x.pos == (posX, posY)), None)
 
 def loadImages():
-    global background_images, home_img, dobbel_img, home2_img, dobbel2_img, verder_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card
+    global background_images, home_img, dobbel_img, home2_img, dobbel2_img, artifact_img, artifact2_img, verder_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card
     home_img = loadImage('assets/buttons/Home.png')
     dobbel_img = loadImage('assets/buttons/Dobbel.png')
     home2_img = loadImage('assets/buttons/Home2.png')
     dobbel2_img = loadImage('assets/buttons/Dobbel2.png')
+    artifact_img = loadImage('assets/buttons/Artefact.png')
+    artifact2_img = loadImage('assets/buttons/Artefact2.png')
     verder_img = loadImage('assets/buttons/Verder.png')
     amaterasu_card = loadImage('assets/cards/Amaterasu_card_flipped.png')
     kaytsak_card = loadImage('assets/cards/Kaytsak_card_flipped.png')
@@ -240,4 +250,3 @@ def cycleBackground():
     global bg_index
     background(background_images[bg_index])
     bg_index = bg_index + 1 if bg_index < 32 else 0
-    
