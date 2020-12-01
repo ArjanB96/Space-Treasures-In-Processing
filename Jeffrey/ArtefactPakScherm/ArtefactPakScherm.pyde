@@ -24,20 +24,30 @@ def draw():
     if scherm == 'Jeffrey':
         #Selecteer knoppen
                 #Spelers
-        if spelerIndex == 1:
-            image(PijlTerugIdle, 435, 150, 55, 55
+        if spelerIndex == 0:
+            image(PijlTerugIdle, 435, 150, 55, 55)
         else: image(PijlTerug, 435, 150, 55, 55)
         
         if spelerIndex == 4:
             image(PijlVerderIdle, 815, 150, 55, 55)
-        else:
-            image(PijlVerder, 815, 150, 55, 55)
+        else: image(PijlVerder, 815, 150, 55, 55)
                 #Artefacten
-        image(PijlTerug, 435, 250, 55, 55)
-        image(PijlVerder, 815, 250, 55, 55)
+        if artefactIndex == 0:
+            image(PijlTerugIdle, 435, 250, 55, 55)
+        else: image(PijlTerug, 435, 250, 55, 55)
+    
+        if artefactIndex == 5:
+            image(PijlVerderIdle, 815, 250, 55, 55)
+        else: image(PijlVerder, 815, 250, 55, 55)
                 #Elementen
-        image(PijlTerug, 435, 350, 55, 55)
-        image(PijlVerder, 815, 350, 55, 55)
+        if elementIndex == 0:
+            image(PijlTerugIdle, 435, 350, 55, 55)
+        else: image(PijlTerug, 435, 350, 55, 55)
+    
+        if elementIndex == 2:
+            image(PijlVerderIdle, 815, 350, 55, 55)
+        else: image(PijlVerder, 815, 350, 55, 55)
+        
         #Variabelen en text
         image(LeegVak, 495, 150, 315, 55)
         image(LeegVak, 495, 250, 315, 55)
@@ -64,24 +74,24 @@ def draw():
             image(ToevoegenKnop2, 1030, 655, 240, 55)
             cursor(HAND)
            #player knoppen
-        elif isMouseOnButton(435, 150, 55, 55):
+        elif isMouseOnButton(435, 150, 55, 55) and spelerIndex > 0:
             image(PijlTerug2, 435, 150, 55, 55)
             cursor(HAND)
-        elif isMouseOnButton(815, 150, 55, 55):
+        elif isMouseOnButton(815, 150, 55, 55) and spelerIndex < 4:
             image(PijlVerder2, 815, 150, 55, 55)
             cursor(HAND)
            #artefact knoppen
-        elif isMouseOnButton(435, 250, 55, 55):
+        elif isMouseOnButton(435, 250, 55, 55) and artefactIndex > 0:
             image(PijlTerug2, 435, 250, 55, 55)
             cursor(HAND)
-        elif isMouseOnButton(815, 250, 55, 55):
+        elif isMouseOnButton(815, 250, 55, 55) and artefactIndex < 5:
             image(PijlVerder2, 815, 250, 55, 55)
             cursor(HAND)
            #element knoppen
-        elif isMouseOnButton(435, 350, 55, 55):
+        elif isMouseOnButton(435, 350, 55, 55) and elementIndex > 0:
             image(PijlTerug2, 435, 350, 55, 55)
             cursor(HAND)
-        elif isMouseOnButton(815, 350, 55, 55):
+        elif isMouseOnButton(815, 350, 55, 55) and elementIndex < 2:
             image(PijlVerder2, 815, 350, 55, 55)
             cursor(HAND)
         else: cursor(ARROW)
@@ -156,7 +166,7 @@ def cycleBackground():
     bg_index = bg_index + 1 if bg_index < 32 else 0             
 
 def loadImages():
-    global PijlVerderIdle, PijlTerugIdle PijlTerug, PijlTerug2, PijlVerder, PijlVerder2, LeegVak, TerugKnop, TerugKnop2, ToevoegenKnop, ToevoegenKnop2
+    global PijlVerderIdle, PijlTerugIdle, PijlTerug, PijlTerug2, PijlVerder, PijlVerder2, LeegVak, TerugKnop, TerugKnop2, ToevoegenKnop, ToevoegenKnop2
     PijlTerugIdle = loadImage('images/PijlTerugIdle.png')
     PijlVerderIdle = loadImage('images/PijlVerderIdle.png')
     PijlTerug = loadImage('images/PijlTerug.png')
