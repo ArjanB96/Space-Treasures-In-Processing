@@ -1,6 +1,8 @@
+import sys
 bg_index = 0
 frame = 1
 
+go_back = False
 roll_dice = False
 display_dice = 0
 dice_roll_time = 60
@@ -13,11 +15,18 @@ def setup():
     size(1280, 720)    
     
 def draw():
-    global frame, dice_roll_time, roll_dice, display_dice
+    global frame, dice_roll_time, roll_dice, display_dice, back, back2
     
     cycleBackground()
     
+    back = loadImage('TerugKnop.png')
+    back2 = loadImage('TerugKnop2.png')
+    image(back, 100, 600, 150, 50)
+    
     if isMouseOnButton(500, 250, 200, 200):
+        cursor(HAND)
+    if isMouseOnButton(100, 600, 150, 50):
+        image(back2, 100, 600, 150, 50)
         cursor(HAND)
     else:
         cursor(ARROW)
@@ -26,19 +35,25 @@ def draw():
         display_dice = int(random(1, 7)) - 1  
         dice_roll_time -= 10
     
+    if go_back:
+        sys.exit()
+        
     image(dices[display_dice], 500, 250, 200, 200)
         
     if dice_roll_time == 0:
         roll_dice = False
         
     frame = frame + 1 if frame < 60 else 1
-        
+    
 def mousePressed():
-    global roll_dice, dice_roll_time
+    global roll_dice, dice_roll_time, go_back
     
     if isMouseOnButton(500, 250, 200, 200):
         roll_dice = True
         dice_roll_time = 60
+    
+    if isMouseOnButton(100, 600, 150, 50):
+        go_back = True
 
 def loadImages():
     global dices
