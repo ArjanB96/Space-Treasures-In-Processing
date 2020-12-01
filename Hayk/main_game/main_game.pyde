@@ -59,7 +59,7 @@ def setup():
     
     background(0)
     
-    loadImages()   
+    loadImages()
     
     size(1280, 720)
 
@@ -200,7 +200,10 @@ def drawAllCards(highlight_card = None):
             elif card == highlight_card:
                 image(white_card, card.pos[0], card.pos[1], card.size[0], card.size[1])
                 
-            drawText(card.name + '\n' + card.element + '\nCooldown: ' + str(cooldown_left), (card.pos[0] + 15, card.pos[1] + 15), (width, height), (0, 0, 0), 16)
+            text_to_draw = card.name + '\n' + card.element
+            if cooldown_left > 0:
+                text_to_draw += '\nCooldown: ' + str(cooldown_left)
+            drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + 15), (width, height), (0, 0, 0), 16)
 
 def drawTurnButton(color = (255, 231, 48)):
     btn_pos = (width - 125, 50)
