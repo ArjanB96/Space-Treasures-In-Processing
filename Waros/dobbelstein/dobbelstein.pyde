@@ -25,7 +25,7 @@ def draw():
     
     if roll_dice and dice_roll_time > 0 and frame % 2 == 0: 
         display_dice = int(random(1, 7)) - 1  
-        dice_roll_time -= 1
+        dice_roll_time -= 10
     
     image(dices[display_dice], 500, 250, 200, 200)
         
