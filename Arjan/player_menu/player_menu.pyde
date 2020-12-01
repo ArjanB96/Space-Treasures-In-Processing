@@ -27,6 +27,10 @@ def draw():
     if screen != 6:
         image(loadImage('images/LeegVak.png'), 400, 350, 480, 100) 
         image(loadImage('images/PijlVerder.png'), 880, 350, 100, 100)
+        if len(words) == 0:
+            image(loadImage('images/PijlVerderIdle.png'), 880, 350, 100, 100)
+        
+    
         
     #Pijltje waarmee je naar vorige naam kan:  
               
@@ -50,6 +54,9 @@ def draw():
  
     if screen != 6:
         text('Player ' + str(screen), 640, 250)
+        if len(words) == 0 and key == ENTER:
+            text('Min 1 character!', 640,550)
+            
         if len(words) >= 11:
             text('Max 12 characters!', 640,550)
         if len(words) == 12:
@@ -73,6 +80,7 @@ def keyTyped():
         words = words[:-1]
    
     #Enter, druk op enter om naar volgende scherm te gaan
+
     if key == ENTER and len(words) > 0:
         player = Player(words)
         players.append(player)
