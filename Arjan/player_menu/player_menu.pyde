@@ -14,6 +14,7 @@ class Player:
 def setup():
     size(1280,720)
     loadImages()
+
     
 def draw():
     global bg_index, frame, words
@@ -53,12 +54,10 @@ def draw():
  
     if screen != 6:
         text('Player ' + str(screen), 640, 250)
-        #if len(words) == 0 and key == ENTER: ############# min 2 players
-            #text('Min 1 character!', 640,550)
-            
+        
         if len(words) >= 11:
-            text('Max 12 characters!', 640,550)
-        if len(words) == 12:
+            text('Max 12 characters!', 640,700)
+        if len(words) == 13:
             words = ''
     else:
         for i, player in enumerate(players):            
