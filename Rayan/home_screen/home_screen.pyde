@@ -79,29 +79,19 @@ def setup():
     blauwVlak = loadImage('images/BlauwVak.png')
     blauwVlak2 = loadImage('images/BlauwVak2.png')
     
-
 def draw():
     global screen, resizeWidth, resizeHeight, textResize, opacityText, opacityChange, opacityImage
     
     # Background
     cycleBackground()
+    mouseHoverHandler()
     
     #############
     # Home screen
     if screen == 0:
-        
-        # To show if hand should be shown or not
-        if isMouseOnButton(640, 360, 300, 300, True):    # START button
-            cursor(HAND)
-        elif isMouseOnButton(10 , 655, 135, 55):    # EXIT button
-            cursor(HAND)
-        elif isMouseOnButton(1235, 50, 68, 69, True):    # Info button
-            cursor(HAND)
-        else:
-            cursor(ARROW)    
-        
+    
         # 'Space Treasures' text
-        fill(250, 250, 250)
+        fill(255, 255, 255)
         textSize(75)
         textAlign(CENTER, CENTER)
         text('Space Treasures', 640, 140)
@@ -147,19 +137,6 @@ def draw():
     if screen == 1:
         #global 
         
-
-        # To show if hand should be shown or not
-        if isMouseOnButton(10, 10, 130, 55):
-            cursor(HAND)
-        elif isMouseOnButton(640, 290, 390, 110, True):
-            cursor(HAND)
-        elif isMouseOnButton(640, 440, 390, 110, True):
-            cursor(HAND)
-        elif isMouseOnButton(640, 440, 750, 110, True):
-            cursor(HAND)
-        else:
-            cursor(ARROW)
-            
         tint(255)
         #Home Button
         imageShow(homeButton, homeButton2, 10, 10, 130, 55)
@@ -175,59 +152,48 @@ def draw():
     # Regel Screen       
     if screen == 2:
         
-         # To show if hand should be shown or not
-        if isMouseOnButton(10, 10, 130, 55): # Home Button
-            cursor(HAND)
-        elif isMouseOnButton(10, 655, 165, 55): # TerugKnop Button
-            cursor(HAND)
-        elif isMouseOnButton(width / 2 - 590, height / 2, 84, 78, True) and pagina != 0: # Terug Button
-            cursor(HAND)
-        elif isMouseOnButton(width / 2 + 590, height / 2, 84, 78, True) and pagina != 15: # Verder Button
-            cursor(HAND)
-        else: 
-            cursor(ARROW)
-        
         tint(255)    
-        #Hoofdstukken knoppen
-        if pagina == 0:
-           image(H1, 220, 40, 80, 80) 
-        else:
-            image(H1, 220, 40, 55, 55)
-        if pagina == 1:
-            image(H2, 220 + 80, 40, 80, 80)
-        else:
-            image(H2, 220 + 80, 40, 55, 55)
-        image(H3, 220 + 80 * 2, 40, 55, 55)
-        image(H5, 220 + 80 * 3, 40, 55, 55)
-        image(H6, 220 + 80 * 4, 40, 55, 55)
-        image(H7, 220 + 80 * 5, 40, 55, 55)
-        image(H8, 220 + 80 * 6, 40, 55, 55)
-        image(H9, 220 + 80 * 7, 40, 55, 55)
-        image(H10, 220 + 80 * 8, 40, 55, 55)
-        image(H11, 220 + 80 * 9, 40, 55, 55)
-        image(H12, 220 + 80 * 10, 40, 55, 55)
-        image(H13, 220 + 80 * 11, 40, 55, 55)
-            
+        # Hoofdstuk knop
+        imageShow(Hoofdstukken, Hoofdstukken2, 640 , 35, 375, 55, True)
         #Home Button
         imageShow(homeButton, homeButton2, 10, 10, 130, 55)
-        
         # TerugKnop Button
         imageShow(terugKnopButton, terugKnopButton2, 10, 655, 165, 55) 
-
+        
+        #Hoofdstukken knoppen
+        #if pagina == 0:
+        #   image(H1, 220, 40, 80, 80) 
+        #else:
+        #    image(H1, 220, 40, 55, 55)
+        #if pagina == 1:
+        #    image(H2, 220 + 80, 40, 80, 80)
+        #else:
+        #    image(H2, 220 + 80, 40, 55, 55)
+        #image(H3, 220 + 80 * 2, 40, 55, 55)
+        #image(H5, 220 + 80 * 3, 40, 55, 55)
+        #image(H6, 220 + 80 * 4, 40, 55, 55)
+        #image(H7, 220 + 80 * 5, 40, 55, 55)
+        #image(H8, 220 + 80 * 6, 40, 55, 55)
+        #image(H9, 220 + 80 * 7, 40, 55, 55)
+        #image(H10, 220 + 80 * 8, 40, 55, 55)
+        #image(H11, 220 + 80 * 9, 40, 55, 55)
+        #image(H12, 220 + 80 * 10, 40, 55, 55)
+        #image(H13, 220 + 80 * 11, 40, 55, 55)
+        
+        hoofdstukShow()
         # Fade in van de tekst
         if opacityText <= 255:
-            opacityText += 10
+            opacityText += 20
         # Fade van images
-        if opacityImage < 255:
-            opacityImage += 10
-            if opacityImage == 250:
-                opacityImage += 5
-            
+        if opacityImage <= 250:
+            opacityImage += 15
 
+            
         # Zwart scherm achter de tekst
+        tint(255, 100)
         imageMode(CORNER)
         image(leegTekstVlak, 100, 85)
-                  
+    
         # TEKST  
         textAlign(CORNER, CENTER)   
         fill(opacityText, opacityText, opacityText)
@@ -355,29 +321,30 @@ def draw():
     #####################
     # Hoofdstukken Screen
     elif screen == 3:
-        
-        # Cursor
-        if isMouseOnButton(10, 10, 130, 55):
-            cursor(HAND)
-        elif isMouseOnButton(10, 655, 165, 55):
-            cursor(HAND)
-        else:
-            cursor(ARROW)
-            
   
         #Home Button
         imageShow(homeButton, homeButton2, 10, 10, 130, 55)
-        
         # TerugKnop Button
         imageShow(terugKnopButton, terugKnopButton2, 10, 655, 165, 55)
-        
-        # Hoofdstuk Knop Test
-        if isMouseOnButton(100, 100, 55+250, 55):
-            image(H1_hover, 100, 100, 55, 55)
-            image(blauwVlak2, 155, 100, 250, 55)
-        else:
-            image(H1, 100, 100, 55, 55)
-            image(blauwVlak, 155, 100, 250, 55)
+        fill(0, 0, 0)
+        textSize(15)
+        textAlign(CENTER, CENTER)
+        # H1 : Inhoud
+        imageShow(H1, H1_hover, 150, 100, 80, 80, wdthAdd = 250)
+        imageShow(blauwVlak, blauwVlak2, 230, 100, 250, 80, wdthMinus = 80, wdthAdd = 80)
+        text('INHOUD', 355, 140)
+        # H2 : Voorbereiding
+        imageShow(H2, H2_hover, 150, 250, 80, 80, wdthAdd = 250) 
+        imageShow(blauwVlak, blauwVlak2, 230, 250, 250, 80, wdthMinus = 80, wdthAdd = 80)
+        text('VOORBEREIDING', 355, 290)
+        # H3 : Beurt
+        imageShow(H3, H3_hover, 150, 400, 80, 80, wdthAdd = 250) 
+        imageShow(blauwVlak, blauwVlak2, 230, 400, 250, 80, wdthMinus = 80, wdthAdd = 80)
+        text('BEURT', 355, 440)
+        # H4 : Voortgang
+        imageShow(H4, H4_hover, 150, 550, 80, 80, wdthAdd = 250) 
+        imageShow(blauwVlak, blauwVlak2, 230, 550, 250, 80, wdthMinus = 80, wdthAdd = 80)
+        text('VOORTGANG', 355, 590)
       
                           
 def mousePressed():
@@ -385,33 +352,27 @@ def mousePressed():
     
     # All buttons for Home screen
     if screen == 0:
-        
         # EXIT button
         if isMouseOnButton(10 , 655, 135, 55):
             exit()
-            
         # Info Button
         if isMouseOnButton(1235, 50, 68, 69, True):
             screen = 1
             
     # All buttons for Info Screen
     if screen == 1:
-        
         # Home Button
         if isMouseOnButton(10, 10, 130, 55):
             screen = 0
-        
         # Regel button
         if isMouseOnButton(640, 290, 390, 110, True):
             screen = 2
-        
         # Hoofdstukken button
         if isMouseOnButton(640, 440, 750, 110, True):
             screen = 3
             
     # All buttons for Regel Screen
     if screen == 2:
-        
         # Home Button
         if isMouseOnButton(10, 10, 130, 55):
             screen = 0
@@ -434,6 +395,9 @@ def mousePressed():
             pagina += 1
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
+        if isMouseOnButton(640 , 35, 375, 55, True):
+            screen = 3
+            pagina = 0
     
     # All buttons for Hoofdstukken 
     if screen == 3:
@@ -449,7 +413,23 @@ def mousePressed():
             pagina = 0 # To reset 'pagina'
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
-   
+        # H1
+        if isMouseOnButton(150, 100, 80 + 250, 80):
+            screen = 2 
+            pagina = 0
+        # H2
+        if isMouseOnButton(150, 250, 80 + 250, 80):
+            screen = 2
+            pagina = 1
+        # H3
+        if isMouseOnButton(105, 400, 80 + 250, 80):
+            screen = 2
+            pagina = 3
+        # H4
+        if isMouseOnButton(105, 550, 80 + 250, 80):
+            screen = 2
+            pagina = 5
+        
                
 # Function to check if mouse is on the button
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
@@ -458,21 +438,91 @@ def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
     else:
         return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
   
-# Background
 def cycleBackground():
     global bg_index
     background(loadImage('background/bg' + str(bg_index) + '.jpg'))
     bg_index = bg_index + 1 if bg_index < 32 else 0
 
-
-def imageShow(img, img2, x, y, wdth, hght, centered = False):
+def imageShow(img, img2, x, y, wdth, hght, centered = False, wdthAdd = 0, wdthMinus = 0):
     if centered:
         imageMode(CENTER)
     else:
         imageMode(CORNER)
-    if isMouseOnButton(x, y, wdth, hght, centered):
+    if isMouseOnButton(x - wdthMinus, y, wdth + wdthAdd, hght, centered):
         image(img2, x, y, wdth, hght)
     else:
         image(img, x, y, wdth, hght)
-        
+
+                          
 def mouseHoverHandler():
+    if screen == 0:
+        if isMouseOnButton(640, 360, 300, 300, True):    # START button
+            cursor(HAND)
+        elif isMouseOnButton(10 , 655, 135, 55):    # EXIT button
+            cursor(HAND)
+        elif isMouseOnButton(1235, 50, 68, 69, True):    # Info button
+            cursor(HAND)
+        else:
+            cursor(ARROW)
+    elif screen == 1:
+        if isMouseOnButton(10, 10, 130, 55):
+            cursor(HAND)
+        elif isMouseOnButton(640, 290, 390, 110, True):
+            cursor(HAND)
+        elif isMouseOnButton(640, 440, 390, 110, True):
+            cursor(HAND)
+        elif isMouseOnButton(640, 440, 750, 110, True):
+            cursor(HAND)
+        else:
+            cursor(ARROW)
+    elif screen == 2:
+        if isMouseOnButton(10, 10, 130, 55): # Home Button
+            cursor(HAND)
+        elif isMouseOnButton(10, 655, 165, 55): # TerugKnop Button
+            cursor(HAND)
+        elif isMouseOnButton(width / 2 - 590, height / 2, 84, 78, True) and pagina != 0: # Terug Button
+            cursor(HAND)
+        elif isMouseOnButton(width / 2 + 590, height / 2, 84, 78, True) and pagina != 15: # Verder Button
+            cursor(HAND)
+        elif isMouseOnButton(640 , 35, 375, 55, True): # Hoofstukken Button
+            cursor(HAND)
+        else:
+            cursor(ARROW)
+    elif screen == 3:
+        if isMouseOnButton(10, 10, 130, 55):
+            cursor(HAND)
+        elif isMouseOnButton(10, 655, 165, 55):
+            cursor(HAND)
+        elif isMouseOnButton(150, 100, 80 + 250, 80):
+            cursor(HAND)
+        elif isMouseOnButton(150, 250, 80 + 250, 80):
+            cursor(HAND)
+        elif isMouseOnButton(150, 400, 80 + 250, 80):
+            cursor(HAND)
+        elif isMouseOnButton(150, 550, 80 + 250, 80):
+            cursor(HAND)
+        else:
+            cursor(ARROW)
+
+def hoofdstukShow():
+    imageMode(CENTER)
+    textAlign(CENTER, CENTER)
+    textSize(20)
+    fill(255, 255, 255)
+    text('Hoofdstuk: ', 500, 675)  
+    if pagina == 0:
+        image(H1, 640, 675, 75, 75)
+    if pagina == 1 or pagina == 2:
+        image(H2, 640, 675, 75, 75)
+    if pagina == 3 or pagina == 4:
+        image(H3, 640, 675, 75, 75)
+    if pagina == 5 or pagina == 6:
+        image(H4, 640, 675, 75, 75)
+    if pagina == 7 or pagina == 8 or pagina == 9 or pagina == 10:
+        image(H5, 640, 675, 75, 75)
+    if pagina == 11 or pagina == 12:
+        image(H6, 640, 675, 75, 75)
+    if pagina == 13:
+        image(H7, 640, 675, 75, 75)
+    if pagina == 14 or pagina == 15:
+        image(H8, 640, 675, 75, 75)
