@@ -136,20 +136,11 @@ def draw():
             text('START', width / 2, height / 2)
             
         # EXIT button
-        imageMode(CORNER)
-        if not isMouseOnButton(10, 655, 135, 55):
-            image(exitButton, 10, 655, 135, 55)   
-        else:
-            image(exitButton2, 10, 655, 135, 55)
-        
-        
+        imageShow(exitButton, exitButton2, 10, 655, 135, 55)
         
         # Info button
-        imageMode(CENTER)
-        if not isMouseOnButton(1235, 50, 68, 69, True):
-            image(infoButton, 1235, 50, 68, 69)
-        else:
-            image(infoButton2, 1235, 50, 68, 69)
+        imageShow(infoButton, infoButton2, 1235, 50, 68, 69, True)
+        
 
     #############
     # Info scherm
@@ -170,25 +161,14 @@ def draw():
             cursor(ARROW)
             
         tint(255)
-        imageMode(CORNER)
         #Home Button
-        if not isMouseOnButton(10, 10, 130, 55):
-            image(homeButton, 10, 10, 130, 55)
-        else:
-            image(homeButton2, 10, 10, 130, 55)
-        
-        imageMode(CENTER)  
+        imageShow(homeButton, homeButton2, 10, 10, 130, 55)
+          
         # Regel Button
-        if not isMouseOnButton(640, 290, 390, 110, True):
-            image(regelButton, 640, 290, 390, 110)
-        else:
-            image(regelButton2, 640, 290, 390, 110)
-        
+        imageShow(regelButton, regelButton2, 640, 290, 390, 110, True)
+
         # Hoofdstukken Button
-        if not isMouseOnButton(640, 440, 750, 110, True):
-            image(Hoofdstukken, 640, 440, 750, 110)
-        else:
-            image(Hoofdstukken2, 640, 440, 750, 110)
+        imageShow(Hoofdstukken, Hoofdstukken2, 640, 440, 750, 100, True)
      
      
     ############### 
@@ -227,21 +207,13 @@ def draw():
         image(H11, 220 + 80 * 9, 40, 55, 55)
         image(H12, 220 + 80 * 10, 40, 55, 55)
         image(H13, 220 + 80 * 11, 40, 55, 55)
-        
-         
-        imageMode(CORNER)       
+            
         #Home Button
-        if not isMouseOnButton(10, 10, 130, 55):
-            image(homeButton, 10, 10, 130, 55)
-        else:
-            image(homeButton2, 10, 10, 130, 55)
+        imageShow(homeButton, homeButton2, 10, 10, 130, 55)
         
         # TerugKnop Button
-        if not isMouseOnButton(10, 655, 165, 55):
-            image(terugKnopButton, 10, 655, 165, 55)
-        else:
-            image(terugKnopButton2, 10, 655, 165, 55)
-            
+        imageShow(terugKnopButton, terugKnopButton2, 10, 655, 165, 55) 
+
         # Fade in van de tekst
         if opacityText <= 255:
             opacityText += 10
@@ -254,7 +226,6 @@ def draw():
 
         # Zwart scherm achter de tekst
         imageMode(CORNER)
-        tint(255, 100)
         image(leegTekstVlak, 100, 85)
                   
         # TEKST  
@@ -371,20 +342,15 @@ def draw():
         # Terug Button
         if pagina == 0:
             image(pijlTerugIdle, width / 2 - 590, height / 2, 84, 78)
-        elif not isMouseOnButton(width / 2 - 590, height / 2, 84, 78, True):
-            image(pijlTerug, width / 2 - 590, height / 2, 84, 78)
         else:
-
-            image(pijlTerug2, width / 2 - 590, height / 2, 84, 78)
+            imageShow(pijlTerug, pijlTerug2, width / 2 - 590, height / 2, 84, 78, True)
         
         # Verder Button
         if pagina == 15:
             image(pijlVerderIdle, width / 2 + 590, height / 2, 84, 78)
-        elif not isMouseOnButton(width / 2 + 590, height / 2, 84, 78, True):
-            image(pijlVerder, width / 2 + 590, height / 2, 84, 78)
         else:
-            image(pijlVerder2, width / 2 + 590, height / 2, 84, 78)
-    
+            imageShow(pijlVerder, pijlVerder2, width / 2 + 590, height / 2, 84, 78, True)
+
     
     #####################
     # Hoofdstukken Screen
@@ -398,18 +364,12 @@ def draw():
         else:
             cursor(ARROW)
             
-        imageMode(CORNER)    
+  
         #Home Button
-        if not isMouseOnButton(10, 10, 130, 55):
-            image(homeButton, 10, 10, 130, 55)
-        else:
-            image(homeButton2, 10, 10, 130, 55)
+        imageShow(homeButton, homeButton2, 10, 10, 130, 55)
         
         # TerugKnop Button
-        if not isMouseOnButton(10, 655, 165, 55):
-            image(terugKnopButton, 10, 655, 165, 55)
-        else:
-            image(terugKnopButton2, 10, 655, 165, 55)
+        imageShow(terugKnopButton, terugKnopButton2, 10, 655, 165, 55)
         
         # Hoofdstuk Knop Test
         if isMouseOnButton(100, 100, 55+250, 55):
@@ -503,3 +463,16 @@ def cycleBackground():
     global bg_index
     background(loadImage('background/bg' + str(bg_index) + '.jpg'))
     bg_index = bg_index + 1 if bg_index < 32 else 0
+
+
+def imageShow(img, img2, x, y, wdth, hght, centered = False):
+    if centered:
+        imageMode(CENTER)
+    else:
+        imageMode(CORNER)
+    if isMouseOnButton(x, y, wdth, hght, centered):
+        image(img2, x, y, wdth, hght)
+    else:
+        image(img, x, y, wdth, hght)
+        
+def mouseHoverHandler():
