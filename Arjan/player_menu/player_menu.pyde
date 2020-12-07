@@ -13,6 +13,7 @@ class Player:
 
 def setup():
     size(1280,720)
+    loadImages()
     
 def draw():
     global bg_index, frame, words
@@ -21,31 +22,33 @@ def draw():
     
     loadImages()   
     
-    image(home_img, 10, 10, 130, 55)
-        
+    imageShow(home_img, home2_img, 10,10,130,55)
+    
     #Vak waarin je username kan typen
     if screen != 6:
-        image(loadImage('images/LeegVak.png'), 400, 350, 480, 100) 
-        image(loadImage('images/PijlVerder.png'), 880, 350, 100, 100)
+        image(leeg_vak, 400, 350, 480, 100) 
+        image(verder_pijl, 890, 350, 100, 100)
         if len(words) == 0:
-            image(loadImage('images/PijlVerderIdle.png'), 880, 350, 100, 100)
+            image(verder_pijl_idle, 890, 350, 100, 100)
+    
+    imageShow(verder_pijl, verder_pijl_hover, 890, 350, 100, 100)
+    imageShow(terug_pijl, terug_pijl_hover, 290, 350, 100, 100)
+    
         
     
         
     #Pijltje waarmee je naar vorige naam kan:  
               
     if screen == 1:
-        image(loadImage('images/PijlTerugIdle.png'), 300, 350, 100, 100)
+        image(terug_pijl_idle, 290, 350, 100, 100)
     elif screen != 6:
-        image(loadImage('images/PijlTerug.png'), 300, 350, 100, 100)
+        image(terug_pijl, 290, 350, 100, 100)
         
     # 'Verder' knop als je minimaal twee spelers hebt ingevoerd
     
-    if screen == 3 or screen == 4 or screen == 5:
-        image(loadImage('images/VerderKnop.png'), 1070, 650)
+    if screen == 3 or screen == 4 or screen == 5 or screen == 6:
+        imageShow(start1, start2, 1070, 650, 165, 55)
         
-    if screen == 6:
-        image(loadImage('images/Start.png'), 1070, 650)
         
     textSize(36)
     text(words, 370, 120, 540, 300)
@@ -56,6 +59,8 @@ def draw():
         text('Player ' + str(screen), 640, 250)
         if len(words) == 0 and key == ENTER:
             text('Min 1 character!', 640,550)
+        if key == ENTER:
+            text('!!', 640,550)
             
         if len(words) >= 11:
             text('Max 12 characters!', 640,550)
@@ -124,7 +129,7 @@ def mousePressed():
         words = '' 
             
     #Pijltje verder, zorg ervoor dat de lengte vd naam > 0 moet zijn
-    if screen != 6 and isMouseOnButton(880, 350, 100, 100) and len(words) > 0:    
+    if screen != 6 and isMouseOnButton(890, 350, 100, 100) and len(words) > 0:    
         screen += 1
         player = Player(words)
         players.append(player)
@@ -133,24 +138,41 @@ def mousePressed():
        
 
     #Pijltje terug
-    if screen != 1 and screen != 6 and isMouseOnButton(300, 350, 100, 100):
+    if screen != 1 and screen != 6 and isMouseOnButton(290, 350, 100, 100):
         screen -= 1
         players.pop(screen - 1)
         words = ''
 
-    
-def mouseHoverHandler():
-    if isMouseOnButton(10, 10, 130, 55): # Home button
-        image(home2_img, 10, 10, 130, 55)
-        cursor(HAND)
 
-# VERWIJDEREN ALS JE GAAT MERGEN
+
 def loadImages(): 
-    global background_images, home_img, dobbel_img, home2_img, verder_img
+    global background_images, home_img, dobbel_img, home2_img, verder_img, verder_pijl, verder_pijl_hover, terug_pijl, terug_pijl_hover, leeg_vak, verder_pijl_idle, terug_pijl_idle, start1, start2
     home_img = loadImage('images/Home.png')
-    dobbel_img = loadImage('assets/buttons/Dobbel.png')
-    home2_img = loadImage('assets/buttons/Home2.png')
-    dobbel2_img = loadImage('assets/buttons/Dobbel2.png')
-    artifact_img = loadImage('assets/buttons/Artefact.png')
-    artifact2_img = loadImage('assets/buttons/Artefact2.png')
-    verder_img = loadImage('assets/buttons/Verder.png')
+    dobbel_img = loadImage('images/Dobbel.png')
+    home2_img = loadImage('images/Home2.png')
+    dobbel2_img = loadImage('images/Dobbel2.png')
+    artifact_img = loadImage('images/Artefact.png')
+    artifact2_img = loadImage('images/Artefact2.png')
+    verder_img = loadImage('images/verder.png')
+    verder_pijl = loadImage('images/PijlVerder.png')
+    verder_pijl_hover = loadImage('images/PijlVerder2.png')
+    verder_pijl_idle = loadImage('images/PijlVerderIdle.png')
+    terug_pijl = loadImage('images/PijlTerug.png')
+    terug_pijl_hover = loadImage('images/PijlTerug2.png')
+    terug_pijl_idle = loadImage('images/PijlTerugIdle.png')
+    leeg_vak = loadImage('images/LeegVak.png')
+    start1 = loadImage('images/Start.png')
+    start2 = loadImage('images/Start2.png')
+    
+    
+    
+
+def imageShow(img, img2, x, y, wdth, hght, centered = False):
+    if centered:
+        imageMode(CENTER)
+    else:
+        imageMode(CORNER)
+    if isMouseOnButton(x, y, wdth, hght, centered):
+        image(img2, x, y, wdth, hght)
+    else:
+        image(img, x, y, wdth, hght)
