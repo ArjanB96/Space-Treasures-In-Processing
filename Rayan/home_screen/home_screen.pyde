@@ -395,9 +395,12 @@ def mousePressed():
             pagina += 1
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
+        # Hoofdstukken Button
         if isMouseOnButton(640 , 35, 375, 55, True):
             screen = 3
             pagina = 0
+            opacityText = 0 # To reset Fade
+            opacityImage = 0 # To reset Fade
     
     # All buttons for Hoofdstukken 
     if screen == 3:
