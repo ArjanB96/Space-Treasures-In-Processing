@@ -18,37 +18,33 @@ def setup():
 def draw():
     global bg_index, frame, words
     
-    cycleBackground()
-    
-    loadImages()   
-    
+    cycleBackground()  
     imageShow(home_img, home2_img, 10,10,130,55)
     
-    #Vak waarin je username kan typen
+    #Vak waarin je username kan typen, pijl om naar volgende speler te gaan, en pijl om terug te gaan
     if screen != 6:
         image(leeg_vak, 400, 350, 480, 100) 
         image(verder_pijl, 890, 350, 100, 100)
+        
         if len(words) == 0:
             image(verder_pijl_idle, 890, 350, 100, 100)
-    
-    imageShow(verder_pijl, verder_pijl_hover, 890, 350, 100, 100)
-    imageShow(terug_pijl, terug_pijl_hover, 290, 350, 100, 100)
-    
-        
-    
-        
-    #Pijltje waarmee je naar vorige naam kan:  
+        if len(words) > 0:
+            imageShow(verder_pijl, verder_pijl_hover, 890, 350, 100, 100)    
               
     if screen == 1:
         image(terug_pijl_idle, 290, 350, 100, 100)
     elif screen != 6:
-        image(terug_pijl, 290, 350, 100, 100)
+        imageShow(terug_pijl, terug_pijl_hover, 290, 350, 100, 100)
         
-    # 'Verder' knop als je minimaal twee spelers hebt ingevoerd
+    # 'Start' knop als je minimaal twee spelers hebt ingevoerd
     
-    if screen == 3 or screen == 4 or screen == 5 or screen == 6:
+    if screen == 3 or screen == 4 or screen == 5:
         imageShow(start1, start2, 1070, 650, 165, 55)
-        
+        text('Press \'START\' to play\nor input more players', 640,570)
+    if screen == 6:
+        imageShow(start1, start2, 1070, 650, 165, 55)
+        text('Press \'START\' to play', 640,570)
+            
         
     textSize(36)
     text(words, 370, 120, 540, 300)
@@ -57,10 +53,8 @@ def draw():
  
     if screen != 6:
         text('Player ' + str(screen), 640, 250)
-        if len(words) == 0 and key == ENTER:
-            text('Min 1 character!', 640,550)
-        if key == ENTER:
-            text('!!', 640,550)
+        #if len(words) == 0 and key == ENTER: ############# min 2 players
+            #text('Min 1 character!', 640,550)
             
         if len(words) >= 11:
             text('Max 12 characters!', 640,550)
@@ -89,12 +83,9 @@ def keyTyped():
     if key == ENTER and len(words) > 0:
         player = Player(words)
         players.append(player)
-        
         screen += 1
         words = ''
-        
         print([x.name for x in players])
-        
         
 def cycleBackground():
     global bg_index, frame    
