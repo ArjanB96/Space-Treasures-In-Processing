@@ -59,6 +59,9 @@ def draw():
             text('Max 12 characters!', 640,700)
         if len(words) == 13:
             words = ''
+            
+        text(str(len(words)) + ' / 12', 640,350)
+        
     else:
         for i, player in enumerate(players):            
             text('Player ' + str(i + 1) + ' is :   ', 340, 250 + i * 50)
