@@ -4,7 +4,6 @@ words = ''
 screen = 1
 opacity_x = 0
 opacity_x_change = True
-
 players = []
 
 class Player:
@@ -48,7 +47,6 @@ def draw():
         imageShow(start1, start2, 1070, 650, 165, 55)
         text('Press \'START\' to play', 640,570)
             
-        
     textSize(36)
     text(words, 370, 120, 540, 300)
     textFont(createFont('PressStart2P.ttf', 40))
@@ -75,9 +73,7 @@ def draw():
             elif not opacity_x_change:
                 opacity_x -= 10
             text('|', 440, 420)
-            
-                
-                
+                    
         fill(255, 255, 255)
         text(str(len(words)) + ' / 12', 640,350)
         
@@ -85,8 +81,6 @@ def draw():
         for i, player in enumerate(players):            
             text('Player ' + str(i + 1) + ' is :   ', 340, 250 + i * 50)
             text(player.name, 800, 250 + i * 50)
-            
-
             
 def keyTyped():
     global words, screen
@@ -117,19 +111,15 @@ def cycleBackground():
         background(loadImage('background/bg' + str(bg_index) + '.jpg'))
         bg_index = bg_index + 1 if bg_index < 32 else 0
         
-def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
-  if centered:
-    return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2 else False
-  return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
 
 def mousePressed():
     global screen, words, players
     
-    #Verder (vanaf min. twee spelers)
+    #Verder/Start (vanaf min. twee spelers)
     
-    if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55):
+    if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55) and len(words) == 0:
         screen = 6
-    
+        
     #Start knop
     
     if screen == 6 and isMouseOnButton(1070, 650, 165, 55):
@@ -150,7 +140,6 @@ def mousePressed():
         words = ''
         print([x.name for x in players])
        
-
     #Pijltje terug
     if screen != 1 and screen != 6 and isMouseOnButton(290, 350, 100, 100):
         screen -= 1
@@ -158,6 +147,10 @@ def mousePressed():
         words = ''
 
 
+def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
+  if centered:
+    return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2 else False
+  return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
 
 def loadImages(): 
     global background_images, home_img, dobbel_img, home2_img, verder_img, verder_pijl, verder_pijl_hover, terug_pijl, terug_pijl_hover, leeg_vak, verder_pijl_idle, terug_pijl_idle, start1, start2
@@ -178,9 +171,6 @@ def loadImages():
     start1 = loadImage('images/Start.png')
     start2 = loadImage('images/Start2.png')
     
-    
-    
-
 def imageShow(img, img2, x, y, wdth, hght, centered = False):
     if centered:
         imageMode(CENTER)
