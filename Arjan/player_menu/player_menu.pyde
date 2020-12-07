@@ -2,6 +2,8 @@ bg_index = 0
 frame = 1
 words = ''
 screen = 1
+opacity_x = 0
+opacity_x_change = True
 
 players = []
 
@@ -17,7 +19,7 @@ def setup():
 
     
 def draw():
-    global bg_index, frame, words
+    global bg_index, frame, words, opacity_x, opacity_x_change
     
     cycleBackground()  
     imageShow(home_img, home2_img, 10,10,130,55)
@@ -53,6 +55,7 @@ def draw():
     textAlign(CENTER, BOTTOM)
  
     if screen != 6:
+        fill(255, 255, 255)
         text('Player ' + str(screen), 640, 250)
         
         if len(words) >= 11:
@@ -60,12 +63,30 @@ def draw():
         if len(words) == 13:
             words = ''
             
+        if len(words) == 0:
+            fill(255, 255, 255, opacity_x)
+            if opacity_x == 0:
+                opacity_x_change = True
+            elif opacity_x == 250:
+                opacity_x_change = False
+            
+            if opacity_x_change:
+                opacity_x += 10
+            elif not opacity_x_change:
+                opacity_x -= 10
+            text('|', 440, 420)
+            
+                
+                
+        fill(255, 255, 255)
         text(str(len(words)) + ' / 12', 640,350)
         
     else:
         for i, player in enumerate(players):            
             text('Player ' + str(i + 1) + ' is :   ', 340, 250 + i * 50)
             text(player.name, 800, 250 + i * 50)
+            
+
             
 def keyTyped():
     global words, screen
