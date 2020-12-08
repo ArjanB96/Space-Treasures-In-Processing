@@ -327,7 +327,7 @@ def draw():
         # TerugKnop Button
         imageShow(terugKnopButton, terugKnopButton2, 10, 655, 165, 55)
         fill(0, 0, 0)
-        textSize(15)
+        textSize(17)
         textAlign(CENTER, CENTER)
         # H1 : Inhoud
         imageShow(H1, H1_hover, 150, 100, 80, 80, wdthAdd = 250)
@@ -512,7 +512,7 @@ def hoofdstukShow():
     textAlign(CENTER, CENTER)
     textSize(20)
     fill(255, 255, 255)
-    text('Hoofdstuk: ', 500, 675)  
+    text('Hoofdstuk: ', 500, 674)  
     if pagina == 0:
         image(H1, 640, 675, 75, 75)
     if pagina == 1 or pagina == 2:
