@@ -57,6 +57,9 @@ def draw():
     
         fill(240)
         textSize(17)
+        if len(cards_player1) == 5 and spelerIndex == 0:
+            image(LeegVak, 435, 640, 435, 70)
+            text('Kan niet meer toevoegen\nje mag max 5 kaarten!', 450, 655, 500, 55)
         text('Speler:', 505 , 170, 300, 50)
         text('Artefact:', 505, 270, 300, 150)
         text('Element:', 505, 370, 300, 250)
