@@ -42,11 +42,11 @@ def draw():
     
     if screen == 3 or screen == 4 or screen == 5:
         imageShow(start1, start2, 1070, 650, 165, 55)
-        image(leeg_vak, 190,456,900,140)
+        #image(leeg_vak, 190,456,900,140)
         text('Press \'START\' to play\nor input more players', 640,570)
     if screen == 6:
         imageShow(start1, start2, 1070, 650, 165, 55)
-        image(leeg_vak, 188,490,900,110)
+        #image(leeg_vak, 188,490,900,110)
         text('Press \'START\' to play', 640,570)
             
     textSize(36)
@@ -58,8 +58,8 @@ def draw():
         fill(255, 255, 255)
         text('Player ' + str(screen), 640, 250)
         
-        if len(words) >= 11:
-            image(leeg_vak, 254,625,760,100)
+        if len(words) >= 12:
+            #image(leeg_vak, 254,625,760,100)
             text('Max 12 characters!', 640,700)
         if len(words) == 13:
             words = ''
