@@ -330,29 +330,26 @@ def mousePressed():
         if isMouseOnButton(10 , 655, 135, 55):
             exit()
         # Info Button
-        if isMouseOnButton(1235, 50, 68, 69, True):
+        elif isMouseOnButton(1235, 50, 68, 69, True):
             screen = 1   
             screenList.append(screen)
-            print(screenList)
             
     # All buttons for Info Screen
-    if screen == 1:
+    elif screen == 1:
         # Home Button
         if isMouseOnButton(10, 10, 130, 55):
             screen = 0
             del screenList[:]
         # Regel button
-        if isMouseOnButton(640, 290, 390, 110, True):
+        elif isMouseOnButton(640, 290, 390, 110, True):
             screen = 2
             screenList.append(screen)
-            print(screenList)
         # Hoofdstukken button
-        if isMouseOnButton(640, 440, 750, 110, True):
+        elif isMouseOnButton(640, 440, 750, 110, True):
             screen = 3
             screenList.append(screen)
-            print(screenList)
     # All buttons for Regel Screen
-    if screen == 2:
+    elif screen == 2:
         # Home Button
         if isMouseOnButton(10, 10, 130, 55):
             screen = 0
@@ -360,75 +357,66 @@ def mousePressed():
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
             del screenList[:]
-            print(screenList)
         # Terug button
-        if isMouseOnButton(10, 655, 165, 55):
+        elif isMouseOnButton(10, 655, 165, 55):
             screen = screenList[-2]
             del screenList[-1]
-            print(screenList)
             pagina = 0 # To reset 'pagina'
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
         # Terug Button
-        if isMouseOnButton(width / 2 - 590, height / 2, 78, 78, True) and pagina != 0:
+        elif isMouseOnButton(width / 2 - 590, height / 2, 78, 78, True) and pagina != 0:
             pagina -= 1
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
         # Verder Button
-        if isMouseOnButton(width / 2 + 590, height / 2, 78, 78, True) and pagina != 15:
+        elif isMouseOnButton(width / 2 + 590, height / 2, 78, 78, True) and pagina != 15:
             pagina += 1
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
         # Hoofdstukken Button
-        if isMouseOnButton(640 , 35, 375, 55, True):
+        elif isMouseOnButton(640 , 35, 375, 55, True):
             screen = 3
             screenList.append(screen)
-            print(screenList)
             pagina = 0
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
     # All buttons for Hoofdstukken 
-    if screen == 3:
+    elif screen == 3:
         # Home Button
         if isMouseOnButton(10, 10, 130, 55):
             screen = 0
             del screenList[:]
-            print(screenList)
             pagina = 0 # To reset 'pagina'
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
         # Terug button
-        if isMouseOnButton(10, 655, 165, 55):
+        elif isMouseOnButton(10, 655, 165, 55):
             del screenList[-1]
             screen = screenList[-1]
-            print(screenList)
             #pagina = 0 # To reset 'pagina'
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
         # H1
-        if isMouseOnButton(150, 100, 80 + 250, 80):
+        elif isMouseOnButton(150, 100, 80 + 250, 80):
             screen = 2 
             pagina = 0
             screenList.append(screen)
-            print(screenList)
         # H2
-        if isMouseOnButton(150, 250, 80 + 250, 80):
+        elif isMouseOnButton(150, 250, 80 + 250, 80):
             screen = 2
             pagina = 1
             screenList.append(screen)
-            print(screenList)
         # H3
-        if isMouseOnButton(105, 400, 80 + 250, 80):
+        elif isMouseOnButton(105, 400, 80 + 250, 80):
             screen = 2
             pagina = 3
             screenList.append(screen)
-            print(screenList)
         # H4
-        if isMouseOnButton(105, 550, 80 + 250, 80):
+        elif isMouseOnButton(105, 550, 80 + 250, 80):
             screen = 2
             pagina = 5
             screenList.append(screen)
-            print(screenList)
     
 # Function to check if mouse is on the button
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
