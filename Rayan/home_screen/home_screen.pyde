@@ -84,7 +84,6 @@ def draw():
     cycleBackground()
     mouseHoverHandler()
     
-    #############
     # Home screen
     if screen == 0:
     
@@ -99,11 +98,9 @@ def draw():
         imageMode(CENTER)
         if isMouseOnButton(width / 2, height / 2, 300, 300, True):
             image(planet, width / 2, height / 2, resizeWidth, resizeHeight)
-
             # Movement of Planet
             if resizeWidth <= 320:
                 resizeWidth += 10; resizeHeight += 10
-
             # Movement of text : 'START'
             if textResize <= 75:
                 textResize += 1.1
@@ -112,11 +109,9 @@ def draw():
         else:
             image(planet, width / 2, height / 2, resizeWidth, resizeHeight)
             #image(loadImage('images/planeetAqua.png'), width / 2, height / 2, resizeWidth, resizeHeight)
-            
             # Movement of Planet
             if resizeWidth >= 305:
                 resizeWidth -= 10; resizeHeight -= 10
-                
             # Movement of text : 'START'
             if textResize >= 70:
                 textResize -= 1.1
@@ -125,14 +120,11 @@ def draw():
             
         # EXIT button
         imageShow(exitButton, exitButton2, 10, 655, 135, 55)
-        
         # Info button
         imageShow(infoButton, infoButton2, 1235, 50, 68, 69, True)
         
-
-    #############
     # Info scherm
-    if screen == 1:
+    elif screen == 1:
         #global 
         
         tint(255)
@@ -145,10 +137,8 @@ def draw():
         # Hoofdstukken Button
         imageShow(Hoofdstukken, Hoofdstukken2, 640, 440, 750, 100, True)
      
-     
-    ############### 
     # Regel Screen       
-    if screen == 2:
+    elif screen == 2:
         
         tint(255)    
         # Hoofdstuk knop
@@ -178,7 +168,7 @@ def draw():
         if pagina == 0:
             textSize(20)
             text('INHOUD SPEL:\n- 10 hexagon map stukken,\n- 38 instructiekaarten,\n- 49 fiches,\n- 5 ruimteschepen,\n- 1 dobbelsteen.\n\nDOEL:\nVind twee Elementen van verschillende element \nsoorten en win!\n\nSPELERS:\nSpace Treasures is te spelen met 4 of 5 mensen. ', 125, height / 2)
-        if pagina == 1:
+        elif pagina == 1:
             textSize(30)
             text('VOORBEREIDING:', 125, 130)
             textSize(20)
@@ -190,40 +180,40 @@ def draw():
             text('Kaytsak', width / 2 - 325, 600)
             text('Aqua', width / 2 + 5, 600)
             text('Amaterasu', width / 2 + 275, 600)
-        if pagina == 2:
+        elif pagina == 2:
             textSize(20)
             text('Om te bepalen wie er begint met het spel, dobbelt \nelke speler 1 keer. De speler die het hoogst aantal \nogen heeft gegooid begint met het spel. Het spel \nkan nu beginnen!', 130, height / 2)
-        if pagina == 3:
+        elif pagina == 3:
             textSize(30)
             text('EERSTE BEURT:', 125, 220)
             textSize(20)
             text('De speler die begint trekt 1 van de \ninstructiekaarten en kiest de instructie die hij/zij \nkiest. De speler moet stappen zetten omdat er op \nplaneet "Aarde" geen Artefact te vinden is. Het \nspel gaat met de klok mee.Als eerste willen de \nspelers naar de "brandstof" plek gaan in het midden \nvan de planeet om andere planeten te kunnen \nontdekken. Op de andere planeten zijn de betreffende \nArtefacten, Elementen en meer brandstof te vinden.', 125, height / 2)     
-        if pagina == 4:
+        elif pagina == 4:
             textSize(30)
             text('PER BEURT:', 125, 220)
             textSize(20)
             text('Per beurt kan je 3 dingen doen:\n1: Een instructiekaart pakken,\n2: een Artefact gebruiken\n3: of een Element maken.\n\nBij de eerste paar beurten zal je nog geen \nArtefacten hebben, dus kan je het tweede en derde \nnog niet doen. Dan moeten er instructiekaarten \nworden gepakt.', 125, height / 2)
-        if pagina == 5:
+        elif pagina == 5:
             textSize(30)
             text('PLANEET ONTDEKKEN:', 125, 245)
             textSize(20)
             text('Zodra een speler een brandstof fiche heeft gekregen \nmoet de speler meteen een planeet ontdekken. Dit doe \nje door een planeet \nte pakken van de stapel, de planeet mag alleen \ngeplaatst worden aangrenzend aan de planeet waar de \nspeler op staat. De speler mag kiezen aan welke kant \nde planeet ontdekt wordt', 130, height/2)
-        if pagina == 6:
+        elif pagina == 6:
             textSize(30)
             text('BEWEGING:', 125, 240)
             textSize(20)
             text('Er kan alleen gelopen worden via de lijnen. Je moet \nhet aantal stappen zetten dat aangegeven is, tevens \nlaat je ook je instructiekaart aan je medespelers \nzien. Je mag niet heen en weer blijven lopen. Als je \nvan planeet naar planeet loopt, loop je via de grote \nwitte vakken, daarnaast mag je niet in 1 beurt naar \nmeerdere planeet gaan.', 125, height/2)
-        if pagina == 7:
+        elif pagina == 7:
             textSize(30)
             text('ARTEFACT PAKKEN:', 125, 130)
             textSize(20)
             text('Als je een instructiekaart krijgt met een Artefact \nerop, kan je dobbelen voor een Artefact. LET OP! Op \nplaneet Aarde  kan geen Artefact gevonden worden! \nLinksboven staan de minimaal aantal ogen die \ngegooid moeten worden om deze Artefact te mogen \npakken. Als je het minimaal aantal ogen hebt gegooid \nof hoger mag je de kaart bij je houden. De element \nsoort wordt bepaald door op welke planeet je staat. \nAls je op planeet Kaytsak staat, leg je jouw \nArtefact bij het fiche Kaytsak.\n\nPer planeet is er maar 1 artefact te vinden per \npersoon. Als je op planeet x van Amaterasu een \nArtefact hebt gepakt kan je alleen nog Artefacten \nvan Amaterasu vinden op y en z.', 125, height/2)
-        if pagina == 8:
+        elif pagina == 8:
             textSize(30)
             text('ARTEFACT GEBRUIKEN:', 125, 230)
             textSize(20)
             text('Als de speler 1 van zijn / haar Artefacten wil \ngebruiken, kost dit een beurt. Je mag dus niet een \ninstructiekaart pakken en daarna een Artefact \ngebruiken. Behalve bij Haste.Als de Artefact een \nafkoeltijd heeft, moet je die na gebruik met de \ngoede kant omlaag neerleggen voor het aantal rondes \ndat aangegeven staat. Per beurt mag er maar 1 \nArtefact gebruikt worden.', 125, height/2)
-        if pagina == 9:
+        elif pagina == 9:
             textSize(30)
             text('De Artefacten zijn:', 125, 130)
             textSize(20)
@@ -232,12 +222,12 @@ def draw():
             image(EyeDrop, 125, 370, 80, 80)
             image(Skip, 130, 490, 60, 78)
             text('Swap: Speler met dit artefact mag 2 spelers \nruilen van plek. Inclusief zichzelf met een \nandere. (Minimaal 4 ogen, afkoeltijd 4 beurten.)\n\n\nHaste: Elke beurt 1 extra stap. \n(Minimaal 4  ogen.)\n\n\nEyeDrop: Een oog minder nodig bij dobbelen om \nArtefact te krijgen. (Minimaal 4 ogen.)\n\n\nSkip: Kies een speler, hij/zij moet een beurt \noverslaan. \n(Minimaal 5 ogen, afkoeltijd 3 beurten.)', 125 + 90, height/2)
-        if pagina == 10:
+        elif pagina == 10:
             textSize(20)
             image(Exchange, 130, 200, 72, 78)
             image(Blockade, 115, 380, 96, 96)
             text('Exchange: Ruil 1 Artefact naar keuze met iemand \nop dezelfde planeet. De element-soort verandert \nniet. Eventuele cooldown op geruilde kaart gaat \nweg.(Minimaal 3 ogen, afkoeltijd 4 beurten.)\n\n\nBlockade: Zet een blokkade neer om te voorkomen \ndat andere spelers de planeet betreden. \n(minimaal 3 ogen, afkoeltijd 4 beurten.)\nGebruik: Je legt het "Blockade" fiche aan 1 van \nde kanten op de planeet waar jij op staat. Hij \nkomt tussen de hoekpunten. Blijft 2 rondes \nstaan. Blockade geldt niet voor de gebruiker.', 125 + 90, height/2)
-        if pagina == 11:
+        elif pagina == 11:
             textSize(30)
             text('MAXIMAAL ARTEFACTEN:', 125, 130)
             textSize(20)
@@ -250,7 +240,7 @@ def draw():
             image(Fuel, width / 2, height / 2 + 150, 150, 150)
             textSize(25)
             text('Brandstof', width / 2 - 105, height / 2 + 250)
-        if pagina == 12:
+        elif pagina == 12:
             textSize(30)
             text('KAARTEN:', 125, 130)
             textSize(20)
@@ -259,7 +249,7 @@ def draw():
             text('ELKE PLANEET ONTDEKT:', 125, 320)
             textSize(20)
             text('Nadat elke planeet ontdekt is, mag je zodra je op \neen brandstof plek komt reizen naar een aangrenzende \nplaneet. Je komt dan op de brandstof plek. Je mag \nniet op dezelfde plek meteen weer naar een andere \nplaneet.', 125, height/2 + 50)
-        if pagina == 13:
+        elif pagina == 13:
             textSize(30)
             text('ELEMENTEN:', 130, 130)
             textSize(20)
@@ -271,12 +261,12 @@ def draw():
             text('Kaytsak', width / 2 - 320, 610)
             text('Aqua', width / 2 + 10, 610)
             text('Amaterasu', width / 2 + 275, 610)
-        if pagina == 14:
+        elif pagina == 14:
             textSize(30)
             text('TERMENLIJST:', 152, 130)
             textSize(20)
             text('- Brandstof:\nMet brandstof kan je andere planeten ontdekken.\n\n- Instructiekaarten:\nDit zijn de kaarten waar een keuze gemaakt moet \nworden tussen stappen zetten of een \nArtefact / Element maken.\n\n- Artefacten:\nDe Artefacten heb je nodig om Elementen te maken. \nTevens kunnen deze aan jou voordelen geven of \nandere spelers hinderen.\n\n- Elementen:\nDit is het voorwerp dat nodig is om te winnen. \n2 verschillende Elementen zijn hiervoor nodig.', 152, height / 2)
-        if pagina == 15:
+        elif pagina == 15:
             text('- Afkoeltijd:\nDit is het aantal rondes dat je je gebruikte \nArtefact niet meer kunt gebruiken.', 130, height / 2)
         
         tint(255)     
@@ -286,14 +276,12 @@ def draw():
             image(pijlTerugIdle, width / 2 - 590, height / 2, 84, 78)
         else:
             imageShow(pijlTerug, pijlTerug2, width / 2 - 590, height / 2, 84, 78, True)
-        
         # Verder Button
         if pagina == 15:
             image(pijlVerderIdle, width / 2 + 590, height / 2, 84, 78)
         else:
             imageShow(pijlVerder, pijlVerder2, width / 2 + 590, height / 2, 84, 78, True)
             
-    #####################
     # Hoofdstukken Screen
     elif screen == 3:
   
@@ -324,7 +312,7 @@ def draw():
 def mousePressed():
     global screen, pagina, opacityText, opacityImage, screenList
     
-    # All buttons for Home screen
+    # Home screen
     if screen == 0:
         # EXIT button
         if isMouseOnButton(10 , 655, 135, 55):
@@ -333,8 +321,7 @@ def mousePressed():
         elif isMouseOnButton(1235, 50, 68, 69, True):
             screen = 1   
             screenList.append(screen)
-            
-    # All buttons for Info Screen
+    # Info Screen
     elif screen == 1:
         # Home Button
         if isMouseOnButton(10, 10, 130, 55):
@@ -348,7 +335,7 @@ def mousePressed():
         elif isMouseOnButton(640, 440, 750, 110, True):
             screen = 3
             screenList.append(screen)
-    # All buttons for Regel Screen
+    # Regel Screen
     elif screen == 2:
         # Home Button
         if isMouseOnButton(10, 10, 130, 55):
@@ -361,7 +348,6 @@ def mousePressed():
         elif isMouseOnButton(10, 655, 165, 55):
             screen = screenList[-2]
             del screenList[-1]
-            pagina = 0 # To reset 'pagina'
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
         # Terug Button
@@ -378,10 +364,9 @@ def mousePressed():
         elif isMouseOnButton(640 , 35, 375, 55, True):
             screen = 3
             screenList.append(screen)
-            pagina = 0
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
-    # All buttons for Hoofdstukken 
+    # Hoofdstukken 
     elif screen == 3:
         # Home Button
         if isMouseOnButton(10, 10, 130, 55):
@@ -394,7 +379,6 @@ def mousePressed():
         elif isMouseOnButton(10, 655, 165, 55):
             del screenList[-1]
             screen = screenList[-1]
-            #pagina = 0 # To reset 'pagina'
             opacityText = 0 # To reset Fade
             opacityImage = 0 # To reset Fade
         # H1
@@ -418,7 +402,6 @@ def mousePressed():
             pagina = 5
             screenList.append(screen)
     
-# Function to check if mouse is on the button
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
     if centered:
         return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2 else False
@@ -498,17 +481,17 @@ def hoofdstukShow():
     text('Hoofdstuk: ', 500, 674)  
     if pagina == 0:
         image(H1, 640, 675, 75, 75)
-    if pagina == 1 or pagina == 2:
+    elif pagina == 1 or pagina == 2:
         image(H2, 640, 675, 75, 75)
-    if pagina == 3 or pagina == 4:
+    elif pagina == 3 or pagina == 4:
         image(H3, 640, 675, 75, 75)
-    if pagina == 5 or pagina == 6:
+    elif pagina == 5 or pagina == 6:
         image(H4, 640, 675, 75, 75)
-    if pagina == 7 or pagina == 8 or pagina == 9 or pagina == 10:
+    elif pagina == 7 or pagina == 8 or pagina == 9 or pagina == 10:
         image(H5, 640, 675, 75, 75)
-    if pagina == 11 or pagina == 12:
+    elif pagina == 11 or pagina == 12:
         image(H6, 640, 675, 75, 75)
-    if pagina == 13:
+    elif pagina == 13:
         image(H7, 640, 675, 75, 75)
-    if pagina == 14 or pagina == 15:
+    elif pagina == 14 or pagina == 15:
         image(H8, 640, 675, 75, 75)
