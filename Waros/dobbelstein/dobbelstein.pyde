@@ -33,7 +33,7 @@ def draw():
     
     if roll_dice and dice_roll_time > 0 and frame % 2 == 0: 
         display_dice = int(random(1, 7)) - 1  
-        dice_roll_time -= 10
+        dice_roll_time -= 5
     
     if go_back:
         sys.exit()
