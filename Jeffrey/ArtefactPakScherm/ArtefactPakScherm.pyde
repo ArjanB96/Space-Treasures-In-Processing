@@ -10,9 +10,10 @@ artefactIndex = 0
 elementIndex = 0
 spelerIndex = 0
 bg_index = 0
-opacity = 0
-cardAddedTo = spelers[0]
-whichCardAdded = artefacts[0]
+opacityCardAddedMsg = 0
+opacityTooManyCardsMsg = 0
+cardAddedTo = spelers[0]      #temp voor pop up als kaart is toegevoegd aan een speler
+whichCardAdded = artefacts[0] #temp voor pop up als kaart is toegevoegd aan een speler
 scherm = 'Jeffrey'
 def setup():
     size(1280, 720)
@@ -20,7 +21,7 @@ def setup():
     loadImages()
 
 def draw():
-    global scherm, opacity
+    global scherm, opacityCardAddedMsg, opacityTooManyCardsMsg
     cycleBackground()
 
     if scherm == 'Jeffrey':
@@ -58,41 +59,46 @@ def draw():
         image(ToevoegenKnop, 1030, 655, 240, 55)
     
         #berichtje als iemand geen artefacten meer kan toevoegen
-        fill(240, opacity)
+        fill(240, opacityTooManyCardsMsg)
         textSize(17)
-        tint(opacity)
-        if opacity > 0:
-            opacity -= 3
-        if len(cards_player1) == 5 and spelerIndex == 0 and opacity > 0:
+        tint(opacityTooManyCardsMsg)
+        
+        if opacityTooManyCardsMsg > 0:
+            opacityTooManyCardsMsg -= 3
+        if len(cards_player1) == 5 and spelerIndex == 0 and opacityTooManyCardsMsg > 0:
             image(LeegVak, 435, 640, 435, 70)
             text('Kan niet meer toevoegen\nje mag max 5 kaarten!', 450, 655, 500, 55)
-        elif len(cards_player2) == 5 and spelerIndex == 1 and opacity > 0:
+        elif len(cards_player2) == 5 and spelerIndex == 1 and opacityTooManyCardsMsg > 0:
             image(LeegVak, 435, 640, 435, 70)
             text('Kan niet meer toevoegen\nje mag max 5 kaarten!', 450, 655, 500, 55)
-        elif len(cards_player3) == 5 and spelerIndex == 2 and opacity > 0:
+        elif len(cards_player3) == 5 and spelerIndex == 2 and opacityTooManyCardsMsg > 0:
             image(LeegVak, 435, 640, 435, 70)
             text('Kan niet meer toevoegen\nje mag max 5 kaarten!', 450, 655, 500, 55)
-        elif len(cards_player4) == 5 and spelerIndex == 3 and opacity > 0:
+        elif len(cards_player4) == 5 and spelerIndex == 3 and opacityTooManyCardsMsg > 0:
             image(LeegVak, 435, 640, 435, 70)
             text('Kan niet meer toevoegen\nje mag max 5 kaarten!', 450, 655, 500, 55)
-        elif len(cards_player5) == 5 and spelerIndex == 4 and opacity > 0:
+        elif len(cards_player5) == 5 and spelerIndex == 4 and opacityTooManyCardsMsg > 0:
             image(LeegVak, 435, 640, 435, 70)
             text('Kan niet meer toevoegen\nje mag max 5 kaarten!', 450, 655, 500, 55)
         
+        fill(240, opacityCardAddedMsg)
+        tint(opacityCardAddedMsg)
+        if opacityCardAddedMsg > 0:
+            opacityCardAddedMsg -= 3
         #berichtje als iemand een artefact heeft toegevoegd
-        if len(cards_player1) != 5 and spelerIndex == 0 and opacity > 0:
+        if len(cards_player1) != 5 and spelerIndex == 0 and opacityCardAddedMsg > 0:
             image(LeegVak, 435, 640, 435, 70)
             text(whichCardAdded + ' toegevoegd aan \n' + cardAddedTo, 450, 655, 500, 55)
-        elif len(cards_player2) != 5 and spelerIndex == 1 and opacity > 0:
+        elif len(cards_player2) != 5 and spelerIndex == 1 and opacityCardAddedMsg > 0:
             image(LeegVak, 435, 640, 435, 70)
             text(whichCardAdded + ' toegevoegd aan \n' + cardAddedTo, 450, 655, 500, 55)
-        elif len(cards_player3) != 5 and spelerIndex == 2 and opacity > 0:
+        elif len(cards_player3) != 5 and spelerIndex == 2 and opacityCardAddedMsg > 0:
             image(LeegVak, 435, 640, 435, 70)
             text(whichCardAdded + ' toegevoegd aan \n' + cardAddedTo, 450, 655, 500, 55)
-        elif len(cards_player4) != 5 and spelerIndex == 3 and opacity > 0:
+        elif len(cards_player4) != 5 and spelerIndex == 3 and opacityCardAddedMsg > 0:
             image(LeegVak, 435, 640, 435, 70)
             text(whichCardAdded + ' toegevoegd aan \n' + cardAddedTo, 450, 655, 500, 55)
-        elif len(cards_player5) != 5 and spelerIndex == 4 and opacity > 0:
+        elif len(cards_player5) != 5 and spelerIndex == 4 and opacityCardAddedMsg > 0:
             image(LeegVak, 435, 640, 435, 70)
             text(whichCardAdded + ' toegevoegd aan \n' + cardAddedTo, 450, 655, 500, 55)
             
@@ -138,7 +144,7 @@ def draw():
         else: cursor(ARROW)
 
 def mousePressed():
-    global artefactIndex, elementIndex, spelerIndex, scherm, opacity, cardAddedTo, whichCardAdded
+    global artefactIndex, elementIndex, spelerIndex, scherm, opacityCardAddedMsg, opacityTooManyCardsMsg, cardAddedTo, whichCardAdded
     
     if scherm == 'Jeffrey':
         #Speler selecteer knoppen
@@ -177,43 +183,43 @@ def mousePressed():
             if spelerIndex == 0:
                 if len(cards_player1) != 5:
                     cards_player1.append([artefacts[artefactIndex], elements[elementIndex]])
-                    opacity = 255
+                    opacityCardAddedMsg = 255
                     cardAddedTo = spelers[spelerIndex]
                     whichCardAdded = artefacts[artefactIndex]
                 elif len(cards_player1) == 5:
-                    opacity = 255
+                    opacityTooManyCardsMsg = 255
             elif spelerIndex == 1:
                 if len(cards_player2) != 5:
                     cards_player2.append([artefacts[artefactIndex], elements[elementIndex]])
-                    opacity = 255
+                    opacityCardAddedMsg = 255
                     cardAddedTo = spelers[spelerIndex]
                     whichCardAdded = artefacts[artefactIndex]
                 elif len(cards_player2) == 5:
-                    opacity = 255
+                    opacityTooManyCardsMsg = 255
             elif spelerIndex == 2:
                 if len(cards_player3) != 5:
                     cards_player3.append([artefacts[artefactIndex], elements[elementIndex]])
-                    opacity = 255
+                    opacityCardAddedMsg = 255
                     cardAddedTo = spelers[spelerIndex]
                     whichCardAdded = artefacts[artefactIndex]
                 elif len(cards_player3) == 5:
-                    opacity = 255
+                    opacityTooManyCardsMsg = 255
             elif spelerIndex == 3:
                 if len(cards_player4) != 5:
                     cards_player4.append([artefacts[artefactIndex], elements[elementIndex]])
-                    opacity = 255
+                    opacityCardAddedMsg = 255
                     cardAddedTo = spelers[spelerIndex]
                     whichCardAdded = artefacts[artefactIndex]
                 elif len(cards_player4) == 5:
-                    opacity = 255
+                    opacityTooManyCardsMsg = 255
             elif spelerIndex == 4:
                 if len(cards_player5) != 5:
                     cards_player5.append([artefacts[artefactIndex], elements[elementIndex]])
-                    opacity = 255
+                    opacityCardAddedMsg = 255
                     cardAddedTo = spelers[spelerIndex]
                     whichCardAdded = artefacts[artefactIndex]
                 elif len(cards_player5) == 5:
-                    opacity = 255
+                    opacityTooManyCardsMsg = 255
             
         
             print('artefacten spelers 1')
