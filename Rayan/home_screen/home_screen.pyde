@@ -131,7 +131,7 @@ def draw():
         
         tint(255)    
         # Hoofdstuk knop
-        imageShow(Hoofdstukken, Hoofdstukken2, 640, 50, 400, 75, True)
+        imageShow(Hoofdstukken, Hoofdstukken2, 640, 50, 400, 65, True)
         # Home Button
         imageShow(homeButton, homeButton2, 10, 10, 130, 55)
         # TerugKnop Button
@@ -356,7 +356,7 @@ def mousePressed():
             pagina += 1
             opacityText = 0
             opacityImage = 0
-        elif isMouseOnButton(640, 50, 400, 75, True): # Hoofdstukken Button
+        elif isMouseOnButton(640, 50, 400, 65, True): # Hoofdstukken Button
             screen = 3
             screenList.append(screen)
             opacityText = 0 
@@ -458,7 +458,7 @@ def mouseHoverHandler():
             cursor(HAND)
         elif isMouseOnButton(1230, 360, 84, 78, True) and pagina != 15: # Verder Button
             cursor(HAND)
-        elif isMouseOnButton(640, 50, 400, 75, True): # Hoofstukken Button
+        elif isMouseOnButton(640, 50, 400, 65, True): # Hoofstukken Button
             cursor(HAND)
         else:
             cursor(ARROW)
@@ -488,20 +488,20 @@ def mouseHoverHandler():
 
 def hoofdstukShow():
     imageMode(CORNER)
-    image(hoofdstukVlak, 460, 650, 300, 60)
+    image(hoofdstukVlak, 460, 650, 300, 55)
     if pagina == 0:
-        image(H1_idle, 760, 650, 60, 60)
+        image(H1_idle, 760, 650, 60, 55)
     elif pagina == 1 or pagina == 2:
-        image(H2_idle, 760, 650, 60, 60)
+        image(H2_idle, 760, 650, 60, 55)
     elif pagina == 3 or pagina == 4:
-        image(H3_idle, 760, 650, 60, 60)
+        image(H3_idle, 760, 650, 60, 55)
     elif pagina == 5 or pagina == 6:
-        image(H4_idle, 760, 650, 60, 60)
+        image(H4_idle, 760, 650, 60, 55)
     elif pagina == 7 or pagina == 8 or pagina == 9 or pagina == 10:
-        image(H5_idle, 760, 650, 60, 60)
+        image(H5_idle, 760, 650, 60, 55)
     elif pagina == 11 or pagina == 12:
-        image(H6_idle, 760, 650, 60, 60)
+        image(H6_idle, 760, 650, 60, 55)
     elif pagina == 13:
-        image(H7_idle, 760, 650, 60, 60)
+        image(H7_idle, 760, 650, 60, 55)
     elif pagina == 14 or pagina == 15:
-        image(H8_idle, 760, 650, 60, 60)
+        image(H8_idle, 760, 650, 60, 55)
