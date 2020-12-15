@@ -186,6 +186,7 @@ def mousePressed():
                     opacityCardAddedMsg = 255
                     cardAddedTo = spelers[spelerIndex]
                     whichCardAdded = artefacts[artefactIndex]
+                    opacityTooManyCardsMsg = 255
                 elif len(cards_player1) == 5:
                     opacityTooManyCardsMsg = 255
             elif spelerIndex == 1:
@@ -194,6 +195,7 @@ def mousePressed():
                     opacityCardAddedMsg = 255
                     cardAddedTo = spelers[spelerIndex]
                     whichCardAdded = artefacts[artefactIndex]
+                    opacityTooManyCardsMsg = 255
                 elif len(cards_player2) == 5:
                     opacityTooManyCardsMsg = 255
             elif spelerIndex == 2:
@@ -202,6 +204,7 @@ def mousePressed():
                     opacityCardAddedMsg = 255
                     cardAddedTo = spelers[spelerIndex]
                     whichCardAdded = artefacts[artefactIndex]
+                    opacityTooManyCardsMsg = 255
                 elif len(cards_player3) == 5:
                     opacityTooManyCardsMsg = 255
             elif spelerIndex == 3:
@@ -210,6 +213,7 @@ def mousePressed():
                     opacityCardAddedMsg = 255
                     cardAddedTo = spelers[spelerIndex]
                     whichCardAdded = artefacts[artefactIndex]
+                    opacityTooManyCardsMsg = 255
                 elif len(cards_player4) == 5:
                     opacityTooManyCardsMsg = 255
             elif spelerIndex == 4:
@@ -218,6 +222,7 @@ def mousePressed():
                     opacityCardAddedMsg = 255
                     cardAddedTo = spelers[spelerIndex]
                     whichCardAdded = artefacts[artefactIndex]
+                    opacityTooManyCardsMsg = 255
                 elif len(cards_player5) == 5:
                     opacityTooManyCardsMsg = 255
             
