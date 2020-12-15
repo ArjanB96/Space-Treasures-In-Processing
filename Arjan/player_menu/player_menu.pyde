@@ -42,12 +42,10 @@ def draw():
     
     if screen == 3 or screen == 4 or screen == 5:
         imageShow(start1, start2, 1070, 650, 165, 55)
-        #image(leeg_vak, 190,456,900,140)
-        text('Press \'START\' to play\nor input more players', 640,570)
+        text('Druk op \'START\' om te spelen\nof voeg meer spelers toe', 640,625)
     if screen == 6:
         imageShow(start1, start2, 1070, 650, 165, 55)
-        #image(leeg_vak, 188,490,900,110)
-        text('Press \'START\' to play', 640,570)
+        text('Druk op \'START\' om te spelen', 640,570)
             
     textSize(36)
     text(words, 370, 120, 540, 300)
@@ -56,13 +54,11 @@ def draw():
  
     if screen != 6:
         fill(255, 255, 255)
-        text('Player ' + str(screen), 640, 250)
+        text('Speler ' + str(screen), 640, 250)
         
         if len(words) >= 12:
             #image(leeg_vak, 254,625,760,100)
-            text('Max 12 characters!', 640,700)
-        if len(words) == 13:
-            words = ''
+            text('Max. 12 karakters!', 640,700)
             
         if len(words) == 0:
             fill(255, 255, 255, opacity_x)
@@ -78,11 +74,11 @@ def draw():
             text('|', 440, 420)
                     
         fill(255, 255, 255)
-        text(str(len(words)) + ' / 12', 640,350)
+        text(str(len(words)) + ' / 12', 855,495)
         
     else:
         for i, player in enumerate(players):            
-            text('Player ' + str(i + 1) + ' is :   ', 340, 250 + i * 50)
+            text('Speler ' + str(i + 1) + ' is :   ', 340, 250 + i * 50)
             text(player.name, 800, 250 + i * 50)
             
 def keyTyped():
@@ -92,7 +88,9 @@ def keyTyped():
         return
     
     if (key >= 'A' and key <= 'z') or key == ' ' and len(words) < 12:
-        words += key             
+        words += key     
+    if len(words) == 13:
+        words = words [:-1]        
     
     #Backspace
     if key == BACKSPACE:
@@ -122,6 +120,16 @@ def mousePressed():
     
     if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55) and len(words) == 0:
         screen = 6
+        
+        
+    # Als je op -verder- drukt op scherm 3/4/5 en je hebt input staan in de box, ga naar scherm 6 en sla de input op als speler
+    
+    if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55) and len(words) > 0:
+        screen = 6
+        player = Player(words)
+        players.append(player)
+        words = '' 
+        print([x.name for x in players])
         
     #Start knop
     
