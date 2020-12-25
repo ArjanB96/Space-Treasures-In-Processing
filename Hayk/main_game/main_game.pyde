@@ -24,7 +24,7 @@ class Player:
 
 #Called once at start
 def setup():
-    global turn_player    
+    global turn_player 
     
     p1 = Player('VAC Efron')    
     p1.cards.append(Card(size=(200, 100), name='Exchange', cooldown=6, element='Kaytsak'))
@@ -245,9 +245,7 @@ def loadImages():
     black_card = loadImage('assets/cards/Black_card_flipped.png')
     white_card = loadImage('assets/cards/White_card_flipped.png')
     
-    background_images = []
-    for i in range(33):
-        background_images.append(loadImage('background/bg' + str(i) + '.jpg'))
+    background_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(33)]
 
 def cycleBackground():
     global bg_index
