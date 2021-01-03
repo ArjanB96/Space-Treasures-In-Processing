@@ -46,6 +46,11 @@ def draw():
     if screen == 6:
         imageShow(start1, start2, 1070, 650, 165, 55)
         text('Druk op \'START\' om te spelen', 640,570)
+        
+    # 'Terug' knop, om naar vorige speler te gaan op het laatste scherm
+    
+    if screen == 6:
+        imageShow(terug1, terug2, 40, 650, 165, 55)
             
     textSize(36)
     text(words, 370, 120, 540, 300)
@@ -156,6 +161,11 @@ def mousePressed():
         screen -= 1
         players.pop(screen - 1)
         words = ''
+        
+    if screen == 6 and isMouseOnButton(40, 650, 165, 55):
+        screen -= 1
+        players.pop(screen - 1)
+        words = ''
 
 
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
@@ -164,7 +174,7 @@ def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
 
 def loadImages(): 
-    global background_images, home_img, dobbel_img, home2_img, verder_img, verder_pijl, verder_pijl_hover, terug_pijl, terug_pijl_hover, leeg_vak, verder_pijl_idle, terug_pijl_idle, start1, start2
+    global background_images, home_img, dobbel_img, home2_img, verder_img, verder_pijl, verder_pijl_hover, terug_pijl, terug_pijl_hover, leeg_vak, verder_pijl_idle, terug_pijl_idle, start1, start2, terug1, terug2
     home_img = loadImage('images/Home.png')
     dobbel_img = loadImage('images/Dobbel.png')
     home2_img = loadImage('images/Home2.png')
@@ -181,6 +191,8 @@ def loadImages():
     leeg_vak = loadImage('images/LeegVak.png')
     start1 = loadImage('images/Start.png')
     start2 = loadImage('images/Start2.png')
+    terug1 = loadImage('images/TerugKnop.png')
+    terug2 = loadImage('images/TerugKnop2.png')
     
 def imageShow(img, img2, x, y, wdth, hght, centered = False):
     if centered:
