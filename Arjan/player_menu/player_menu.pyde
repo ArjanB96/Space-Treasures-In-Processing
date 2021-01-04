@@ -41,16 +41,16 @@ def draw():
     # 'Start' knop als je minimaal twee spelers hebt ingevoerd
     
     if screen == 3 or screen == 4 or screen == 5:
-        imageShow(start1, start2, 1070, 650, 165, 55)
+        imageShow(start1, start2, 1105, 655, 165, 55)
         text('Druk op \'START\' om te spelen\nof voeg meer spelers toe', 640,625)
     if screen == 6:
-        imageShow(start1, start2, 1070, 650, 165, 55)
+        imageShow(start1, start2, 1105, 655, 165, 55)
         text('Druk op \'START\' om te spelen', 640,570)
         
     # 'Terug' knop, om naar vorige speler te gaan op het laatste scherm
     
     if screen == 6:
-        imageShow(terug1, terug2, 40, 650, 165, 55)
+        imageShow(terug1, terug2, 10, 655, 165, 55)
             
     textSize(36)
     text(words, 370, 120, 540, 300)
@@ -121,14 +121,11 @@ def cycleBackground():
 def mousePressed():
     global screen, words, players
     
-    #Verder/Start (vanaf min. twee spelers)
-    
-    if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55) and len(words) == 0:
+    #Verder/Start (vanaf min. twee spelers) 
+    if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1105, 655, 165, 55) and len(words) == 0:
         screen = 6
-        
-        
+            
     # Als je op -verder- drukt op scherm 3/4/5 en je hebt input staan in de box, ga naar scherm 6 en sla de input op als speler
-    
     if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55) and len(words) > 0:
         screen = 6
         player = Player(words)
@@ -137,7 +134,6 @@ def mousePressed():
         print([x.name for x in players])
         
     #Start knop
-    
     if screen == 6 and isMouseOnButton(1070, 650, 165, 55):
         screen = 6             #Hayk's scherm
     
@@ -162,12 +158,13 @@ def mousePressed():
         players.pop(screen - 1)
         words = ''
         
-    if screen == 6 and isMouseOnButton(40, 650, 165, 55):
+        #terug knop op scherm 6
+        
+    if screen == 6 and isMouseOnButton(10, 655, 165, 55):
         screen -= 1
         players.pop(screen - 1)
         words = ''
-
-
+        
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   if centered:
     return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2 else False
@@ -182,11 +179,11 @@ def loadImages():
     artifact_img = loadImage('images/Artefact.png')
     artifact2_img = loadImage('images/Artefact2.png')
     verder_img = loadImage('images/verder.png')
-    verder_pijl = loadImage('images/PijlVerder.png')
-    verder_pijl_hover = loadImage('images/PijlVerder2.png')
+    verder_pijl = loadImage('images/PijlVerderPaars.png')
+    verder_pijl_hover = loadImage('images/PijlVerder2Paars.png')
     verder_pijl_idle = loadImage('images/PijlVerderIdle.png')
-    terug_pijl = loadImage('images/PijlTerug.png')
-    terug_pijl_hover = loadImage('images/PijlTerug2.png')
+    terug_pijl = loadImage('images/PijlTerugPaars.png')
+    terug_pijl_hover = loadImage('images/PijlTerug2Paars.png')
     terug_pijl_idle = loadImage('images/PijlTerugIdle.png')
     leeg_vak = loadImage('images/LeegVak.png')
     start1 = loadImage('images/Start.png')
