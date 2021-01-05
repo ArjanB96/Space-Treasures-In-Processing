@@ -10,7 +10,7 @@ pagina = 0
 screenList = []
 
 def setup():
-    global planet, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, gidsButton, gidsButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlTerug, pijlTerug2, pijlVerder, pijlVerder2, pijlVerderIdle, pijlTerugIdle, Amaterasu, Aqua, Kaytsak, Blockade, Haste, Exchange, EyeDrop, Swap, Skip, Fuel, leegTekstVlak, H1, H2, H3, H4, H5, H6, H7, H8, H1_hover, H2_hover, H3_hover, H4_hover, H5_hover, H6_hover, H7_hover, H8_hover, Hoofdstukken, Hoofdstukken2, blauwVlak, blauwVlak2, H1_idle, H2_idle, H3_idle, H4_idle, H5_idle, H6_idle, H7_idle, H8_idle, hoofdstukVlak
+    global planet, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, gidsButton, gidsButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlTerug, pijlTerug2, pijlVerder, pijlVerder2, pijlVerderIdle, pijlTerugIdle, Amaterasu, Aqua, Kaytsak, Blockade, Haste, Exchange, EyeDrop, Swap, Skip, Fuel, leegTekstVlak, H1, H2, H3, H4, H5, H6, H7, H8, H1_hover, H2_hover, H3_hover, H4_hover, H5_hover, H6_hover, H7_hover, H8_hover, Hoofdstukken, Hoofdstukken2, blauwVlak, blauwVlak2, H1_idle, H2_idle, H3_idle, H4_idle, H5_idle, H6_idle, H7_idle, H8_idle, hoofdstukVlak, pijlTerugPaars, pijlTerug2Paars, pijlVerderPaars, pijlVerder2Paars
     textFont(createFont('PressStart2P.ttf', 40))
     size(1280, 720)
     
@@ -29,9 +29,13 @@ def setup():
     planet = loadImage('images/planeetAqua.png')
     pijlTerug = loadImage('images/PijlTerug.png')
     pijlTerug2 = loadImage('images/PijlTerug2.png')
+    pijlTerugPaars = loadImage('images/PijlTerugPaars.png')
+    pijlTerug2Paars = loadImage('images/PijlTerug2Paars.png')
     pijlTerugIdle = loadImage('images/PijlTerugIdle.png')
     pijlVerder = loadImage('images/PijlVerder.png')
     pijlVerder2 = loadImage('images/PijlVerder2.png')
+    pijlVerderPaars = loadImage('images/PijlVerderPaars.png')
+    pijlVerder2Paars = loadImage('images/PijlVerder2Paars.png')
     pijlVerderIdle = loadImage('images/PijlVerderIdle.png')
     leegTekstVlak = loadImage('images/LeegTekstVlak.png')
     
@@ -264,12 +268,12 @@ def draw():
         if pagina == 0:
             image(pijlTerugIdle, 50, 360, 84, 78)
         else:
-            imageShow(pijlTerug, pijlTerug2, 50, 360, 84, 78, True)
+            imageShow(pijlTerugPaars, pijlTerug2Paars, 50, 360, 84, 78, True)
         # Verder Button
         if pagina == 15:
             image(pijlVerderIdle, 1230, 360, 84, 78)
         else:
-            imageShow(pijlVerder, pijlVerder2, 1230, 360, 84, 78, True)
+            imageShow(pijlVerderPaars, pijlVerder2Paars, 1230, 360, 84, 78, True)
             
     # Hoofdstukken Screen
     elif screen == 3:
