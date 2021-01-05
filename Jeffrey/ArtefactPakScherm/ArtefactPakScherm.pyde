@@ -56,7 +56,7 @@ def draw():
         image(LeegVak, 495, 250, 315, 55)
         image(LeegVak, 495, 350, 315, 55)
         image(TerugKnop, 10, 655, 165, 55)
-        image(ToevoegenKnop, 1030, 655, 240, 55)
+        image(ToevoegenKnop, 530, 450, 240, 55)
     
         #berichtje als iemand geen artefacten meer kan toevoegen
         fill(240, opacityTooManyCardsMsg)
@@ -64,7 +64,7 @@ def draw():
         tint(opacityTooManyCardsMsg)
         
         if opacityTooManyCardsMsg > 0:
-            opacityTooManyCardsMsg -= 3
+            opacityTooManyCardsMsg -= 2.5
         if len(cards_player1) == 5 and spelerIndex == 0 and opacityTooManyCardsMsg > 0:
             image(LeegVak, 435, 640, 435, 70)
             text('Kan niet meer toevoegen\nje mag max 5 kaarten!', 450, 655, 500, 55)
@@ -84,7 +84,7 @@ def draw():
         fill(240, opacityCardAddedMsg)
         tint(opacityCardAddedMsg)
         if opacityCardAddedMsg > 0:
-            opacityCardAddedMsg -= 3
+            opacityCardAddedMsg -= 2.5
         #berichtje als iemand een artefact heeft toegevoegd
         if len(cards_player1) != 5 and spelerIndex == 0 and opacityCardAddedMsg > 0:
             image(LeegVak, 435, 640, 435, 70)
@@ -104,21 +104,22 @@ def draw():
             
         tint(255)
         fill(240)
-        text('Speler:', 505 , 170, 300, 50)
-        text('Artefact:', 505, 270, 300, 150)
-        text('Element:', 505, 370, 300, 250)
-        text(spelers[spelerIndex], 625, 170, 300, 50)
-        text(artefacts[artefactIndex], 660, 270, 300, 150)
-        text(elements[elementIndex], 645, 370, 300, 250)
-        
+        text('Kies een speler:', 505 , 120, 300, 250)
+        text('Kies een artefact:', 505, 220, 500, 500)
+        text('Kies een element:', 505, 320, 300, 250)
+        textAlign(CENTER)
+        text(spelers[spelerIndex], 505, 170, 300, 50)
+        text(artefacts[artefactIndex], 505, 270, 300, 150)
+        text(elements[elementIndex], 505, 370, 300, 250)
+        textAlign(CORNER)
         #muis en image knoppen veranderen wanneer muis op knop
            #terug knop
         if isMouseOnButton(10, 655, 165, 55):
             image(TerugKnop2, 10, 655, 165, 55)
             cursor(HAND)
            #toevoegen knop
-        elif isMouseOnButton(1030, 655, 240, 55):
-            image(ToevoegenKnop2, 1030, 655, 240, 55)
+        elif isMouseOnButton(530, 450, 240, 55):
+            image(ToevoegenKnop2, 530, 450, 240, 55)
             cursor(HAND)
            #player knoppen
         elif isMouseOnButton(435, 150, 55, 55) and spelerIndex > 0:
@@ -178,7 +179,7 @@ def mousePressed():
         if isMouseOnButton(10, 655, 165, 55):
             print('au')
         #toevoegen knop
-        if isMouseOnButton(1030, 655, 240, 55): 
+        if isMouseOnButton(530, 450, 240, 55): 
             #artefact tevoegen aan speler
             if spelerIndex == 0:
                 if len(cards_player1) != 5:
