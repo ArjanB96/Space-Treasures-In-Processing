@@ -41,13 +41,16 @@ def draw():
     # 'Start' knop als je minimaal twee spelers hebt ingevoerd
     
     if screen == 3 or screen == 4 or screen == 5:
-        imageShow(start1, start2, 1070, 650, 165, 55)
-        #image(leeg_vak, 190,456,900,140)
-        text('Press \'START\' to play\nor input more players', 640,570)
+        imageShow(start1, start2, 1105, 655, 165, 55)
+        text('Druk op \'START\' om te spelen\nof voeg meer spelers toe', 640,625)
     if screen == 6:
-        imageShow(start1, start2, 1070, 650, 165, 55)
-        #image(leeg_vak, 188,490,900,110)
-        text('Press \'START\' to play', 640,570)
+        imageShow(start1, start2, 1105, 655, 165, 55)
+        text('Druk op \'START\' om te spelen', 640,570)
+        
+    # 'Terug' knop, om naar vorige speler te gaan op het laatste scherm
+    
+    if screen == 6:
+        imageShow(terug1, terug2, 10, 655, 165, 55)
             
     textSize(36)
     text(words, 370, 120, 540, 300)
@@ -56,13 +59,11 @@ def draw():
  
     if screen != 6:
         fill(255, 255, 255)
-        text('Player ' + str(screen), 640, 250)
+        text('Speler ' + str(screen), 640, 250)
         
         if len(words) >= 12:
             #image(leeg_vak, 254,625,760,100)
-            text('Max 12 characters!', 640,700)
-        if len(words) == 13:
-            words = ''
+            text('Max. 12 karakters!', 640,700)
             
         if len(words) == 0:
             fill(255, 255, 255, opacity_x)
@@ -78,11 +79,11 @@ def draw():
             text('|', 440, 420)
                     
         fill(255, 255, 255)
-        text(str(len(words)) + ' / 12', 640,350)
+        text(str(len(words)) + ' / 12', 855,495)
         
     else:
         for i, player in enumerate(players):            
-            text('Player ' + str(i + 1) + ' is :   ', 340, 250 + i * 50)
+            text('Speler ' + str(i + 1) + ' is :   ', 340, 250 + i * 50)
             text(player.name, 800, 250 + i * 50)
             
 def keyTyped():
@@ -92,7 +93,9 @@ def keyTyped():
         return
     
     if (key >= 'A' and key <= 'z') or key == ' ' and len(words) < 12:
-        words += key             
+        words += key     
+    if len(words) == 13:
+        words = words [:-1]        
     
     #Backspace
     if key == BACKSPACE:
@@ -118,13 +121,19 @@ def cycleBackground():
 def mousePressed():
     global screen, words, players
     
-    #Verder/Start (vanaf min. twee spelers)
-    
-    if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55) and len(words) == 0:
+    #Verder/Start (vanaf min. twee spelers) 
+    if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1105, 655, 165, 55) and len(words) == 0:
         screen = 6
+            
+    # Als je op -verder- drukt op scherm 3/4/5 en je hebt input staan in de box, ga naar scherm 6 en sla de input op als speler
+    if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55) and len(words) > 0:
+        screen = 6
+        player = Player(words)
+        players.append(player)
+        words = '' 
+        print([x.name for x in players])
         
     #Start knop
-    
     if screen == 6 and isMouseOnButton(1070, 650, 165, 55):
         screen = 6             #Hayk's scherm
     
@@ -148,15 +157,21 @@ def mousePressed():
         screen -= 1
         players.pop(screen - 1)
         words = ''
-
-
+        
+        #terug knop op scherm 6
+        
+    if screen == 6 and isMouseOnButton(10, 655, 165, 55):
+        screen -= 1
+        players.pop(screen - 1)
+        words = ''
+        
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   if centered:
     return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2 else False
   return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
 
 def loadImages(): 
-    global background_images, home_img, dobbel_img, home2_img, verder_img, verder_pijl, verder_pijl_hover, terug_pijl, terug_pijl_hover, leeg_vak, verder_pijl_idle, terug_pijl_idle, start1, start2
+    global background_images, home_img, dobbel_img, home2_img, verder_img, verder_pijl, verder_pijl_hover, terug_pijl, terug_pijl_hover, leeg_vak, verder_pijl_idle, terug_pijl_idle, start1, start2, terug1, terug2
     home_img = loadImage('images/Home.png')
     dobbel_img = loadImage('images/Dobbel.png')
     home2_img = loadImage('images/Home2.png')
@@ -164,15 +179,17 @@ def loadImages():
     artifact_img = loadImage('images/Artefact.png')
     artifact2_img = loadImage('images/Artefact2.png')
     verder_img = loadImage('images/verder.png')
-    verder_pijl = loadImage('images/PijlVerder.png')
-    verder_pijl_hover = loadImage('images/PijlVerder2.png')
+    verder_pijl = loadImage('images/PijlVerderPaars.png')
+    verder_pijl_hover = loadImage('images/PijlVerder2Paars.png')
     verder_pijl_idle = loadImage('images/PijlVerderIdle.png')
-    terug_pijl = loadImage('images/PijlTerug.png')
-    terug_pijl_hover = loadImage('images/PijlTerug2.png')
+    terug_pijl = loadImage('images/PijlTerugPaars.png')
+    terug_pijl_hover = loadImage('images/PijlTerug2Paars.png')
     terug_pijl_idle = loadImage('images/PijlTerugIdle.png')
     leeg_vak = loadImage('images/LeegVak.png')
     start1 = loadImage('images/Start.png')
     start2 = loadImage('images/Start2.png')
+    terug1 = loadImage('images/TerugKnop.png')
+    terug2 = loadImage('images/TerugKnop2.png')
     
 def imageShow(img, img2, x, y, wdth, hght, centered = False):
     if centered:
