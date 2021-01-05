@@ -8,8 +8,7 @@ display_dice = 0
 dice_roll_time = 60
 
 def setup():
-    cycleBackground()
-    
+
     loadImages()    
     
     size(1280, 720)    
@@ -25,7 +24,7 @@ def draw():
     
     if isMouseOnButton(500, 250, 200, 200):
         cursor(HAND)
-    if isMouseOnButton(100, 600, 150, 50):
+    elif isMouseOnButton(100, 600, 150, 50):
         image(back2, 100, 600, 150, 50)
         cursor(HAND)
     else:
