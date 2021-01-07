@@ -15,6 +15,7 @@ class Card:
         self.element = element
         self.on_cooldown = False
         self.turn = 1
+        self.dobbel = 0
 
 class Player:
     def __init__(self, name):
@@ -141,7 +142,7 @@ def mouseHoverHandler():
         cursor(HAND)
     elif isMouseOnButton(width - 125, 50, 75, 75): # Turn button
         cursor(HAND)
-        drawTurnButton((255, 170, 0))
+        drawTurnButton((218, 127, 251), True)
     elif not card_hover:
         cursor(ARROW)
         
@@ -186,30 +187,33 @@ def drawAllCards(highlight_card = None):
                         
             card.pos = (330 + (120 * c_index), 40 + (5 * c_index) + (135 * p_index))
             
+            card_size = card.size if player == players[turn_player_index] else (card.size[0] - 33, card.size[1] - 12)
+            
             if card.element == 'Amaterasu':
-                image(amaterasu_card, card.pos[0], card.pos[1], card.size[0], card.size[1])
+                image(amaterasu_card, card.pos[0], card.pos[1], card_size[0], card_size[1])
             elif card.element == 'Aqua':
-                image(aqua_card, card.pos[0], card.pos[1], card.size[0], card.size[1])
+                image(aqua_card, card.pos[0], card.pos[1], card_size[0], card_size[1])
             elif card.element == 'Kaytsak':
-                image(kaytsak_card, card.pos[0], card.pos[1], card.size[0], card.size[1])
+                image(kaytsak_card, card.pos[0], card.pos[1], card_size[0], card_size[1])
             
             if card.on_cooldown:
-                image(red_card, card.pos[0], card.pos[1], card.size[0], card.size[1]) 
+                image(red_card, card.pos[0], card.pos[1], card_size[0], card_size[1]) 
             if player != players[turn_player_index]:                
-                image(black_card, card.pos[0], card.pos[1], card.size[0], card.size[1])           
+                image(black_card, card.pos[0], card.pos[1], card_size[0], card_size[1])           
             elif card == highlight_card:
-                image(white_card, card.pos[0], card.pos[1], card.size[0], card.size[1])
+                image(white_card, card.pos[0], card.pos[1], card_size[0], card_size[1])
                 
             text_to_draw = card.name + '\n' + card.element
             if cooldown_left > 0:
                 text_to_draw += '\nCooldown: ' + str(cooldown_left)
-            drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + 15), (width, height), (0, 0, 0), 16)
+            drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + 15), (width, height), (0, 0, 0) if player == players[turn_player_index] else (145, 145, 145), 16 if player == players[turn_player_index] else 14)
 
-def drawTurnButton(color = (255, 231, 48)):
+def drawTurnButton(color = (218, 127, 251), hover = False):
+    img = verder_paars_img if not hover else verder_paars2_img
+    
     btn_pos = (width - 125, 50)
-    drawRectangle(color, btn_pos, (75, 75))
-    if color == (255, 231, 48):
-        drawText('Turn: ' + str(turn), (btn_pos[0] + 3, btn_pos[1] - 25), (width, height), color, 20)
+    image(img, btn_pos[0], btn_pos[1], 75, 75)
+    drawText('Turn: ' + str(turn), (btn_pos[0] + 3, btn_pos[1] - 25), (width, height), color, 20)
 
 def drawRectangle(color, pos, size):
     fill(color[0], color[1], color[2])        
@@ -230,7 +234,7 @@ def getCard(posX, posY):
     return next((x for x in cards if x.pos == (posX, posY)), None)
 
 def loadImages():
-    global background_images, home_img, dobbel_img, home2_img, dobbel2_img, artifact_img, artifact2_img, verder_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card
+    global background_img, background_animation_images, home_img, dobbel_img, home2_img, dobbel2_img, artifact_img, artifact2_img, verder_img, verder_paars_img, verder_paars2_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card
     home_img = loadImage('assets/buttons/Home.png')
     dobbel_img = loadImage('assets/buttons/Dobbel.png')
     home2_img = loadImage('assets/buttons/Home2.png')
@@ -238,6 +242,8 @@ def loadImages():
     artifact_img = loadImage('assets/buttons/Artefact.png')
     artifact2_img = loadImage('assets/buttons/Artefact2.png')
     verder_img = loadImage('assets/buttons/Verder.png')
+    verder_paars_img = loadImage('assets/buttons/VerderPaars.png')
+    verder_paars2_img = loadImage('assets/buttons/VerderPaars2.png')
     amaterasu_card = loadImage('assets/cards/Amaterasu_card_flipped.png')
     kaytsak_card = loadImage('assets/cards/Kaytsak_card_flipped.png')
     aqua_card = loadImage('assets/cards/Aqua_card_flipped.png')
@@ -245,9 +251,24 @@ def loadImages():
     black_card = loadImage('assets/cards/Black_card_flipped.png')
     white_card = loadImage('assets/cards/White_card_flipped.png')
     
-    background_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(33)]
+    background_img = loadImage('background/bg0.jpg')
+    background_animation_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(1, 13)]
+
+
+
+interval = 300
 
 def cycleBackground():
-    global bg_index
-    background(background_images[bg_index])
-    bg_index = bg_index + 1 if bg_index < 32 else 0
+    global bg_index, interval
+    
+    background(background_img)
+    background(background_animation_images[bg_index])
+    
+    if bg_index < len(background_animation_images) - 1:
+        bg_index += 1
+    else:
+        bg_index = 0
+        interval = 300
+        
+    interval -= 1
+    
