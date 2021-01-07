@@ -5,6 +5,7 @@ players = []
 
 turn = 1
 turn_player_index = 0
+first_turn = True
     
 class Card:
     def __init__(self, size, name, cooldown, element): 
@@ -71,17 +72,19 @@ def draw():
     if current_screen == 'Hayk':
         drawAllCards()    
         drawTurnButton()
-        drawPlayerNames()    
+        drawPlayerNames()
+        
+        if first_turn:
+            image(tutorial_img, 0, 0)
         
         # Buttons
         image(home_img, 10, 10, 130, 55)
-        image(dobbel_img, width - 205, height - 130, 195, 55)
         image(artifact_img, width - 265, height - 65, 255, 55)
         
         mouseHoverHandler()
     
 def mousePressed():
-    global turn, turn_player_index, current_screen
+    global turn, turn_player_index, current_screen, first_turn
     
     goto_next_turn = False
     
@@ -104,10 +107,6 @@ def mousePressed():
                     continue    
                 if card.turn + card.cooldown <= turn:
                     card.on_cooldown = False
-    
-    # Dobbel
-    if isMouseOnButton(posX=width - 205, posY=height - 130, buttonWidth=195, buttonHeight=55):  
-        link('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
         
     # Artifact
     if isMouseOnButton(posX=width - 265, posY=height - 65, buttonWidth=255, buttonHeight=55):  
@@ -118,6 +117,7 @@ def mousePressed():
         exit()
         
     if goto_next_turn:
+        first_turn = False
         turn_player_index = turn_player_index + 1 if turn_player_index < len(players) - 1 else 0     
         
 def mouseHoverHandler():
@@ -133,9 +133,6 @@ def mouseHoverHandler():
         
     if isMouseOnButton(10, 10, 130, 55): # Home button
         image(home2_img, 10, 10, 130, 55)
-        cursor(HAND)
-    elif isMouseOnButton(width - 205, height - 130, 195, 55): # Dobbel button
-        image(dobbel2_img, width - 205, height -130, 195, 55)
         cursor(HAND)
     elif isMouseOnButton(width - 265, height - 65, 255, 55): # Artefact button
         image(artifact2_img, width - 265, height - 65, 255, 55)
@@ -234,16 +231,15 @@ def getCard(posX, posY):
     return next((x for x in cards if x.pos == (posX, posY)), None)
 
 def loadImages():
-    global background_img, background_animation_images, home_img, dobbel_img, home2_img, dobbel2_img, artifact_img, artifact2_img, verder_img, verder_paars_img, verder_paars2_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card
+    global background_img, background_animation_images, home_img, home2_img, artifact_img, artifact2_img, verder_img, verder_paars_img, verder_paars2_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card, tutorial_img
     home_img = loadImage('assets/buttons/Home.png')
-    dobbel_img = loadImage('assets/buttons/Dobbel.png')
     home2_img = loadImage('assets/buttons/Home2.png')
-    dobbel2_img = loadImage('assets/buttons/Dobbel2.png')
     artifact_img = loadImage('assets/buttons/Artefact.png')
     artifact2_img = loadImage('assets/buttons/Artefact2.png')
     verder_img = loadImage('assets/buttons/Verder.png')
     verder_paars_img = loadImage('assets/buttons/VerderPaars.png')
     verder_paars2_img = loadImage('assets/buttons/VerderPaars2.png')
+    tutorial_img = loadImage('assets/buttons/tutorial.png')
     amaterasu_card = loadImage('assets/cards/Amaterasu_card_flipped.png')
     kaytsak_card = loadImage('assets/cards/Kaytsak_card_flipped.png')
     aqua_card = loadImage('assets/cards/Aqua_card_flipped.png')
