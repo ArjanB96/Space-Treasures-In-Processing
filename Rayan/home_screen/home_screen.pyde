@@ -10,7 +10,7 @@ pagina = 0
 screenList = []
 
 def setup():
-    global planet, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, gidsButton, gidsButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlTerug, pijlTerug2, pijlVerder, pijlVerder2, pijlVerderIdle, pijlTerugIdle, Amaterasu, Aqua, Kaytsak, Blockade, Haste, Exchange, EyeDrop, Swap, Skip, Fuel, leegTekstVlak, H1, H2, H3, H4, H5, H6, H7, H8, H1_hover, H2_hover, H3_hover, H4_hover, H5_hover, H6_hover, H7_hover, H8_hover, Hoofdstukken, Hoofdstukken2, blauwVlak, blauwVlak2, H1_idle, H2_idle, H3_idle, H4_idle, H5_idle, H6_idle, H7_idle, H8_idle, hoofdstukVlak, pijlTerugPaars, pijlTerug2Paars, pijlVerderPaars, pijlVerder2Paars
+    global planet, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlVerderIdle, pijlTerugIdle, Amaterasu, Aqua, Kaytsak, Blockade, Haste, Exchange, EyeDrop, Swap, Skip, Fuel, leegTekstVlak, H1, H2, H3, H4, H5, H6, H7, H8, H1_hover, H2_hover, H3_hover, H4_hover, H5_hover, H6_hover, H7_hover, H8_hover, Hoofdstukken, Hoofdstukken2, blauwVlak, blauwVlak2, H1_idle, H2_idle, H3_idle, H4_idle, H5_idle, H6_idle, H7_idle, H8_idle, pijlTerugPaars, pijlTerug2Paars, pijlVerderPaars, pijlVerder2Paars, GrijsVlak
     textFont(createFont('PressStart2P.ttf', 40))
     size(1280, 720)
     
@@ -22,23 +22,17 @@ def setup():
     infoButton2 = loadImage('images/Info2.png')
     regelButton = loadImage('images/Regels.png')
     regelButton2 = loadImage('images/Regels2.png')
-    gidsButton = loadImage('images/Gids.png')
-    gidsButton2 = loadImage('images/Gids2.png')
     terugKnopButton = loadImage('images/TerugKnop.png')
     terugKnopButton2 = loadImage('images/TerugKnop2.png')
     planet = loadImage('images/planeetAqua.png')
-    pijlTerug = loadImage('images/PijlTerug.png')
-    pijlTerug2 = loadImage('images/PijlTerug2.png')
+    
     pijlTerugPaars = loadImage('images/PijlTerugPaars.png')
     pijlTerug2Paars = loadImage('images/PijlTerug2Paars.png')
     pijlTerugIdle = loadImage('images/PijlTerugIdle.png')
-    pijlVerder = loadImage('images/PijlVerder.png')
-    pijlVerder2 = loadImage('images/PijlVerder2.png')
     pijlVerderPaars = loadImage('images/PijlVerderPaars.png')
     pijlVerder2Paars = loadImage('images/PijlVerder2Paars.png')
     pijlVerderIdle = loadImage('images/PijlVerderIdle.png')
     leegTekstVlak = loadImage('images/LeegTekstVlak.png')
-    
     Amaterasu = loadImage('images/Amaterasu.png')
     Aqua = loadImage('images/Aqua.png')
     Kaytsak = loadImage('images/Kaytsak.png')
@@ -76,9 +70,9 @@ def setup():
     H6_idle = loadImage('images/H6_idle.png')
     H7_idle = loadImage('images/H7_idle.png')
     H8_idle = loadImage('images/H8_idle.png')
-    hoofdstukVlak = loadImage('images/HoofdstukVak.png')
     blauwVlak = loadImage('images/BlauwVak.png')
     blauwVlak2 = loadImage('images/BlauwVak2.png')
+    GrijsVlak = loadImage('images/GrijsVlak.png')
     
 def draw():
     global screen, resizeWidth, resizeHeight, textResize, opacityText, opacityChange, opacityImage
@@ -492,20 +486,31 @@ def mouseHoverHandler():
 
 def hoofdstukShow():
     imageMode(CORNER)
-    image(hoofdstukVlak, 460, 650, 300, 55)
+    image(GrijsVlak, 515, 650, 300, 55)
+    textAlign(CENTER, CENTER)
+    fill(0, 0, 0)
+    textSize(20)
     if pagina == 0:
-        image(H1_idle, 760, 650, 60, 55)
+        text('INHOUD', 665, 677.5)
+        image(H1_idle, 460, 650, 60, 55)
     elif pagina == 1 or pagina == 2:
-        image(H2_idle, 760, 650, 60, 55)
+        text('VOORBEREIDING', 665, 677.5)
+        image(H2_idle, 460, 650, 60, 55)
     elif pagina == 3 or pagina == 4:
-        image(H3_idle, 760, 650, 60, 55)
+        text('BEURT', 665, 677.5)
+        image(H3_idle, 460, 650, 60, 55)
     elif pagina == 5 or pagina == 6:
-        image(H4_idle, 760, 650, 60, 55)
+        text('VOORTGANG', 665, 677.5)
+        image(H4_idle, 460, 650, 60, 55)
     elif pagina == 7 or pagina == 8 or pagina == 9 or pagina == 10:
-        image(H5_idle, 760, 650, 60, 55)
+        text('ARTEFACTEN', 665, 677.5)
+        image(H5_idle, 460, 650, 60, 55)
     elif pagina == 11 or pagina == 12:
-        image(H6_idle, 760, 650, 60, 55)
+        text('OVERIG', 665, 677.5)
+        image(H6_idle, 460, 650, 60, 55)
     elif pagina == 13:
-        image(H7_idle, 760, 650, 60, 55)
+        text('ELEMENTEN', 665, 677.5)
+        image(H7_idle, 460, 650, 60, 55)
     elif pagina == 14 or pagina == 15:
-        image(H8_idle, 760, 650, 60, 55)
+        text('TERMENLIJST', 665, 677.5)
+        image(H8_idle, 460, 650, 60, 55)
