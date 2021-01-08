@@ -39,34 +39,35 @@ class Button:
 def setup():
     global turn_player 
     
-    p1 = Player('VAC Efron')    
-    p1.cards.append(Card(size=(200, 100), name='Exchange', cooldown=6, element='Kaytsak'))
-    p1.cards.append(Card(size=(200, 100), name='Blockade', cooldown=4, element='Amaterasu'))
-    p1.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
+    p1 = Player('Kebarbie')
     players.append(p1)
+    p1.cards.append(Card(size=(200, 100), name='Exchange', cooldown=4, element='Kaytsak'))
+    #p1.cards.append(Card(size=(200, 100), name='Blockade', cooldown=4, element='Amaterasu'))
+    #p1.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
     
-    p2 = Player('FlatN3ck')    
+    
+    p2 = Player('hzuki')    
     players.append(p2)
     p2.cards.append(Card(size=(200, 100), name='Blockade', cooldown=3, element='Aqua'))
-    p2.cards.append(Card(size=(200, 100), name='EyeDrop', cooldown=3, element='Amaterasu'))
+    p2.cards.append(Card(size=(200, 100), name='Haste', cooldown=3, element='Aqua'))
     
-    p3 = Player('Rayantjhu')    
+    p3 = Player('harry')    
     players.append(p3)
-    p3.cards.append(Card(size=(200, 100), name='Exchange', cooldown=4, element='Kaytsak'))
+    p3.cards.append(Card(size=(200, 100), name='Blockade', cooldown=3, element='Kaytsak'))
     p3.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Kaytsak'))
-    p3.cards.append(Card(size=(200, 100), name='Haste', cooldown=3, element='Kaytsak'))
-    p3.cards.append(Card(size=(200, 100), name='Exchange', cooldown=3, element='Amaterasu'))
+    #p3.cards.append(Card(size=(200, 100), name='Haste', cooldown=3, element='Kaytsak'))
+    #p3.cards.append(Card(size=(200, 100), name='Exchange', cooldown=3, element='Amaterasu'))
     
-    p4 = Player('Ocean Man')    
+    p4 = Player('niall')    
     players.append(p4)
     p4.cards.append(Card(size=(200, 100), name='Blockade', cooldown=3, element='Amaterasu'))
-    p4.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Amaterasu'))
+    p4.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
     p4.cards.append(Card(size=(200, 100), name='Skip', cooldown=4, element='Amaterasu'))
     
-    p5 = Player('Jeffrey')    
+    p5 = Player('louis')    
     players.append(p5)
-    #p5.cards.append(Card(size=(200, 100), name='Blockade', cooldown=3, element='Kaytsak'))
-    #p5.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
+    p5.cards.append(Card(size=(200, 100), name='Swap', cooldown=3, element='Amaterasu'))
+    p5.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
     
     turn_player = players[0]
     
@@ -122,7 +123,7 @@ def mousePressed():
     for button in buttons:
         if isMouseOnButton(button.pos[0], button.pos[1], button.size[0], button.size[1]):
             if button.name == 'artifact':
-                link('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+                pass
             elif button.name == 'turn':
                 turn += 1
                 goto_next_turn = True
@@ -317,7 +318,7 @@ def cycleBackground():
     global bg_index, interval
     
     background(background_img)
-    background(background_animation_images[bg_index])
+    #background(background_animation_images[bg_index])
     image(star_covers_img, 0, 0)
     
     if bg_index < len(background_animation_images) - 1:
