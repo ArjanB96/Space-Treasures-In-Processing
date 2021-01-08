@@ -29,9 +29,9 @@ def setup():
     global turn_player 
     
     p1 = Player('VAC Efron')    
-    p1.cards.append(Card(size=(200, 100), name='Exchange', cooldown=6, element='Kaytsak'))
-    p1.cards.append(Card(size=(200, 100), name='Blockade', cooldown=4, element='Amaterasu'))
-    p1.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
+    #p1.cards.append(Card(size=(200, 100), name='Exchange', cooldown=6, element='Kaytsak'))
+    #p1.cards.append(Card(size=(200, 100), name='Blockade', cooldown=4, element='Amaterasu'))
+    #p1.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
     players.append(p1)
     
     p2 = Player('FlatN3ck')    
@@ -176,14 +176,24 @@ def drawPlayerNames():
             drawText(players[i].name, pos, (230, 100), (247, 151, 29), 30, center = False)
     
 def drawAllCards(highlight_card = None):    
-    for p_index, player in enumerate(players): 
+    for p_index, player in enumerate(players):
+        
+        if len(player.cards) == 0:
+            card_pos = (330, 40)
+            card_size = (200, 100)
+            card_size = card_size if player == players[turn_player_index] else (card_size[0] - 33, card_size[1] - 12)
+            
+            image(no_cards_card, card_pos[0], card_pos[1], card_size[0], card_size[1])
+            
+            if player != players[turn_player_index]:                
+                image(black_card, card_pos[0], card_pos[1], card_size[0], card_size[1])
+        
         for c_index, card in enumerate(player.cards):                      
             cooldown_left = card.cooldown - (turn - card.turn)
             if cooldown_left == card.cooldown and not card.on_cooldown or cooldown_left <= 0 or not card.on_cooldown:
                 cooldown_left = 0            
                         
             card.pos = (330 + (120 * c_index), 40 + (5 * c_index) + (135 * p_index))
-            
             card_size = card.size if player == players[turn_player_index] else (card.size[0] - 33, card.size[1] - 12)
             
             if card.element == 'Amaterasu':
@@ -210,7 +220,7 @@ def drawTurnButton(color = (218, 127, 251), hover = False):
     
     btn_pos = (width - 125, 50)
     image(img, btn_pos[0], btn_pos[1], 75, 75)
-    drawText('Turn: ' + str(turn), (btn_pos[0] + 3, btn_pos[1] - 25), (width, height), color, 20)
+    drawText('Beurt: ' + str(turn), (btn_pos[0], btn_pos[1] - 25), (width, height), color, 20)
 
 def drawRectangle(color, pos, size):
     fill(color[0], color[1], color[2])        
@@ -231,21 +241,25 @@ def getCard(posX, posY):
     return next((x for x in cards if x.pos == (posX, posY)), None)
 
 def loadImages():
-    global background_img, background_animation_images, home_img, home2_img, artifact_img, artifact2_img, verder_img, verder_paars_img, verder_paars2_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card, tutorial_img
+    global background_img, background_animation_images, home_img, home2_img, artifact_img, artifact2_img, verder_img, verder_paars_img, verder_paars2_img
+    global amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card, no_cards_card, tutorial_img, star_covers_img
+    
     home_img = loadImage('assets/buttons/Home.png')
     home2_img = loadImage('assets/buttons/Home2.png')
     artifact_img = loadImage('assets/buttons/Artefact.png')
     artifact2_img = loadImage('assets/buttons/Artefact2.png')
     verder_img = loadImage('assets/buttons/Verder.png')
     verder_paars_img = loadImage('assets/buttons/VerderPaars.png')
-    verder_paars2_img = loadImage('assets/buttons/VerderPaars2.png')
-    tutorial_img = loadImage('assets/buttons/tutorial.png')
+    verder_paars2_img = loadImage('assets/buttons/VerderPaars2.png')    
     amaterasu_card = loadImage('assets/cards/Amaterasu_card_flipped.png')
     kaytsak_card = loadImage('assets/cards/Kaytsak_card_flipped.png')
     aqua_card = loadImage('assets/cards/Aqua_card_flipped.png')
     red_card = loadImage('assets/cards/Red_card_flipped.png')
     black_card = loadImage('assets/cards/Black_card_flipped.png')
     white_card = loadImage('assets/cards/White_card_flipped.png')
+    no_cards_card = loadImage('assets/cards/no_cards_flipped.png')
+    tutorial_img = loadImage('assets/misc/tutorial.png')
+    star_covers_img = loadImage('assets/misc/star_covers.png')
     
     background_img = loadImage('background/bg0.jpg')
     background_animation_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(1, 13)]
@@ -259,6 +273,7 @@ def cycleBackground():
     
     background(background_img)
     background(background_animation_images[bg_index])
+    image(star_covers_img, 0, 0)
     
     if bg_index < len(background_animation_images) - 1:
         bg_index += 1
