@@ -120,16 +120,49 @@ def draw():
         #Home Button
         imageShow(homeButton, homeButton2, 10, 10, 130, 55)
         # Regel Button
-        imageShow(regelButton, regelButton2, 640, 290, 390, 110, True)
-        # Hoofdstukken Button
-        imageShow(Hoofdstukken, Hoofdstukken2, 640, 440, 750, 100, True)
-     
+        imageShow(regelButton, regelButton2, 640, 80, 350, 90, True)
+        
+        fill(0, 0, 0)
+        textSize(18)
+        textAlign(CENTER, CENTER)
+        # H1 : Inhoud
+        imageShow(H1, H1_hover, 220, 180, 80, 80, wdthAdd = 250)
+        imageShow(blauwVlak, blauwVlak2, 300, 180, 250, 80, wdthMinus = 80, wdthAdd = 80)
+        text('INHOUD', 420, 220)
+        # H2 : Voorbereiding
+        imageShow(H2, H2_hover, 220, 315, 80, 80, wdthAdd = 250) 
+        imageShow(blauwVlak, blauwVlak2, 300, 315, 250, 80, wdthMinus = 80, wdthAdd = 80)
+        text('VOORBEREIDING', 420, 355)
+        # H3 : Beurt
+        imageShow(H3, H3_hover, 220, 440, 80, 80, wdthAdd = 250) 
+        imageShow(blauwVlak, blauwVlak2, 300, 440, 250, 80, wdthMinus = 80, wdthAdd = 80)
+        text('BEURT', 420, 480)
+        # H4 : Voortgang
+        imageShow(H4, H4_hover, 220, 565, 80, 80, wdthAdd = 250) 
+        imageShow(blauwVlak, blauwVlak2, 300, 565, 250, 80, wdthMinus = 80, wdthAdd = 80)
+        text('VOORTGANG', 420, 605)
+        # H5 : Artefacten
+        imageShow(H5, H5_hover, 770, 180, 80, 80, wdthAdd = 250)
+        imageShow(blauwVlak, blauwVlak2, 850, 180, 250, 80, wdthMinus = 80, wdthAdd = 80)
+        text('ARTEFACTEN', 970, 220)
+        # H6 : Overig
+        imageShow(H6, H6_hover, 770, 315, 80, 80, wdthAdd = 250)
+        imageShow(blauwVlak, blauwVlak2, 850, 315, 250, 80, wdthMinus = 80, wdthAdd = 80)
+        text('OVERIG', 970, 355)
+        # H7 : Elementen
+        imageShow(H7, H7_hover, 770, 440, 80, 80, wdthAdd = 250)
+        imageShow(blauwVlak, blauwVlak2, 850, 440, 250, 80, wdthMinus = 80, wdthAdd = 80)
+        text('ELEMENTEN', 970, 480)
+        # H8 : Termenlijst
+        imageShow(H8, H8_hover, 770, 565, 80, 80, wdthAdd = 250)
+        imageShow(blauwVlak, blauwVlak2, 850, 565, 250, 80, wdthMinus = 80, wdthAdd = 80)
+        text('TERMENLIJST', 970, 605)
+        
+        
     # Regel Screen       
     elif screen == 2:
         
         tint(255)    
-        # Hoofdstuk knop
-        imageShow(Hoofdstukken, Hoofdstukken2, 640, 50, 400, 65, True)
         # Home Button
         imageShow(homeButton, homeButton2, 10, 10, 130, 55)
         # TerugKnop Button
@@ -269,49 +302,6 @@ def draw():
         else:
             imageShow(pijlVerderPaars, pijlVerder2Paars, 1230, 360, 84, 78, True)
             
-    # Hoofdstukken Screen
-    elif screen == 3:
-  
-        #Home Button
-        imageShow(homeButton, homeButton2, 10, 10, 130, 55)
-        # TerugKnop Button
-        imageShow(terugKnopButton, terugKnopButton2, 10, 655, 165, 55)
-        
-        fill(0, 0, 0)
-        textSize(18)
-        textAlign(CENTER, CENTER)
-        # H1 : Inhoud
-        imageShow(H1, H1_hover, 220, 100, 80, 80, wdthAdd = 250)
-        imageShow(blauwVlak, blauwVlak2, 300, 100, 250, 80, wdthMinus = 80, wdthAdd = 80)
-        text('INHOUD', 420, 140)
-        # H2 : Voorbereiding
-        imageShow(H2, H2_hover, 220, 250, 80, 80, wdthAdd = 250) 
-        imageShow(blauwVlak, blauwVlak2, 300, 250, 250, 80, wdthMinus = 80, wdthAdd = 80)
-        text('VOORBEREIDING', 420, 290)
-        # H3 : Beurt
-        imageShow(H3, H3_hover, 220, 400, 80, 80, wdthAdd = 250) 
-        imageShow(blauwVlak, blauwVlak2, 300, 400, 250, 80, wdthMinus = 80, wdthAdd = 80)
-        text('BEURT', 420, 440)
-        # H4 : Voortgang
-        imageShow(H4, H4_hover, 220, 550, 80, 80, wdthAdd = 250) 
-        imageShow(blauwVlak, blauwVlak2, 300, 550, 250, 80, wdthMinus = 80, wdthAdd = 80)
-        text('VOORTGANG', 420, 590)
-        # H5 : Artefacten
-        imageShow(H5, H5_hover, 770, 100, 80, 80, wdthAdd = 250)
-        imageShow(blauwVlak, blauwVlak2, 850, 100, 250, 80, wdthMinus = 80, wdthAdd = 80)
-        text('ARTEFACTEN', 970, 140)
-        # H6 : Overig
-        imageShow(H6, H6_hover, 770, 250, 80, 80, wdthAdd = 250)
-        imageShow(blauwVlak, blauwVlak2, 850, 250, 250, 80, wdthMinus = 80, wdthAdd = 80)
-        text('OVERIG', 970, 290)
-        # H7 : Elementen
-        imageShow(H7, H7_hover, 770, 400, 80, 80, wdthAdd = 250)
-        imageShow(blauwVlak, blauwVlak2, 850, 400, 250, 80, wdthMinus = 80, wdthAdd = 80)
-        text('ELEMENTEN', 970, 440)
-        # H8 : Termenlijst
-        imageShow(H8, H8_hover, 770, 550, 80, 80, wdthAdd = 250)
-        imageShow(blauwVlak, blauwVlak2, 850, 550, 250, 80, wdthMinus = 80, wdthAdd = 80)
-        text('TERMENLIJST', 970, 590)
         
 def mousePressed():
     global screen, pagina, opacityText, opacityImage, screenList
@@ -321,18 +311,37 @@ def mousePressed():
             exit()
         elif isMouseOnButton(1235, 50, 68, 69, True): # Info Button
             screen = 1   
-            screenList.append(screen)
     # Info Screen
     elif screen == 1:
         if isMouseOnButton(10, 10, 130, 55): # Home Button
             screen = 0
-            del screenList[:]
-        elif isMouseOnButton(640, 290, 390, 110, True): # Regel button
+            pagina = 0
+        elif isMouseOnButton(640, 100, 390, 110, True): # Regel button
             screen = 2
-            screenList.append(screen)
-        elif isMouseOnButton(640, 440, 750, 110, True): # Hoofdstukken button
-            screen = 3
-            screenList.append(screen)
+        elif isMouseOnButton(220, 180, 330, 80): # H1
+            screen = 2 
+            pagina = 0
+        elif isMouseOnButton(220, 315, 330, 80): # H2
+            screen = 2
+            pagina = 1
+        elif isMouseOnButton(220, 440, 330, 80): # H3
+            screen = 2
+            pagina = 3
+        elif isMouseOnButton(220, 565, 330, 80): # H4
+            screen = 2
+            pagina = 5
+        elif isMouseOnButton(770, 180, 330, 80): # H5
+            screen = 2
+            pagina = 7
+        elif isMouseOnButton(770, 315, 330, 80): # H6
+            screen = 2
+            pagina = 11
+        elif isMouseOnButton(770, 440, 330, 80): # H7
+            screen = 2
+            pagina = 13
+        elif isMouseOnButton(770, 565, 330, 80): # H8
+            screen = 2
+            pagina = 14
     # Regel Screen
     elif screen == 2:
         if isMouseOnButton(10, 10, 130, 55): # Home Button
@@ -340,10 +349,8 @@ def mousePressed():
             pagina = 0 
             opacityText = 0 
             opacityImage = 0
-            del screenList[:]
         elif isMouseOnButton(10, 655, 165, 55): # Terug button
-            screen = screenList[-2]
-            del screenList[-1]
+            screen = 1
             opacityText = 0 
             opacityImage = 0 
         elif isMouseOnButton(50, 360, 84, 78, True) and pagina != 0: # Terug Button
@@ -354,56 +361,6 @@ def mousePressed():
             pagina += 1
             opacityText = 0
             opacityImage = 0
-        elif isMouseOnButton(640, 50, 400, 65, True): # Hoofdstukken Button
-            screen = 3
-            screenList.append(screen)
-            opacityText = 0 
-            opacityImage = 0
-    # Hoofdstukken 
-    elif screen == 3:
-        if isMouseOnButton(10, 10, 130, 55): # Home Button
-            screen = 0
-            del screenList[:]
-            pagina = 0
-            opacityText = 0 
-            opacityImage = 0 
-        elif isMouseOnButton(10, 655, 165, 55): # Terug button
-            del screenList[-1]
-            screen = screenList[-1]
-            opacityText = 0
-            opacityImage = 0 
-        elif isMouseOnButton(220, 100, 330, 80): # H1
-            screen = 2 
-            pagina = 0
-            screenList.append(screen)
-        elif isMouseOnButton(220, 250, 330, 80): # H2
-            screen = 2
-            pagina = 1
-            screenList.append(screen)
-        elif isMouseOnButton(220, 400, 330, 80): # H3
-            screen = 2
-            pagina = 3
-            screenList.append(screen)
-        elif isMouseOnButton(220, 550, 330, 80): # H4
-            screen = 2
-            pagina = 5
-            screenList.append(screen)
-        elif isMouseOnButton(770, 100, 330, 80): # H5
-            screen = 2
-            pagina = 7
-            screenList.append(screen)
-        elif isMouseOnButton(770, 250, 330, 80): # H6
-            screen = 2
-            pagina = 11
-            screenList.append(screen)
-        elif isMouseOnButton(770, 400, 330, 80): # H7
-            screen = 2
-            pagina = 13
-            screenList.append(screen)
-        elif isMouseOnButton(770, 550, 330, 80): # H8
-            screen = 2
-            pagina = 14
-            screenList.append(screen)
     
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
     if centered:
@@ -439,11 +396,23 @@ def mouseHoverHandler():
     elif screen == 1:
         if isMouseOnButton(10, 10, 130, 55):
             cursor(HAND)
-        elif isMouseOnButton(640, 290, 390, 110, True):
+        elif isMouseOnButton(640, 80, 350, 90, True):
             cursor(HAND)
-        elif isMouseOnButton(640, 440, 390, 110, True):
+        elif isMouseOnButton(220, 180, 330, 80): # H1
             cursor(HAND)
-        elif isMouseOnButton(640, 440, 750, 110, True):
+        elif isMouseOnButton(220, 315, 330, 80): # H2
+            cursor(HAND)
+        elif isMouseOnButton(220, 440, 330, 80): # H3
+            cursor(HAND)
+        elif isMouseOnButton(220, 565, 330, 80): # H4
+            cursor(HAND)
+        elif isMouseOnButton(770, 180, 330, 80): # H5
+            cursor(HAND)
+        elif isMouseOnButton(770, 315, 330, 80): # H6
+            cursor(HAND)
+        elif isMouseOnButton(770, 440, 330, 80): # H7
+            cursor(HAND)
+        elif isMouseOnButton(770, 565, 330, 80): # H8
             cursor(HAND)
         else:
             cursor(ARROW)
@@ -455,31 +424,6 @@ def mouseHoverHandler():
         elif isMouseOnButton(50, 360, 84, 78, True) and pagina != 0: # Terug Button
             cursor(HAND)
         elif isMouseOnButton(1230, 360, 84, 78, True) and pagina != 15: # Verder Button
-            cursor(HAND)
-        elif isMouseOnButton(640, 50, 400, 65, True): # Hoofstukken Button
-            cursor(HAND)
-        else:
-            cursor(ARROW)
-    elif screen == 3:
-        if isMouseOnButton(10, 10, 130, 55):
-            cursor(HAND)
-        elif isMouseOnButton(10, 655, 165, 55):
-            cursor(HAND)
-        elif isMouseOnButton(220, 100, 330, 80):
-            cursor(HAND)
-        elif isMouseOnButton(220, 250, 330, 80):
-            cursor(HAND)
-        elif isMouseOnButton(220, 400, 330, 80):
-            cursor(HAND)
-        elif isMouseOnButton(220, 550, 330, 80):
-            cursor(HAND)
-        elif isMouseOnButton(770, 100, 330, 80):
-            cursor(HAND)
-        elif isMouseOnButton(770, 250, 330, 80):
-            cursor(HAND)
-        elif isMouseOnButton(770, 400, 330, 80):
-            cursor(HAND)
-        elif isMouseOnButton(770, 550, 330, 80):
             cursor(HAND)
         else:
             cursor(ARROW)
