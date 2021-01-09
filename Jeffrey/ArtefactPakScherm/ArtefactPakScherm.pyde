@@ -1,3 +1,4 @@
+import sys
 artefacts = ['Swap','Haste','Eyedrop','Skip','Exchange','Blockade']
 spelers = ["player1", "player2", "player3", "player4", "player5"]
 elements = ["Amaterasu", 'Aqua', "Kaytsak"] 
@@ -15,18 +16,37 @@ opacityTooManyCardsMsg = 0
 cardAddedTo = spelers[0]      #temp voor pop up als kaart is toegevoegd aan een speler
 whichCardAdded = artefacts[0] #temp voor pop up als kaart is toegevoegd aan een speler
 scherm = 'Jeffrey'
+frame = 1
+
+go_back = False
+roll_dice = False
+display_dice = 0
+dice_roll_time = 60
 def setup():
     size(1280, 720)
     textFont(createFont('PressStart2P.ttf', 5))
     loadImages()
 
 def draw():
-    global scherm, opacityCardAddedMsg, opacityTooManyCardsMsg
+    global scherm, opacityCardAddedMsg, opacityTooManyCardsMsg, frame, dice_roll_time, roll_dice, display_dice, dices
     cycleBackground()
 
     if scherm == 'Jeffrey':
         #Selecteer knoppen
-                #Spelers
+        #dobbelsteen
+        if isMouseOnButton(50, 250, 200, 200):
+            cursor(HAND)
+           
+        if roll_dice and dice_roll_time > 0 and frame % 2 == 0: 
+            display_dice = int(random(1, 7)) - 1  
+            dice_roll_time -= 5
+        print(display_dice)
+        frame = frame + 1 if frame < 60 else 1
+        
+        if dice_roll_time == 0:
+            roll_dice = False
+        
+            #Spelers
         if spelerIndex == 0:
             image(PijlTerugIdle, 435, 150, 55, 55)
         else: image(PijlTerug, 435, 150, 55, 55)
@@ -51,12 +71,15 @@ def draw():
             image(PijlVerderIdle, 815, 350, 55, 55)
         else: image(PijlVerder, 815, 350, 55, 55)
         
-        #Variabelen en text
+        #Variabelen en text, images
         image(LeegVak, 495, 150, 315, 55)
         image(LeegVak, 495, 250, 315, 55)
         image(LeegVak, 495, 350, 315, 55)
         image(TerugKnop, 10, 655, 165, 55)
         image(ToevoegenKnop, 530, 450, 240, 55)
+        image(dices[display_dice], 50, 250, 200, 200)
+        
+    
     
         #berichtje als iemand geen artefacten meer kan toevoegen
         fill(240, opacityTooManyCardsMsg)
@@ -104,7 +127,8 @@ def draw():
             
         tint(255)
         fill(240)
-        text('Kies een speler:', 505 , 120, 300, 250)
+        textSize(17)
+        text('Speler:', 505 , 120, 300, 250)
         text('Kies een artefact:', 505, 220, 500, 500)
         text('Kies een element:', 505, 320, 300, 250)
         textAlign(CENTER)
@@ -145,9 +169,16 @@ def draw():
         else: cursor(ARROW)
 
 def mousePressed():
-    global artefactIndex, elementIndex, spelerIndex, scherm, opacityCardAddedMsg, opacityTooManyCardsMsg, cardAddedTo, whichCardAdded
-    
+    global roll_dice, dice_roll_time, artefactIndex, elementIndex, spelerIndex, scherm, opacityCardAddedMsg, opacityTooManyCardsMsg, cardAddedTo, whichCardAdded
     if scherm == 'Jeffrey':
+        if isMouseOnButton(50, 250, 200, 200):
+            roll_dice = True
+            dice_roll_time = 60
+        
+        #terug knop
+        if isMouseOnButton(10, 655, 165, 55):
+            print('au')
+        
         #Speler selecteer knoppen
         if isMouseOnButton(435, 150, 55, 55):
             if spelerIndex == 0:
@@ -175,9 +206,7 @@ def mousePressed():
             if elementIndex == 2:
                 elementIndex = elementIndex
             else: elementIndex += 1                
-        #terug knop
-        if isMouseOnButton(10, 655, 165, 55):
-            print('au')
+    
         #toevoegen knop
         if isMouseOnButton(530, 450, 240, 55): 
             #artefact tevoegen aan speler
@@ -228,16 +257,7 @@ def mousePressed():
                     opacityTooManyCardsMsg = 255
             
         
-            print('artefacten spelers 1')
-            print(cards_player1)
-            print('artefacten spelers 2')
-            print(cards_player2)
-            print('artefacten spelers 3')
-            print(cards_player3)
-            print('artefacten spelers 4')
-            print(cards_player4)
-            print('artefacten spelers 5')
-            print(cards_player5)
+            
     
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   if centered:
@@ -250,7 +270,10 @@ def cycleBackground():
     bg_index = bg_index + 1 if bg_index < 32 else 0             
 
 def loadImages():
-    global PijlVerderIdle, PijlTerugIdle, PijlTerug, PijlTerug2, PijlVerder, PijlVerder2, LeegVak, TerugKnop, TerugKnop2, ToevoegenKnop, ToevoegenKnop2
+    global PijlVerderIdle, dices, PijlTerugIdle, PijlTerug, PijlTerug2, PijlVerder, PijlVerder2, LeegVak, TerugKnop, TerugKnop2, ToevoegenKnop, ToevoegenKnop2
+    dices = []
+    for i in range(1, 7):
+        dices.append(loadImage('bot' + str(i) + '.gif'))
     PijlTerugIdle = loadImage('images/PijlTerugIdle.png')
     PijlVerderIdle = loadImage('images/PijlVerderIdle.png')
     PijlTerug = loadImage('images/PijlTerugPaars.png')
