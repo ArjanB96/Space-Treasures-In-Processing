@@ -1,16 +1,16 @@
 bg_index = 0
 screen = 0
-resizeWidth = 300
+resizeWidth = 440
 resizeHeight = 300
-textResize = 70
 opacityText = 0
 opacityImage = 0
 opacityChange = True
 pagina = 0
 screenList = []
+game_status = True
 
 def setup():
-    global planet, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlVerderIdle, pijlTerugIdle, Amaterasu, Aqua, Kaytsak, Blockade, Haste, Exchange, EyeDrop, Swap, Skip, Fuel, leegTekstVlak, H1, H2, H3, H4, H5, H6, H7, H8, H1_hover, H2_hover, H3_hover, H4_hover, H5_hover, H6_hover, H7_hover, H8_hover, Hoofdstukken, Hoofdstukken2, blauwVlak, blauwVlak2, H1_idle, H2_idle, H3_idle, H4_idle, H5_idle, H6_idle, H7_idle, H8_idle, pijlTerugPaars, pijlTerug2Paars, pijlVerderPaars, pijlVerder2Paars, GrijsVlak
+    global planet_start, planet_hervat, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlVerderIdle, pijlTerugIdle, Amaterasu, Aqua, Kaytsak, Blockade, Haste, Exchange, EyeDrop, Swap, Skip, Fuel, leegTekstVlak, H1, H2, H3, H4, H5, H6, H7, H8, H1_hover, H2_hover, H3_hover, H4_hover, H5_hover, H6_hover, H7_hover, H8_hover, Hoofdstukken, Hoofdstukken2, blauwVlak, blauwVlak2, H1_idle, H2_idle, H3_idle, H4_idle, H5_idle, H6_idle, H7_idle, H8_idle, pijlTerugPaars, pijlTerug2Paars, pijlVerderPaars, pijlVerder2Paars, GrijsVlak
     textFont(createFont('PressStart2P.ttf', 40))
     size(1280, 720)
     
@@ -24,7 +24,9 @@ def setup():
     regelButton2 = loadImage('images/Regels2.png')
     terugKnopButton = loadImage('images/TerugKnop.png')
     terugKnopButton2 = loadImage('images/TerugKnop2.png')
-    planet = loadImage('images/planeetAqua.png')
+    
+    planet_start = loadImage('images/START.png')
+    planet_hervat = loadImage('images/HERVAT.png')
     
     pijlTerugPaars = loadImage('images/PijlTerugPaars.png')
     pijlTerug2Paars = loadImage('images/PijlTerug2Paars.png')
@@ -75,7 +77,7 @@ def setup():
     GrijsVlak = loadImage('images/GrijsVlak.png')
     
 def draw():
-    global screen, resizeWidth, resizeHeight, textResize, opacityText, opacityChange, opacityImage
+    global screen, resizeWidth, resizeHeight, opacityText, opacityChange, opacityImage
 
     cycleBackground()
     mouseHoverHandler()
@@ -88,25 +90,22 @@ def draw():
         textAlign(CENTER, CENTER)
         text('Space Treasures', 640, 140)
         
+        
         tint(255)
         # Start Button
         imageMode(CENTER)
         if isMouseOnButton(640, 360, 300, 300, True):
-            image(planet, 640, 360, resizeWidth, resizeHeight)
-            if resizeWidth <= 320:
-                resizeWidth += 10; resizeHeight += 10
-            if textResize <= 75:
-                textResize += 1.2
-            textSize(textResize)
-            text('START', 640, 360)
+            image(planet_hervat if game_status else planet_start, 640, 360, resizeWidth, resizeHeight)
+            if resizeHeight <= 320:
+                resizeHeight += 10
+            if resizeWidth <= 470:
+                resizeWidth += 15
         else:
-            image(planet, 640, 360, resizeWidth, resizeHeight)
-            if resizeWidth >= 305:
-                resizeWidth -= 10; resizeHeight -= 10
-            if textResize >= 70:
-                textResize -= 1.1
-            textSize(textResize)
-            text('START', 640, 360)
+            image(planet_hervat if game_status else planet_start, 640, 360, resizeWidth, resizeHeight)
+            if resizeHeight >= 300:
+                resizeHeight -= 10
+            if resizeWidth >= 440:
+                resizeWidth -= 15
             
         # EXIT button
         imageShow(exitButton, exitButton2, 10, 655, 135, 55)
