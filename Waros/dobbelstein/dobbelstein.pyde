@@ -21,6 +21,13 @@ def draw():
     back2 = loadImage('TerugKnop2.png')
     image(back, 100, 600, 150, 50)
     
+    fill(50, 100, 200)
+    rect(90, 75, 330, 50) 
+    strokeWeight(2) 
+    fill(0)
+    textSize(18)
+    text("Klik op de dobbelsteen om te rollen!", 95, 100)
+    
     if isMouseOnButton(500, 250, 200, 200):
         cursor(HAND)
     elif isMouseOnButton(100, 600, 150, 50):
@@ -29,7 +36,7 @@ def draw():
     else:
         cursor(ARROW)
     
-    if roll_dice and dice_roll_time > 0 and frame % 2 == 0: 
+    if roll_dice and dice_roll_time > 0 and frame % 5 == 0: 
         display_dice = int(random(1, 7)) - 1  
         dice_roll_time -= 5
     
