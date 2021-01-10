@@ -265,7 +265,7 @@ def drawAllCards(highlight_card = None):
             drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + 15), (width, height), (0, 0, 0) if player == players[turn_player_index] or delete_mode else (145, 145, 145), 16 if player == players[turn_player_index] else 14)
 
 def drawTurnButtonText(color = (218, 127, 251), hover = False):
-    btn_pos = next(iter(filter(lambda x: x.name == 'turn', buttons)), None).pos
+    btn_pos = [x for x in buttons if x.name == 'turn'][0].pos
     drawText('Beurt: ' + str(turn), (btn_pos[0], btn_pos[1] - 25), (width, height), color, 20)
 
 def drawRectangle(color, pos, size):
