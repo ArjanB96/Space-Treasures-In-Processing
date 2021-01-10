@@ -111,13 +111,22 @@ def keyTyped():
         words = ''
         print([x.name for x in players])
         
-def cycleBackground():
-    global bg_index, frame    
-    frame = frame + 1 if frame < 60 else 1
-    if frame % 2 == 0:
-        background(loadImage('background/bg' + str(bg_index) + '.jpg'))
-        bg_index = bg_index + 1 if bg_index < 32 else 0
+interval = 250
         
+def cycleBackground():
+    global bg_index, interval, play_stars_animation
+    
+    if interval <= 0:
+        if bg_index < len(background_animation_images):            
+            background(background_animation_images[bg_index])
+            bg_index += 1
+            if bg_index == 13:
+                interval = 250
+                bg_index = 0
+    else:
+        background(background_img)
+
+    interval -= 1
 
 def mousePressed():
     global screen, words, players
@@ -188,7 +197,7 @@ def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
 
 def loadImages(): 
-    global background_images, home_img, dobbel_img, home2_img, verder_img, verder_pijl, verder_pijl_hover, terug_pijl, terug_pijl_hover, leeg_vak, verder_pijl_idle, terug_pijl_idle, start1, start2, terug1, terug2
+    global background_images, home_img, dobbel_img, home2_img, verder_img, verder_pijl, verder_pijl_hover, terug_pijl, terug_pijl_hover, leeg_vak, verder_pijl_idle, terug_pijl_idle, start1, start2, terug1, terug2, background_img, background_animation_images
     home_img = loadImage('images/Home.png')
     dobbel_img = loadImage('images/Dobbel.png')
     home2_img = loadImage('images/Home2.png')
@@ -207,6 +216,8 @@ def loadImages():
     start2 = loadImage('images/Start2.png')
     terug1 = loadImage('images/TerugKnop.png')
     terug2 = loadImage('images/TerugKnop2.png')
+    background_img = loadImage('background/bg0.jpg')
+    background_animation_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(1, 14)]
     
 def imageShow(img, img2, x, y, wdth, hght, centered = False):
     if centered:

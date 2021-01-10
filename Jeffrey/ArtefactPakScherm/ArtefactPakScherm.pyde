@@ -17,13 +17,14 @@ cardAddedTo = spelers[0]      #temp voor pop up als kaart is toegevoegd aan een 
 whichCardAdded = artefacts[0] #temp voor pop up als kaart is toegevoegd aan een speler
 scherm = 'Jeffrey'
 frame = 1
-
+interval = 250
 
 roll_dice = False
 display_dice = 0
 dice_roll_time = 60
 def setup():
     size(1280, 720)
+    frameRate(30)
     textFont(createFont('PressStart2P.ttf', 5))
     loadImages()
 
@@ -32,15 +33,21 @@ def draw():
     cycleBackground()
 
     if scherm == 'Jeffrey':
+        fill(0, 0, 0, 100)
+        strokeWeight(0)
+        rect(10, 115, 360, 90)
+        rect(435, 150, 435, 200)
+
         #Selecteer knoppen
         #dobbelsteen
         fill(255)
         textSize(15)
-        text("Klik op de dobbelsteen\nom te rollen en\nkijk of je de gekozen\nartefact mag toevoegen!", 15, 120)
+        text("Klik op de dobbelsteen\nom te rollen en\nkijk of je de\nartefact mag toevoegen!", 20, 140)
         
         if roll_dice and dice_roll_time > 0 and frame % 2 == 0: 
             display_dice = int(random(1, 7)) - 1  
             dice_roll_time -= 5
+            print(display_dice)
      
         if dice_roll_time == 0:
             roll_dice = False
@@ -77,7 +84,7 @@ def draw():
         image(LeegVak, 495, 350, 315, 55)
         image(TerugKnop, 10, 655, 165, 55)
         image(ToevoegenKnop, 530, 450, 240, 55)
-        image(dices[display_dice], 70, 200, 200, 200)
+        image(dices[display_dice], 70, 220, 200, 200)
         
     
     
@@ -128,9 +135,9 @@ def draw():
         tint(255)
         fill(240)
         textSize(17)
-        text('Speler:', 505 , 120, 300, 250)
-        text('Kies een artefact:', 505, 220, 500, 500)
-        text('Kies een element:', 505, 320, 300, 250)
+        text('Speler:', 600 , 120, 300, 250)
+        text('Kies de artefact:', 505, 220, 500, 500)
+        text('Kies het element:', 505, 325, 300, 250)
         textAlign(CENTER)
         text(spelers[spelerIndex], 505, 170, 300, 50)
         text(artefacts[artefactIndex], 505, 270, 300, 150)
@@ -265,14 +272,24 @@ def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   if centered:
    return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2  else False
   return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
-                
+
 def cycleBackground():
-    global bg_index
-    background(loadImage('background/bg' + str(bg_index) + '.jpg'))
-    bg_index = bg_index + 1 if bg_index < 32 else 0             
+    global bg_index, interval, play_stars_animation
+    
+    if interval <= 0:
+        if bg_index < len(background_animation_images):            
+            background(background_animation_images[bg_index])
+            bg_index += 1
+            if bg_index == 13:
+                interval = 250
+                bg_index = 0
+    else:
+        background(background_img)
+
+    interval -= 1          
 
 def loadImages():
-    global PijlVerderIdle, dices, PijlTerugIdle, PijlTerug, PijlTerug2, PijlVerder, PijlVerder2, LeegVak, TerugKnop, TerugKnop2, ToevoegenKnop, ToevoegenKnop2
+    global background_img, background_animation_images, PijlVerderIdle, dices, PijlTerugIdle, PijlTerug, PijlTerug2, PijlVerder, PijlVerder2, LeegVak, TerugKnop, TerugKnop2, ToevoegenKnop, ToevoegenKnop2
     dices = []
     for i in range(1, 7):
         dices.append(loadImage('images/bot' + str(i) + '.gif'))
@@ -287,5 +304,7 @@ def loadImages():
     TerugKnop2 = loadImage('images/TerugKnop2.png')
     ToevoegenKnop = loadImage('images/Toevoegen.png')
     ToevoegenKnop2 = loadImage('images/Toevoegen2.png')
+    background_img = loadImage('background/bg0.jpg')
+    background_animation_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(1, 14)]
 
     
