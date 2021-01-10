@@ -58,18 +58,33 @@ def mousePressed():
         go_back = True
 
 def loadImages():
-    global dices
+    global dices, background_img, background_animation_images
     dices = []
     
     for i in range(1, 7):
         dices.append(loadImage('bot' + str(i) + '.gif'))
+    
+    background_img = loadImage('bg0.jpg')
+    background_animation_images = [loadImage('bg' + str(i) + '.jpg') for i in range(1, 14)]
     
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   if centered:
     return True if posX - buttonWidth / 2 < mouseX < posX + buttonWidth / 2 and posY - buttonHeight / 2 < mouseY < posY + buttonHeight / 2 else False
   return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
     
+interval = 250
+
 def cycleBackground():
-    global bg_index
-    background(loadImage('bg' + str(bg_index) + '.jpg'))
-    bg_index = bg_index + 1 if bg_index < 32 else 0
+    global bg_index, interval, play_stars_animation
+    
+    if interval <= 0:
+        if bg_index < len(background_animation_images):            
+            background(background_animation_images[bg_index])
+            bg_index += 1
+            if bg_index == 13:
+                interval = 250
+                bg_index = 0
+    else:
+        background(background_img)
+
+    interval -= 1
