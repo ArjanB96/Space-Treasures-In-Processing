@@ -94,13 +94,12 @@ def draw():
     if current_screen == 'Hayk':
         drawAllCards()    
         drawTurnButtonText()
-        drawPlayerNames()                    
-            
+        drawPlayerNames()
         drawButtons()
         
         mouseHoverHandler()
         
-        if show_help and not [x for x in buttons if x.name == 'delete_popup'][0].visible:
+        if show_help and not next((x for x in buttons if x.name == 'delete_popup'), None).visible:
             image(tutorial_img, 0, 0)
     
 def mousePressed():
@@ -108,7 +107,7 @@ def mousePressed():
     
     goto_next_turn = False
     
-    if not [x for x in buttons if x.name == 'delete_popup'][0].visible:
+    if not next((x for x in buttons if x.name == 'delete_popup'), None).visible:
         # Cards 
         if not delete_mode:
             for card in reversed(players[turn_player_index].cards):
@@ -142,7 +141,7 @@ def mousePressed():
             elif button.name == 'info':
                 show_help = True if not show_help else False
             elif button.name == 'delete':
-                delete_popup = [x for x in buttons if x.name == 'delete_popup'][0]
+                delete_popup = next((x for x in buttons if x.name == 'delete_popup'), None)
                 delete_popup.visible = True if not delete_popup.visible and not delete_mode else False
                 if delete_mode:
                     delete_mode = False
@@ -161,7 +160,7 @@ def mousePressed():
 def mouseHoverHandler():
     card_hover = False
     
-    if not [x for x in buttons if x.name == 'delete_popup'][0].visible:
+    if not next((x for x in buttons if x.name == 'delete_popup'), None).visible:
         # Cards
         if not delete_mode:
             for card in reversed(players[turn_player_index].cards):
@@ -231,7 +230,7 @@ def drawAllCards(highlight_card = None):
     for p_index, player in enumerate(players):
         
         if len(player.cards) == 0:
-            card_pos = (330, 40 + (135 * p_index))
+            card_pos = (280, 40 + (135 * p_index))
             card_size = (200, 100)
             card_size = card_size if player == players[turn_player_index] else (card_size[0] - 33, card_size[1] - 12)
             
@@ -268,7 +267,7 @@ def drawAllCards(highlight_card = None):
             drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + (15 if not card.on_cooldown else 10)), (width, height), (0, 0, 0) if player == players[turn_player_index] or delete_mode else (145, 145, 145), 16 if player == players[turn_player_index] else 14)
 
 def drawTurnButtonText():
-    btn_pos = [x for x in buttons if x.name == 'turn'][0].pos
+    btn_pos = next((x for x in buttons if x.name == 'turn'), None).pos
     drawText('Beurt: ' + str(turn), (btn_pos[0], btn_pos[1] - 30), (width, height), (218, 127, 251), 20)
 
 def drawRectangle(color, pos, size):
