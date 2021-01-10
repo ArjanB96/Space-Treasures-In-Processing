@@ -267,9 +267,9 @@ def drawAllCards(highlight_card = None):
                 text_to_draw += '\nAfkoeltijd: ' + str(cooldown_left)
             drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + (15 if not card.on_cooldown else 10)), (width, height), (0, 0, 0) if player == players[turn_player_index] or delete_mode else (145, 145, 145), 16 if player == players[turn_player_index] else 14)
 
-def drawTurnButtonText(color = (218, 127, 251), hover = False):
+def drawTurnButtonText():
     btn_pos = [x for x in buttons if x.name == 'turn'][0].pos
-    drawText('Beurt: ' + str(turn), (btn_pos[0], btn_pos[1] - 25), (width, height), color, 20)
+    drawText('Beurt: ' + str(turn), (btn_pos[0], btn_pos[1] - 30), (width, height), (218, 127, 251), 20)
 
 def drawRectangle(color, pos, size):
     fill(color[0], color[1], color[2])        
