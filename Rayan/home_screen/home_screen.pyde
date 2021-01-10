@@ -8,11 +8,13 @@ opacityChange = True
 pagina = 0
 screenList = []
 game_status = True
+interval = 250
 
 def setup():
-    global planet_start, planet_hervat, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlVerderIdle, pijlTerugIdle, Amaterasu, Aqua, Kaytsak, Blockade, Haste, Exchange, EyeDrop, Swap, Skip, Fuel, leegTekstVlak, H1, H2, H3, H4, H5, H6, H7, H8, H1_hover, H2_hover, H3_hover, H4_hover, H5_hover, H6_hover, H7_hover, H8_hover, Hoofdstukken, Hoofdstukken2, blauwVlak, blauwVlak2, H1_idle, H2_idle, H3_idle, H4_idle, H5_idle, H6_idle, H7_idle, H8_idle, pijlTerugPaars, pijlTerug2Paars, pijlVerderPaars, pijlVerder2Paars, GrijsVlak
+    global planet_start, planet_hervat, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlVerderIdle, pijlTerugIdle, Amaterasu, Aqua, Kaytsak, Blockade, Haste, Exchange, EyeDrop, Swap, Skip, Fuel, leegTekstVlak, H1, H2, H3, H4, H5, H6, H7, H8, H1_hover, H2_hover, H3_hover, H4_hover, H5_hover, H6_hover, H7_hover, H8_hover, Hoofdstukken, Hoofdstukken2, blauwVlak, blauwVlak2, H1_idle, H2_idle, H3_idle, H4_idle, H5_idle, H6_idle, H7_idle, H8_idle, pijlTerugPaars, pijlTerug2Paars, pijlVerderPaars, pijlVerder2Paars, GrijsVlak, background_img, background_animation_images
     textFont(createFont('PressStart2P.ttf', 40))
     size(1280, 720)
+    frameRate(30)
     
     exitButton = loadImage('images/Exit.png')
     exitButton2 = loadImage('images/Exit2.png')
@@ -75,6 +77,10 @@ def setup():
     blauwVlak = loadImage('images/BlauwVak.png')
     blauwVlak2 = loadImage('images/BlauwVak2.png')
     GrijsVlak = loadImage('images/GrijsVlak.png')
+    
+    background_img = loadImage('background/bg0.jpg')
+    background_animation_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(1, 14)]
+
     
 def draw():
     global screen, resizeWidth, resizeHeight, opacityText, opacityChange, opacityImage
@@ -368,9 +374,19 @@ def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
         return True if posX < mouseX < posX + buttonWidth and posY < mouseY < posY + buttonHeight else False
   
 def cycleBackground():
-    global bg_index
-    background(loadImage('background/bg' + str(bg_index) + '.jpg'))
-    bg_index = bg_index + 1 if bg_index < 32 else 0
+    global bg_index, interval, play_stars_animation
+    
+    if interval <= 0:
+        if bg_index < len(background_animation_images):            
+            background(background_animation_images[bg_index])
+            bg_index += 1
+            if bg_index == 13:
+                interval = 250
+                bg_index = 0
+    else:
+        background(background_img)
+
+    interval -= 1
 
 def imageShow(img, img2, x, y, wdth, hght, centered = False, wdthAdd = 0, wdthMinus = 0):
     if centered:
