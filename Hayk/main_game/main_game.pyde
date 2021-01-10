@@ -318,24 +318,23 @@ def loadImages():
     star_covers_img = loadImage('assets/misc/star_covers.png')
     
     background_img = loadImage('background/bg0.jpg')
-    background_animation_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(1, 13)]
+    background_animation_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(1, 14)]
 
-
-
-interval = 300
+interval = 250
 
 def cycleBackground():
-    global bg_index, interval
+    global bg_index, interval, play_stars_animation
     
-    background(background_img)
-    #background(background_animation_images[bg_index])
-    image(star_covers_img, 0, 0)
-    
-    if bg_index < len(background_animation_images) - 1:
-        bg_index += 1
+    if interval <= 0:
+        if bg_index < len(background_animation_images):            
+            background(background_animation_images[bg_index])
+            bg_index += 1
+            if bg_index == 13:
+                interval = 250
+                bg_index = 0
     else:
-        bg_index = 0
-        interval = 300
-        
+        background(background_img)
+            
+    image(star_covers_img, 0, 0)
     interval -= 1
     
