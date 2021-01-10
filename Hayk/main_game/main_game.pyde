@@ -67,6 +67,9 @@ def setup():
     players.append(p5)
     p5.cards.append(Card(size=(200, 100), name='Swap', cooldown=3, element='Amaterasu'))
     p5.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
+    p5.cards.append(Card(size=(200, 100), name='Swap', cooldown=3, element='Amaterasu'))
+    p5.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
+    p5.cards.append(Card(size=(200, 100), name='Swap', cooldown=3, element='Amaterasu'))
     
     turn_player = players[0]
     
@@ -214,13 +217,13 @@ def drawPlayerNames():
         if player == players[turn_player_index]:
             if len(player.name) > 10:
                 pos = (35, 70 + (i * 135))                    
-                image(verder_img, pos[0] + 240, pos[1], 30, 45)
-            elif len(player.name) > 8:
+                image(verder_img, pos[0] + 190, pos[1], 30, 45)
+            elif len(player.name) > 7:
                 pos = (80, 70 + (i * 135))                    
-                image(verder_img, pos[0] + 195, pos[1], 30, 45)
+                image(verder_img, pos[0] + 145, pos[1], 30, 45)
             else:
                 pos = (125, 70 + (i * 135))                    
-                image(verder_img, pos[0] + 150, pos[1], 30, 45)
+                image(verder_img, pos[0] + 100, pos[1], 30, 45)
                 
             drawText(players[i].name, pos, (230, 100), (247, 151, 29), 30, center = False)
     
@@ -242,7 +245,7 @@ def drawAllCards(highlight_card = None):
             if cooldown_left == card.cooldown and not card.on_cooldown or cooldown_left <= 0 or not card.on_cooldown:
                 cooldown_left = 0            
                         
-            card.pos = (330 + (120 * c_index), 40 + (5 * c_index) + (135 * p_index))
+            card.pos = (280 + (115 * c_index), 40 + (5 * c_index) + (135 * p_index))
             card_size = card.size if player == players[turn_player_index] else (card.size[0] - 33, card.size[1] - 12)
             
             if card.element == 'Amaterasu':
