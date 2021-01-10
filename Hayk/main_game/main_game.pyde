@@ -6,6 +6,7 @@ buttons = []
 
 turn = 1
 turn_player_index = 0
+
 first_turn = True
 show_help = True
 delete_mode = False
@@ -28,43 +29,41 @@ class Player:
         self.elements = []
 
 class Button:
-    def __init__(self, name, img, hover_img, pos, size):
+    def __init__(self, name, img, hover_img, pos, size, visible = True):
         self.name = name
         self.img = img
         self.hover_img = hover_img
         self.pos = pos
         self.size = size
+        self.visible = visible
 
 #Called once at start
 def setup():
     global turn_player 
     
-    p1 = Player('Kebarbie')
+    p1 = Player('Hayk')
     players.append(p1)
     p1.cards.append(Card(size=(200, 100), name='Exchange', cooldown=4, element='Kaytsak'))
-    #p1.cards.append(Card(size=(200, 100), name='Blockade', cooldown=4, element='Amaterasu'))
-    #p1.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
+    p1.cards.append(Card(size=(200, 100), name='Blockade', cooldown=4, element='Amaterasu'))
+    p1.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))    
     
-    
-    p2 = Player('hzuki')    
+    p2 = Player('Arjan')
     players.append(p2)
     p2.cards.append(Card(size=(200, 100), name='Blockade', cooldown=3, element='Aqua'))
     p2.cards.append(Card(size=(200, 100), name='Haste', cooldown=3, element='Aqua'))
     
-    p3 = Player('harry')    
+    p3 = Player('Rayan')
     players.append(p3)
     p3.cards.append(Card(size=(200, 100), name='Blockade', cooldown=3, element='Kaytsak'))
     p3.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Kaytsak'))
-    #p3.cards.append(Card(size=(200, 100), name='Haste', cooldown=3, element='Kaytsak'))
-    #p3.cards.append(Card(size=(200, 100), name='Exchange', cooldown=3, element='Amaterasu'))
     
-    p4 = Player('niall')    
+    p4 = Player('Waros')
     players.append(p4)
     p4.cards.append(Card(size=(200, 100), name='Blockade', cooldown=3, element='Amaterasu'))
     p4.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
     p4.cards.append(Card(size=(200, 100), name='Skip', cooldown=4, element='Amaterasu'))
     
-    p5 = Player('louis')    
+    p5 = Player('Jeffrey')
     players.append(p5)
     p5.cards.append(Card(size=(200, 100), name='Swap', cooldown=3, element='Amaterasu'))
     p5.cards.append(Card(size=(200, 100), name='Swap', cooldown=4, element='Aqua'))
@@ -81,6 +80,7 @@ def setup():
     buttons.append(Button('delete', verwijder_img, verwijder2_img, (width - 315, height - 65), (305, 55)))
     buttons.append(Button('info', info_img, info2_img, (10, height - 69), (60, 60)))
     buttons.append(Button('turn', verder_paars_img, verder_paars2_img, (width - 125, 50), (75, 75)))
+    buttons.append(Button('delete_popup', delete_popup_img, delete_popup2_img, (width // 2 - delete_popup_img.width // 2, height // 2 - delete_popup_img.height // 2), (767, 432), False))
     
     size(1280, 720)
 
@@ -91,36 +91,37 @@ def draw():
     if current_screen == 'Hayk':
         drawAllCards()    
         drawTurnButtonText()
-        drawPlayerNames()        
-        
+        drawPlayerNames()                    
+            
         drawButtons()
         
         mouseHoverHandler()
         
-        if show_help:
+        if show_help and not [x for x in buttons if x.name == 'delete_popup'][0].visible:
             image(tutorial_img, 0, 0)
     
 def mousePressed():
-    global turn, turn_player_index, current_screen, show_help, first_turn, delete_mode
+    global turn, turn_player_index, current_screen, show_help, first_turn, delete_mode, buttons
     
     goto_next_turn = False
     
-    # Cards 
-    if not delete_mode:
-        for card in reversed(players[turn_player_index].cards):
-            if isMouseOnButton(posX=card.pos[0], posY=card.pos[1], buttonWidth=card.size[0], buttonHeight=card.size[1]):                
-                if not card.on_cooldown:
-                    goto_next_turn = True
-                artifactClick(card)
-                break
-    else:
-        for player in players:
-            for card in reversed(player.cards):
-                if isMouseOnButton(card.pos[0], card.pos[1], card.size[0], card.size[1]):
-                    player.cards.remove(card)
+    if not [x for x in buttons if x.name == 'delete_popup'][0].visible:
+        # Cards 
+        if not delete_mode:
+            for card in reversed(players[turn_player_index].cards):
+                if isMouseOnButton(posX=card.pos[0], posY=card.pos[1], buttonWidth=card.size[0], buttonHeight=card.size[1]):                
+                    if not card.on_cooldown:
+                        goto_next_turn = True
+                    artifactClick(card)
                     break
+        else:
+            for player in players:
+                for card in reversed(player.cards):
+                    if isMouseOnButton(card.pos[0], card.pos[1], card.size[0], card.size[1]):
+                        player.cards.remove(card)
+                        break
 
-    for button in buttons:
+    for button in [x for x in buttons if x.visible]:
         if isMouseOnButton(button.pos[0], button.pos[1], button.size[0], button.size[1]):
             if button.name == 'artifact':
                 pass
@@ -138,7 +139,13 @@ def mousePressed():
             elif button.name == 'info':
                 show_help = True if not show_help else False
             elif button.name == 'delete':
-                delete_mode = True if not delete_mode else False
+                delete_popup = [x for x in buttons if x.name == 'delete_popup'][0]
+                delete_popup.visible = True if not delete_popup.visible and not delete_mode else False
+                if delete_mode:
+                    delete_mode = False
+            elif button.name == 'delete_popup':
+                button.visible = False
+                delete_mode = True if not delete_mode else False                
             elif button.name == 'home':
                 exit()
         
@@ -151,27 +158,28 @@ def mousePressed():
 def mouseHoverHandler():
     card_hover = False
     
-    # Cards
-    if not delete_mode:
-        for card in reversed(players[turn_player_index].cards):
-            if isMouseOnButton(posX=card.pos[0], posY=card.pos[1], buttonWidth=card.size[0], buttonHeight=card.size[1]):
-                drawAllCards(card)
-                if not card.on_cooldown:
-                    cursor(HAND)
-                    card_hover = True
-                break
-    else:
-        for player in players:
-            for card in reversed(player.cards):
-                card_size = card.size if player == players[turn_player_index] else (card.size[0] - 33, card.size[1] - 12)
-                if isMouseOnButton(posX=card.pos[0], posY=card.pos[1], buttonWidth=card_size[0], buttonHeight=card_size[1]):
+    if not [x for x in buttons if x.name == 'delete_popup'][0].visible:
+        # Cards
+        if not delete_mode:
+            for card in reversed(players[turn_player_index].cards):
+                if isMouseOnButton(posX=card.pos[0], posY=card.pos[1], buttonWidth=card.size[0], buttonHeight=card.size[1]):
                     drawAllCards(card)
-                    cursor(HAND)
-                    card_hover = True
+                    if not card.on_cooldown:
+                        cursor(HAND)
+                        card_hover = True
                     break
-    
+        else:
+            for player in players:
+                for card in reversed(player.cards):
+                    card_size = card.size if player == players[turn_player_index] else (card.size[0] - 33, card.size[1] - 12)
+                    if isMouseOnButton(posX=card.pos[0], posY=card.pos[1], buttonWidth=card_size[0], buttonHeight=card_size[1]):
+                        drawAllCards(card)
+                        cursor(HAND)
+                        card_hover = True
+                        break
+        
     # Buttons
-    for button in buttons:
+    for button in [x for x in buttons if x.visible]:
         if isMouseOnButton(button.pos[0], button.pos[1], button.size[0], button.size[1]):
             image(button.hover_img, button.pos[0], button.pos[1], button.size[0], button.size[1])
             cursor(HAND)
@@ -253,11 +261,11 @@ def drawAllCards(highlight_card = None):
                 
             text_to_draw = card.name + '\n' + card.element
             if cooldown_left > 0:
-                text_to_draw += '\nCooldown: ' + str(cooldown_left)
-            drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + 15), (width, height), (0, 0, 0) if player == players[turn_player_index] or delete_mode else (145, 145, 145), 16 if player == players[turn_player_index] else 14)
+                text_to_draw += '\nAfkoeltijd: ' + str(cooldown_left)
+            drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + (15 if not card.on_cooldown else 10)), (width, height), (0, 0, 0) if player == players[turn_player_index] or delete_mode else (145, 145, 145), 16 if player == players[turn_player_index] else 14)
 
 def drawTurnButtonText(color = (218, 127, 251), hover = False):
-    btn_pos = next(iter(filter(lambda x: x.name == 'turn', buttons)), None).pos
+    btn_pos = [x for x in buttons if x.name == 'turn'][0].pos
     drawText('Beurt: ' + str(turn), (btn_pos[0], btn_pos[1] - 25), (width, height), color, 20)
 
 def drawRectangle(color, pos, size):
@@ -267,11 +275,12 @@ def drawRectangle(color, pos, size):
 def drawText(draw_text, pos, size, color, font_size, center = False):
     fill(color[0], color[1], color[2])
     textAlign(CENTER) if center else textAlign(LEFT)
-    textSize(font_size)
+    textFont(createFont('SansSerif.plain', 10))
+    textSize(font_size)    
     text(draw_text, pos[0], pos[1], size[0], size[1])
     
 def drawButtons():
-    for button in buttons:
+    for button in [x for x in buttons if x.visible]:
         image(button.img, button.pos[0], button.pos[1], button.size[0], button.size[1])    
     
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
@@ -284,7 +293,7 @@ def getCard(posX, posY):
 
 def loadImages():
     global background_img, background_animation_images, home_img, home2_img, artifact_img, artifact2_img, verder_img, verder_paars_img, verder_paars2_img, info_img, info2_img
-    global verwijder_img, verwijder2_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card, no_cards_card, tutorial_img, star_covers_img
+    global verwijder_img, verwijder2_img, delete_popup_img, delete_popup2_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card, no_cards_card, tutorial_img, star_covers_img
     
     home_img = loadImage('assets/buttons/Home.png')
     home2_img = loadImage('assets/buttons/Home2.png')
@@ -297,6 +306,8 @@ def loadImages():
     info2_img = loadImage('assets/buttons/Info2.png')
     verwijder_img = loadImage('assets/buttons/Verwijder.png')
     verwijder2_img = loadImage('assets/buttons/Verwijder2.png')
+    delete_popup_img = loadImage('assets/buttons/verwijder_popup.png')
+    delete_popup2_img = loadImage('assets/buttons/verwijder_popup2.png')
     amaterasu_card = loadImage('assets/cards/Amaterasu_card_flipped.png')
     kaytsak_card = loadImage('assets/cards/Kaytsak_card_flipped.png')
     aqua_card = loadImage('assets/cards/Aqua_card_flipped.png')
@@ -308,24 +319,23 @@ def loadImages():
     star_covers_img = loadImage('assets/misc/star_covers.png')
     
     background_img = loadImage('background/bg0.jpg')
-    background_animation_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(1, 13)]
+    background_animation_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(1, 14)]
 
-
-
-interval = 300
+interval = 250
 
 def cycleBackground():
-    global bg_index, interval
+    global bg_index, interval, play_stars_animation
     
-    background(background_img)
-    #background(background_animation_images[bg_index])
-    image(star_covers_img, 0, 0)
-    
-    if bg_index < len(background_animation_images) - 1:
-        bg_index += 1
+    if interval <= 0:
+        if bg_index < len(background_animation_images):            
+            background(background_animation_images[bg_index])
+            bg_index += 1
+            if bg_index == 13:
+                interval = 250
+                bg_index = 0
     else:
-        bg_index = 0
-        interval = 300
-        
+        background(background_img)
+            
+    image(star_covers_img, 0, 0)
     interval -= 1
     
