@@ -35,6 +35,7 @@ def draw():
               
     if screen == 1:
         image(terug_pijl_idle, 290, 350, 100, 100)
+        text('De speler met de hoogste\n dobbelscore is \'Speler 1\'', 640,625)
     elif screen != 6:
         imageShow(terug_pijl, terug_pijl_hover, 290, 350, 100, 100)
         
@@ -79,7 +80,7 @@ def draw():
             text('|', 440, 420)
                     
         fill(255, 255, 255)
-        text(str(len(words)) + ' / 12', 855,495)
+        text(str(len(words)) + ' / 12', 855,505)
         
     else:
         for i, player in enumerate(players):            
@@ -158,12 +159,28 @@ def mousePressed():
         players.pop(screen - 1)
         words = ''
         
-        #terug knop op scherm 6
+        #terug knop op scherm 6, bij 5 spelers, 4 spelers, 3 spelers en 2 spelers
         
-    if screen == 6 and isMouseOnButton(10, 655, 165, 55):
+    if screen == 6 and isMouseOnButton(10, 655, 165, 55) and len(players) == 5:
         screen -= 1
         players.pop(screen - 1)
         words = ''
+    
+    if screen == 6 and isMouseOnButton(10, 655, 165, 55) and len(players) == 4:
+        screen -= 2
+        players.pop(screen - 2)
+        words = ''
+      
+    if screen == 6 and isMouseOnButton(10, 655, 165, 55) and len(players) == 3:
+        screen -= 3
+        players.pop(screen - 3)
+        words = ''
+        
+    if screen == 6 and isMouseOnButton(10, 655, 165, 55) and len(players) == 2:
+        screen -= 4
+        players.pop(screen - 4)
+        words = ''
+    
         
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   if centered:

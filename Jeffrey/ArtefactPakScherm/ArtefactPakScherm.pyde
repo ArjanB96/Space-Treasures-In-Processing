@@ -1,4 +1,4 @@
-import sys
+
 artefacts = ['Swap','Haste','Eyedrop','Skip','Exchange','Blockade']
 spelers = ["player1", "player2", "player3", "player4", "player5"]
 elements = ["Amaterasu", 'Aqua', "Kaytsak"] 
@@ -18,7 +18,7 @@ whichCardAdded = artefacts[0] #temp voor pop up als kaart is toegevoegd aan een 
 scherm = 'Jeffrey'
 frame = 1
 
-go_back = False
+
 roll_dice = False
 display_dice = 0
 dice_roll_time = 60
@@ -34,19 +34,19 @@ def draw():
     if scherm == 'Jeffrey':
         #Selecteer knoppen
         #dobbelsteen
-        if isMouseOnButton(50, 250, 200, 200):
-            cursor(HAND)
-           
+        fill(255)
+        textSize(15)
+        text("Klik op de dobbelsteen\nom te rollen en\nkijk of je de gekozen\nartefact mag toevoegen!", 15, 120)
+        
         if roll_dice and dice_roll_time > 0 and frame % 2 == 0: 
             display_dice = int(random(1, 7)) - 1  
             dice_roll_time -= 5
-        print(display_dice)
-        frame = frame + 1 if frame < 60 else 1
-        
+     
         if dice_roll_time == 0:
             roll_dice = False
+        frame = frame + 1 if frame < 60 else 1
         
-            #Spelers
+        #Spelers
         if spelerIndex == 0:
             image(PijlTerugIdle, 435, 150, 55, 55)
         else: image(PijlTerug, 435, 150, 55, 55)
@@ -77,7 +77,7 @@ def draw():
         image(LeegVak, 495, 350, 315, 55)
         image(TerugKnop, 10, 655, 165, 55)
         image(ToevoegenKnop, 530, 450, 240, 55)
-        image(dices[display_dice], 50, 250, 200, 200)
+        image(dices[display_dice], 70, 200, 200, 200)
         
     
     
@@ -166,12 +166,14 @@ def draw():
         elif isMouseOnButton(815, 350, 55, 55) and elementIndex < 2:
             image(PijlVerder2, 815, 350, 55, 55)
             cursor(HAND)
+        elif isMouseOnButton(70, 200, 200, 200):
+            cursor(HAND)
         else: cursor(ARROW)
 
 def mousePressed():
     global roll_dice, dice_roll_time, artefactIndex, elementIndex, spelerIndex, scherm, opacityCardAddedMsg, opacityTooManyCardsMsg, cardAddedTo, whichCardAdded
     if scherm == 'Jeffrey':
-        if isMouseOnButton(50, 250, 200, 200):
+        if isMouseOnButton(70, 200, 200, 200):
             roll_dice = True
             dice_roll_time = 60
         
@@ -273,7 +275,7 @@ def loadImages():
     global PijlVerderIdle, dices, PijlTerugIdle, PijlTerug, PijlTerug2, PijlVerder, PijlVerder2, LeegVak, TerugKnop, TerugKnop2, ToevoegenKnop, ToevoegenKnop2
     dices = []
     for i in range(1, 7):
-        dices.append(loadImage('bot' + str(i) + '.gif'))
+        dices.append(loadImage('images/bot' + str(i) + '.gif'))
     PijlTerugIdle = loadImage('images/PijlTerugIdle.png')
     PijlVerderIdle = loadImage('images/PijlVerderIdle.png')
     PijlTerug = loadImage('images/PijlTerugPaars.png')
