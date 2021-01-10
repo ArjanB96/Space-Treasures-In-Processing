@@ -84,7 +84,7 @@ def draw():
         image(LeegVak, 495, 350, 315, 55)
         image(TerugKnop, 10, 655, 165, 55)
         image(ToevoegenKnop, 530, 450, 240, 55)
-        image(dices[display_dice], 70, 220, 200, 200)
+        image(dices[display_dice], 90, 220, 200, 200)
         
     
     
@@ -173,14 +173,14 @@ def draw():
         elif isMouseOnButton(815, 350, 55, 55) and elementIndex < 2:
             image(PijlVerder2, 815, 350, 55, 55)
             cursor(HAND)
-        elif isMouseOnButton(70, 200, 200, 200):
+        elif isMouseOnButton(90, 200, 200, 200):
             cursor(HAND)
         else: cursor(ARROW)
 
 def mousePressed():
     global roll_dice, dice_roll_time, artefactIndex, elementIndex, spelerIndex, scherm, opacityCardAddedMsg, opacityTooManyCardsMsg, cardAddedTo, whichCardAdded
     if scherm == 'Jeffrey':
-        if isMouseOnButton(70, 200, 200, 200):
+        if isMouseOnButton(90, 200, 200, 200):
             roll_dice = True
             dice_roll_time = 60
         
