@@ -262,10 +262,10 @@ def drawAllCards(highlight_card = None):
             text_to_draw = card.name + '\n' + card.element
             if cooldown_left > 0:
                 text_to_draw += '\nAfkoeltijd: ' + str(cooldown_left)
-            drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + 15), (width, height), (0, 0, 0) if player == players[turn_player_index] or delete_mode else (145, 145, 145), 16 if player == players[turn_player_index] else 14)
+            drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + (15 if not card.on_cooldown else 10)), (width, height), (0, 0, 0) if player == players[turn_player_index] or delete_mode else (145, 145, 145), 16 if player == players[turn_player_index] else 14)
 
 def drawTurnButtonText(color = (218, 127, 251), hover = False):
-    btn_pos = next(iter(filter(lambda x: x.name == 'turn', buttons)), None).pos
+    btn_pos = [x for x in buttons if x.name == 'turn'][0].pos
     drawText('Beurt: ' + str(turn), (btn_pos[0], btn_pos[1] - 25), (width, height), color, 20)
 
 def drawRectangle(color, pos, size):
@@ -275,7 +275,8 @@ def drawRectangle(color, pos, size):
 def drawText(draw_text, pos, size, color, font_size, center = False):
     fill(color[0], color[1], color[2])
     textAlign(CENTER) if center else textAlign(LEFT)
-    textSize(font_size)
+    textFont(createFont('SansSerif.plain', 10))
+    textSize(font_size)    
     text(draw_text, pos[0], pos[1], size[0], size[1])
     
 def drawButtons():
@@ -318,24 +319,23 @@ def loadImages():
     star_covers_img = loadImage('assets/misc/star_covers.png')
     
     background_img = loadImage('background/bg0.jpg')
-    background_animation_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(1, 13)]
+    background_animation_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(1, 14)]
 
-
-
-interval = 300
+interval = 250
 
 def cycleBackground():
-    global bg_index, interval
+    global bg_index, interval, play_stars_animation
     
-    background(background_img)
-    #background(background_animation_images[bg_index])
-    image(star_covers_img, 0, 0)
-    
-    if bg_index < len(background_animation_images) - 1:
-        bg_index += 1
+    if interval <= 0:
+        if bg_index < len(background_animation_images):            
+            background(background_animation_images[bg_index])
+            bg_index += 1
+            if bg_index == 13:
+                interval = 250
+                bg_index = 0
     else:
-        bg_index = 0
-        interval = 300
-        
+        background(background_img)
+            
+    image(star_covers_img, 0, 0)
     interval -= 1
     
