@@ -389,10 +389,7 @@ def cycleBackground():
     interval -= 1
 
 def imageShow(img, img2, x, y, wdth, hght, centered = False, wdthAdd = 0, wdthMinus = 0):
-    if centered:
-        imageMode(CENTER)
-    else:
-        imageMode(CORNER)
+    imageMode(CENTER if centered else CORNER)
     if isMouseOnButton(x - wdthMinus, y, wdth + wdthAdd, hght, centered):
         image(img2, x, y, wdth, hght)
     else:
