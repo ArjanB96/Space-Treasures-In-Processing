@@ -24,7 +24,7 @@ def draw():
     global scherm, opacityCardAddedMsg, opacityTooManyCardsMsg, frame, dice_roll_time, roll_dice, display_dice, dices
     cycleBackground()
 
-    textFont(createFont('PressStart2P.ttf', 5))
+    textFont(createFont('data/PressStart2P.ttf', 5))
     fill(0, 0, 0, 100)
     strokeWeight(0)
     rect(10, 115, 360, 90)
@@ -224,18 +224,18 @@ def loadImages():
     global background_img, background_animation_images, PijlVerderIdle, dices, PijlTerugIdle, PijlTerug, PijlTerug2, PijlVerder, PijlVerder2, LeegVak, TerugKnop, TerugKnop2, ToevoegenKnop, ToevoegenKnop2
     dices = []
     for i in range(1, 7):
-        dices.append(loadImage('images/bot' + str(i) + '.gif'))
-    PijlTerugIdle = loadImage('images/PijlTerugIdle.png')
-    PijlVerderIdle = loadImage('images/PijlVerderIdle.png')
-    PijlTerug = loadImage('images/PijlTerugPaars.png')
-    PijlTerug2 = loadImage('images/PijlTerug2Paars.png')
-    PijlVerder = loadImage('images/PijlVerderPaars.png')
-    PijlVerder2 = loadImage('images/PijlVerder2Paars.png')
-    LeegVak =  loadImage('images/LeegVak.png')
-    TerugKnop = loadImage('images/TerugKnop.png')
-    TerugKnop2 = loadImage('images/TerugKnop2.png')
-    ToevoegenKnop = loadImage('images/Toevoegen.png')
-    ToevoegenKnop2 = loadImage('images/Toevoegen2.png')
+        dices.append(loadImage('assets/images/bot' + str(i) + '.gif'))
+    PijlTerugIdle = loadImage('assets/images/PijlTerugIdle.png')
+    PijlVerderIdle = loadImage('assets/images/PijlVerderIdle.png')
+    PijlTerug = loadImage('assets/images/PijlTerugPaars.png')
+    PijlTerug2 = loadImage('assets/images/PijlTerug2Paars.png')
+    PijlVerder = loadImage('assets/images/PijlVerderPaars.png')
+    PijlVerder2 = loadImage('assets/images/PijlVerder2Paars.png')
+    LeegVak =  loadImage('assets/images/LeegVak.png')
+    TerugKnop = loadImage('assets/images/TerugKnop.png')
+    TerugKnop2 = loadImage('assets/images/TerugKnop2.png')
+    ToevoegenKnop = loadImage('assets/images/Toevoegen.png')
+    ToevoegenKnop2 = loadImage('assets/images/Toevoegen2.png')
     background_img = loadImage('background/bg0.jpg')
     background_animation_images = [loadImage('background/bg' + str(i) + '.jpg') for i in range(1, 14)]
 
