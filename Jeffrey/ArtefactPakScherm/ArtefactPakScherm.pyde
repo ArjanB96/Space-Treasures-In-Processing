@@ -18,7 +18,7 @@ whichCardAdded = artefacts[0] #temp voor pop up als kaart is toegevoegd aan een 
 scherm = 'Jeffrey'
 frame = 1
 interval = 250
-
+rollFirstTime = True
 roll_dice = False
 display_dice = 0
 dice_roll_time = 60
@@ -40,9 +40,10 @@ def draw():
 
         #Selecteer knoppen
         #dobbelsteen
-        fill(255)
-        textSize(15)
-        text("Klik op de dobbelsteen\nom te rollen en\nkijk of je de\nartefact mag toevoegen!", 20, 140)
+        if rollFirstTime == True:
+            fill(255)
+            textSize(15)
+            text("Dobbel in het echt of\nklik op de dobbelsteen\nom te rollen en\nkijk of je de\nartefact mag toevoegen!", 20, 140)
         
         if roll_dice and dice_roll_time > 0 and frame % 2 == 0: 
             display_dice = int(random(1, 7)) - 1  
@@ -178,11 +179,12 @@ def draw():
         else: cursor(ARROW)
 
 def mousePressed():
-    global roll_dice, dice_roll_time, artefactIndex, elementIndex, spelerIndex, scherm, opacityCardAddedMsg, opacityTooManyCardsMsg, cardAddedTo, whichCardAdded
+    global rollFirstTime, roll_dice, dice_roll_time, artefactIndex, elementIndex, spelerIndex, scherm, opacityCardAddedMsg, opacityTooManyCardsMsg, cardAddedTo, whichCardAdded
     if scherm == 'Jeffrey':
         if isMouseOnButton(90, 200, 200, 200):
             roll_dice = True
             dice_roll_time = 60
+            rollFirstTime = False
         
         #terug knop
         if isMouseOnButton(10, 655, 165, 55):
