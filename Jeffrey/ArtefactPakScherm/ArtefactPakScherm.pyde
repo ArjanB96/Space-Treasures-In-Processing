@@ -137,7 +137,7 @@ def draw():
         fill(240)
         textSize(17)
         text('Speler:', 600 , 120, 300, 250)
-        text('Kies de artefact:', 505, 220, 500, 500)
+        text('Kies het artefact:', 505, 220, 500, 500)
         text('Kies het element:', 505, 325, 300, 250)
         textAlign(CENTER)
         text(spelers[spelerIndex], 505, 170, 300, 50)
