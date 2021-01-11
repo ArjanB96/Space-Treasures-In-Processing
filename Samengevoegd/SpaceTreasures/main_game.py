@@ -44,7 +44,10 @@ def draw():
         image(tutorial_img, 0, 0)
     
     if not home_screen.game_in_progress:
-        home_screen.game_in_progress = True    
+        home_screen.game_in_progress = True
+    
+    if delete_mode:
+        image(delete_mode_img, 0, 0)
             
 def setTurnPlayer():
     global turn_player
@@ -244,7 +247,7 @@ def getCard(posX, posY):
 
 def loadImages():
     global background_img, background_animation_images, home_img, home2_img, artifact_img, artifact2_img, verder_img, verder_paars_img, verder_paars2_img, info_img, info2_img
-    global verwijder_img, verwijder2_img, delete_popup_img, delete_popup2_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card, no_cards_card, tutorial_img, star_covers_img
+    global delete_mode_img, verwijder_img, verwijder2_img, delete_popup_img, delete_popup2_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card, no_cards_card, tutorial_img, star_covers_img
     
     home_img = loadImage('assets/buttons/Home.png')
     home2_img = loadImage('assets/buttons/Home2.png')
@@ -259,6 +262,7 @@ def loadImages():
     verwijder2_img = loadImage('assets/buttons/Verwijder2.png')
     delete_popup_img = loadImage('assets/buttons/verwijder_popup.png')
     delete_popup2_img = loadImage('assets/buttons/verwijder_popup2.png')
+    delete_mode_img = loadImage('assets/misc/delete_mode.png')
     amaterasu_card = loadImage('assets/cards/Amaterasu_card_flipped.png')
     kaytsak_card = loadImage('assets/cards/Kaytsak_card_flipped.png')
     aqua_card = loadImage('assets/cards/Aqua_card_flipped.png')
