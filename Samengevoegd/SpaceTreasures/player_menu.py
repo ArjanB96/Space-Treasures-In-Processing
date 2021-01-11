@@ -149,15 +149,12 @@ def mousePressed():
         players.append(player)
         words = ''
     
-    if screen == 1 and isMouseOnButton(10,10,130,55):
-        globals.scherm = 'home'
-        return
-    
     #HOME button
-    if screen != 1 and isMouseOnButton(10,10,130,55):
+    if isMouseOnButton(10,10,130,55):
         screen = 1
-        players = []
-        words = ''        
+        del players [:]
+        words = ''
+        globals.scherm = 'home'
             
     #Pijltje verder, zorg ervoor dat de lengte vd naam > 0 moet zijn
     if screen != 6 and isMouseOnButton(890, 350, 100, 100) and len(words) > 0:    
