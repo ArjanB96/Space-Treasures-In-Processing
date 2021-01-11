@@ -21,6 +21,7 @@ def draw():
     global bg_index, frame, words, opacity_x, opacity_x_change
     
     cycleBackground()  
+    mouseHoverHandler()
     imageShow(home_img, home2_img, 10,10,130,55)
     
     #Vak waarin je username kan typen, pijl om naar volgende speler te gaan, en pijl om terug te gaan
@@ -228,3 +229,76 @@ def imageShow(img, img2, x, y, wdth, hght, centered = False):
         image(img2, x, y, wdth, hght)
     else:
         image(img, x, y, wdth, hght)
+        
+def mouseHoverHandler():
+    
+    if screen == 1:
+        if isMouseOnButton(10, 10, 130, 55): # Home Button
+            cursor(HAND)
+        elif len(words) > 0 and isMouseOnButton(890, 350, 100, 100): #verderpijl
+            cursor(HAND)
+        else:
+            cursor(ARROW)
+        
+    elif screen == 2:
+        if isMouseOnButton(10, 10, 130, 55): # Home Button
+            cursor(HAND)
+        elif isMouseOnButton(290,350,100,100): # terugpijl
+            cursor(HAND)
+        elif len(words) > 0 and isMouseOnButton(890, 350, 100, 100): #verderpijl
+            cursor(HAND)
+        else:
+            cursor(ARROW)
+        
+        
+    elif screen == 3:
+        if isMouseOnButton(10, 10, 130, 55): # Home Button
+            cursor(HAND)
+        elif isMouseOnButton(1105,655,165,55):  # Start knop
+            cursor(HAND)
+        elif isMouseOnButton(290,350,100,100): # terugpijl
+            cursor(HAND)
+        elif len(words) > 0 and isMouseOnButton(890, 350, 100, 100): #verderpijl
+            cursor(HAND)
+        else:
+            cursor(ARROW)
+        
+        
+    elif screen == 4:
+        if isMouseOnButton(10, 10, 130, 55): # Home Button
+            cursor(HAND)
+        elif isMouseOnButton(1105,655,165,55): # Start knop
+            cursor(HAND)
+        elif isMouseOnButton(290,350,100,100): # terugpijl
+            cursor(HAND)
+        elif len(words) > 0 and isMouseOnButton(890, 350, 100, 100): #verderpijl
+            cursor(HAND)
+        else:
+            cursor(ARROW)
+        
+        
+    elif screen == 5:
+        if isMouseOnButton(10, 10, 130, 55): # Home Button
+            cursor(HAND)
+        elif isMouseOnButton(1105,655,165,55): # Start knop
+            cursor(HAND)
+        elif isMouseOnButton(290,350,100,100): # terugpijl
+            cursor(HAND)
+        elif len(words) > 0 and isMouseOnButton(890, 350, 100, 100): #verderpijl
+            cursor(HAND)
+        else:
+            cursor(ARROW)
+        
+        
+    elif screen == 6:
+        if isMouseOnButton(10, 10, 130, 55): # Home Button
+            cursor(HAND)
+        elif isMouseOnButton(1105,655,165,55): # Start knop
+            cursor(HAND)
+        elif isMouseOnButton(10, 655, 165, 55): # Terug knop
+            cursor(HAND)
+        else:
+            cursor(ARROW)
+        
+    
+    
