@@ -156,24 +156,36 @@ def mousePressed():
         words = ''
         globals.scherm = 'home'
             
-    #Pijltje verder, zorg ervoor dat de lengte vd naam > 0 moet zijn
-    if screen != 6 and isMouseOnButton(890, 350, 100, 100) and len(words) > 0:    
-        screen += 1
-        player = Player(words)
-        players.append(player)
-        words = '' + Player(words)
+
+                        
+            #Pijltje verder, zorg ervoor dat de lengte vd naam > 0 moet zijn
+            
+    if screen != 6 and isMouseOnButton(890, 350, 100, 100) and len(words) > 0:  
+        
+        if screen != 5 and len(players[screen-1].name) > 0:
+            screen += 1
+            words = players[screen - 1].name
+        elif screen == 5:
+            screen += 1
+            words = ''
+        
+        else:
+            screen += 1
+            player = Player(words)
+            players.append(player)
+            words = '' + Player(words)
        
     #Pijltje terug
     if screen != 1 and screen != 6 and isMouseOnButton(290, 350, 100, 100):
         screen -= 1
-        words = 'poepkutje'
+        words = players[screen - 1].name
 
         
-    #terug knop op scherm 6, bij 5 spelers, 4 spelers, 3 spelers en 2 spelers
+    #terug knop op scherm 6, bij 5 spelers, 4 spelers, 3 spelers en 2 spelers  
         
     if screen == 6 and isMouseOnButton(10, 655, 165, 55):
         screen = len(players)
-        players.pop(screen - 1)
+        words = players[screen - 1].name
         
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   if centered:
