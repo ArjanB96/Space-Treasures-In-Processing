@@ -188,7 +188,7 @@ def drawAllCards(highlight_card = None):
             card_size = (200, 100)
             card_size = card_size if player == players[turn_player_index] else (card_size[0] - 33, card_size[1] - 12)
             
-            image(no_cards_card, card_pos[0], card_pos[1], card_size[0], card_size[1])
+            image(no_cards_card if player == players[turn_player_index] else no_cards_white_card, card_pos[0], card_pos[1], card_size[0], card_size[1])
             
             if player != players[turn_player_index]:                
                 image(black_card, card_pos[0], card_pos[1], card_size[0], card_size[1])
@@ -249,7 +249,7 @@ def getCard(posX, posY):
 
 def loadImages():
     global background_img, background_animation_images, home_img, home2_img, artifact_img, artifact2_img, verder_img, verder_paars_img, verder_paars2_img, info_img, info2_img, regels_img, regels2_img
-    global delete_mode_img, verwijder_img, verwijder2_img, delete_popup_img, delete_popup2_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card, no_cards_card, tutorial_img, star_covers_img
+    global delete_mode_img, verwijder_img, verwijder2_img, delete_popup_img, delete_popup2_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card, no_cards_card, no_cards_white_card, tutorial_img, star_covers_img
     
     home_img = loadImage('assets/buttons/Home.png')
     home2_img = loadImage('assets/buttons/Home2.png')
@@ -274,6 +274,7 @@ def loadImages():
     black_card = loadImage('assets/cards/Black_card_flipped.png')
     white_card = loadImage('assets/cards/White_card_flipped.png')
     no_cards_card = loadImage('assets/cards/no_cards_flipped.png')
+    no_cards_white_card = loadImage('assets/cards/no_cards_white_flipped.png')
     tutorial_img = loadImage('assets/misc/tutorial.png')
     star_covers_img = loadImage('assets/misc/star_covers.png')
     
