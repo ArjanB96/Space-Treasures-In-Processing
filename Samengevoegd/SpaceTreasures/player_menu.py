@@ -18,7 +18,13 @@ def setup():
     loadImages()
 
 def draw():
-    global bg_index, frame, words, opacity_x, opacity_x_change
+    global bg_index, frame, words, opacity_x, opacity_x_change, count
+    
+    players = globals.players
+    
+    print([x.name for x in players])
+    print(screen)
+    print()
     
     cycleBackground()  
     mouseHoverHandler()
@@ -29,24 +35,25 @@ def draw():
         image(leeg_vak, 400, 350, 480, 100) 
         image(verder_pijl, 890, 350, 100, 100)
         
-        if len(words) == 0:
+        if (len(words) == 0 and screen - 1 == len(players)) or screen == len(players):
             image(verder_pijl_idle, 890, 350, 100, 100)
         if len(words) > 0:
             imageShow(verder_pijl, verder_pijl_hover, 890, 350, 100, 100)    
               
     if screen == 1:
         image(terug_pijl_idle, 290, 350, 100, 100)
-        textSize(36)
-        text('De speler met de hoogste\n dobbelscore is \'Speler 1\'', 640,625)
+        if len(players) < 2:
+            textSize(36)
+            text('De speler met de hoogste\n dobbelscore is \'Speler 1\'', 640,625)
     elif screen != 6:
         imageShow(terug_pijl, terug_pijl_hover, 290, 350, 100, 100)
         
     # 'Start' knop als je minimaal twee spelers hebt ingevoerd
     
-    if screen == 3 or screen == 4 or screen == 5:
+    if len(players) >= 2 and screen != 6:
         imageShow(start1, start2, 1105, 655, 165, 55)
         text('Druk op \'START\' om te spelen\nof voeg meer spelers toe', 640,625)
-    if screen == 6:
+    elif screen == 6:
         imageShow(start1, start2, 1105, 655, 165, 55)
         text('Druk op \'START\' om te spelen', 640,570)
         
@@ -108,9 +115,13 @@ def keyTyped():
 
     if key == ENTER and len(words) > 0:
         player = Player(words)
-        players.append(player)
+        if screen <= len(players):
+            [player.cards.append(x) for x in players[screen - 1].cards]
+            players[screen - 1] = player
+        else:
+            players.append(player)
         screen += 1
-        words = ''
+        words = players[screen - 1].name if screen <= len(players) else ''
         
 interval = 250
         
@@ -137,52 +148,40 @@ def mousePressed():
         main_game.setTurnPlayer()
         globals.scherm = 'main'
         return
-    
-    #Verder/Start (vanaf min. twee spelers) 
-    if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1105, 655, 165, 55) and len(words) == 0:
-        screen = 6
             
     # Als je op -verder- drukt op scherm 3/4/5 en je hebt input staan in de box, ga naar scherm 6 en sla de input op als speler
-    if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55) and len(words) > 0:
+    if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55):
+        if len(words) > 0:
+            player = Player(words)
+            players.append(player)
         screen = 6
-        player = Player(words)
-        players.append(player)
         words = ''
     
     #HOME button
     if isMouseOnButton(10,10,130,55):
         screen = 1
-        del players [:]
-        words = ''
         globals.scherm = 'home'
-            
-
                         
-            #Pijltje verder, zorg ervoor dat de lengte vd naam > 0 moet zijn
+    #Pijltje verder, zorg ervoor dat de lengte vd naam > 0 moet zijn
             
-    if screen != 6 and isMouseOnButton(890, 350, 100, 100) and len(words) > 0:  
-        
-        if screen != 5 and len(players[screen-1].name) > 0:
-            screen += 1
-            words = players[screen - 1].name
-        elif screen == 5:
-            screen += 1
-            words = ''
-        
+    if screen != 6 and isMouseOnButton(890, 350, 100, 100) and len(words) > 0:
+        player = Player(words)
+        if screen <= len(players):
+            [player.cards.append(x) for x in players[screen - 1].cards]
+            players[screen - 1] = player
         else:
-            screen += 1
-            player = Player(words)
             players.append(player)
-            words = '' + Player(words)
+        screen += 1
+        words = players[screen - 1].name if screen <= len(players) else ''
        
     #Pijltje terug
     if screen != 1 and screen != 6 and isMouseOnButton(290, 350, 100, 100):
+        if screen <= len(players) and words == '':
+            players.pop(screen - 1)
         screen -= 1
         words = players[screen - 1].name
-
         
-    #terug knop op scherm 6, bij 5 spelers, 4 spelers, 3 spelers en 2 spelers  
-        
+    #terug knop op scherm 6, bij 5 spelers, 4 spelers, 3 spelers en 2 spelers
     if screen == 6 and isMouseOnButton(10, 655, 165, 55):
         screen = len(players)
         words = players[screen - 1].name
@@ -227,74 +226,16 @@ def imageShow(img, img2, x, y, wdth, hght, centered = False):
         image(img, x, y, wdth, hght)
         
 def mouseHoverHandler():
-    
-    if screen == 1:
-        if isMouseOnButton(10, 10, 130, 55): # Home Button
-            cursor(HAND)
-        elif len(words) > 0 and isMouseOnButton(890, 350, 100, 100): #verderpijl
-            cursor(HAND)
-        else:
-            cursor(ARROW)
-        
-    elif screen == 2:
-        if isMouseOnButton(10, 10, 130, 55): # Home Button
-            cursor(HAND)
-        elif isMouseOnButton(290,350,100,100): # terugpijl
-            cursor(HAND)
-        elif len(words) > 0 and isMouseOnButton(890, 350, 100, 100): #verderpijl
-            cursor(HAND)
-        else:
-            cursor(ARROW)
-        
-        
-    elif screen == 3:
-        if isMouseOnButton(10, 10, 130, 55): # Home Button
-            cursor(HAND)
-        elif isMouseOnButton(1105,655,165,55):  # Start knop
-            cursor(HAND)
-        elif isMouseOnButton(290,350,100,100): # terugpijl
-            cursor(HAND)
-        elif len(words) > 0 and isMouseOnButton(890, 350, 100, 100): #verderpijl
-            cursor(HAND)
-        else:
-            cursor(ARROW)
-        
-        
-    elif screen == 4:
-        if isMouseOnButton(10, 10, 130, 55): # Home Button
-            cursor(HAND)
-        elif isMouseOnButton(1105,655,165,55): # Start knop
-            cursor(HAND)
-        elif isMouseOnButton(290,350,100,100): # terugpijl
-            cursor(HAND)
-        elif len(words) > 0 and isMouseOnButton(890, 350, 100, 100): #verderpijl
-            cursor(HAND)
-        else:
-            cursor(ARROW)
-        
-        
-    elif screen == 5:
-        if isMouseOnButton(10, 10, 130, 55): # Home Button
-            cursor(HAND)
-        elif isMouseOnButton(1105,655,165,55): # Start knop
-            cursor(HAND)
-        elif isMouseOnButton(290,350,100,100): # terugpijl
-            cursor(HAND)
-        elif len(words) > 0 and isMouseOnButton(890, 350, 100, 100): #verderpijl
-            cursor(HAND)
-        else:
-            cursor(ARROW)
-        
-        
-    elif screen == 6:
-        if isMouseOnButton(10, 10, 130, 55): # Home Button
-            cursor(HAND)
-        elif isMouseOnButton(1105,655,165,55): # Start knop
-            cursor(HAND)
-        elif isMouseOnButton(10, 655, 165, 55): # Terug knop
-            cursor(HAND)
-        else:
-            cursor(ARROW)
+    if isMouseOnButton(10, 10, 130, 55): # Home knop
+        cursor(HAND)            
+    elif (not (len(words) == 0 and screen - 1 == len(players)) or screen == len(players)) and isMouseOnButton(890, 350, 100, 100): #verderpijl
+        cursor(HAND)    
+    elif screen != 1 and isMouseOnButton(290,350,100,100): # terugpijl
+        cursor(HAND)
+    elif screen > 2 and isMouseOnButton(1105,655,165,55):  # Start knop
+        cursor(HAND)
+    else:
+        cursor(ARROW)
         
     
     
