@@ -13,12 +13,14 @@ game_in_progress = False
 interval = 250
 
 def setup():
-    global planet_start, planet_hervat, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlVerderIdle, pijlTerugIdle, Amaterasu, Aqua, Kaytsak, Blockade, Haste, Exchange, EyeDrop, Swap, Skip, Fuel, leegTekstVlak, H1, H2, H3, H4, H5, H6, H7, H8, H1_hover, H2_hover, H3_hover, H4_hover, H5_hover, H6_hover, H7_hover, H8_hover, Hoofdstukken, Hoofdstukken2, blauwVlak, blauwVlak2, H1_idle, H2_idle, H3_idle, H4_idle, H5_idle, H6_idle, H7_idle, H8_idle, pijlTerugPaars, pijlTerug2Paars, pijlVerderPaars, pijlVerder2Paars, GrijsVlak, background_img, background_animation_images    
+    global planet_start, planet_hervat, exitButton, exitButton2, homeButton, homeButton2, infoButton, infoButton2, regelButton, regelButton2, terugKnopButton, terugKnopButton2, verder, verder2, terug, terug2, pijlVerderIdle, pijlTerugIdle, Amaterasu, Aqua, Kaytsak, Blockade, Haste, Exchange, EyeDrop, Swap, Skip, Fuel, leegTekstVlak, H1, H2, H3, H4, H5, H6, H7, H8, H1_hover, H2_hover, H3_hover, H4_hover, H5_hover, H6_hover, H7_hover, H8_hover, Hoofdstukken, Hoofdstukken2, blauwVlak, blauwVlak2, H1_idle, H2_idle, H3_idle, H4_idle, H5_idle, H6_idle, H7_idle, H8_idle, pijlTerugPaars, pijlTerug2Paars, pijlVerderPaars, pijlVerder2Paars, GrijsVlak, background_img, background_animation_images, hervatButton, hervatButton2
     size(1280, 720)
     frameRate(30)
     
     exitButton = loadImage('assets/images/Exit.png')
     exitButton2 = loadImage('assets/images/Exit2.png')
+    hervatButton = loadImage('assets/images/Hervat.png')
+    hervatButton2 = loadImage('assets/images/Hervat2.png')
     homeButton = loadImage('assets/images/Home.png')
     homeButton2 = loadImage('assets/images/Home2.png')
     infoButton = loadImage('assets/images/Info.png')
@@ -89,10 +91,11 @@ def draw():
     cycleBackground()
     mouseHoverHandler()
     
+    textFont(createFont('PressStart2P.ttf', 40))
+    
     # Home screen
     if screen == 0:
-        # 'Space Treasures' text
-        textFont(createFont('PressStart2P.ttf', 40))
+        # 'Space Treasures' text        
         fill(255, 255, 255)
         textSize(75)
         textAlign(CENTER, CENTER)
@@ -123,6 +126,9 @@ def draw():
     elif screen == 1:
         
         tint(255)
+        # Hervat Button
+        if game_in_progress:
+            imageShow(hervatButton, hervatButton2, 1075, 10, 195, 55) 
         #Home Button
         imageShow(homeButton, homeButton2, 10, 10, 130, 55)
         # Regel Button
@@ -431,6 +437,8 @@ def mouseHoverHandler():
         elif isMouseOnButton(770, 440, 330, 80): # H7
             cursor(HAND)
         elif isMouseOnButton(770, 565, 330, 80): # H8
+            cursor(HAND)
+        elif isMouseOnButton(1075, 10, 195, 55): # Hervat
             cursor(HAND)
         else:
             cursor(ARROW)

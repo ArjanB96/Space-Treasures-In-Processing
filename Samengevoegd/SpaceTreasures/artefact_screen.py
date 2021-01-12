@@ -35,9 +35,9 @@ def draw():
     if rollFirstTime == True:
         fill(255)        
         textSize(18)        
-        text("Dobbel in het echt of\nklik op de dobbelsteen\nom te rollen en kijk\nof je de artefact\nmag toevoegen!", 20, 115)
+        text("Klik op de dobbelsteen\nom te rollen en kijk\nof je het artefact\nmag toevoegen", 22, 135)
     
-    if roll_dice and dice_roll_time > 0 and frame % 2 == 0: 
+    if roll_dice and dice_roll_time > 0 and frame % 5 == 0: 
         display_dice = int(random(1, 7)) - 1  
         dice_roll_time -= 5
 
