@@ -126,6 +126,9 @@ def draw():
     elif screen == 1:
         
         tint(255)
+        # Hervat Button
+        if game_in_progress:
+            imageShow(hervatButton, hervatButton2, 1075, 10, 195, 55) 
         #Home Button
         imageShow(homeButton, homeButton2, 10, 10, 130, 55)
         # Regel Button
@@ -434,6 +437,8 @@ def mouseHoverHandler():
         elif isMouseOnButton(770, 440, 330, 80): # H7
             cursor(HAND)
         elif isMouseOnButton(770, 565, 330, 80): # H8
+            cursor(HAND)
+        elif isMouseOnButton(1075, 10, 195, 55): # Hervat
             cursor(HAND)
         else:
             cursor(ARROW)
