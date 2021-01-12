@@ -18,7 +18,7 @@ def setup():
     loadImages()
     
     # Buttons
-    buttons.append(Button('home', home_img, home2_img, (10, 10), (130, 55)))
+    buttons.append(Button('regels', regels_img, regels2_img, (10, 10), (195, 55)))
     buttons.append(Button('artifact', artifact_img, artifact2_img, (width - 265, height - 130), (255, 55)))
     buttons.append(Button('delete', verwijder_img, verwijder2_img, (width - 315, height - 65), (305, 55)))
     buttons.append(Button('info', info_img, info2_img, (10, height - 69), (60, 60)))
@@ -100,7 +100,8 @@ def mousePressed():
             elif button.name == 'delete_popup':
                 button.visible = False
                 delete_mode = True if not delete_mode else False                
-            elif button.name == 'home':
+            elif button.name == 'regels':
+                home_screen.screen = 1
                 globals.scherm = 'home'
         
     if goto_next_turn:
@@ -169,7 +170,7 @@ def drawPlayerNames():
             if len(player.name) > 10:
                 pos = (35, 70 + (i * 135))                    
                 image(verder_img, pos[0] + 190, pos[1], 30, 45)
-            elif len(player.name) > 7:
+            elif len(player.name) >= 7:
                 pos = (80, 70 + (i * 135))                    
                 image(verder_img, pos[0] + 145, pos[1], 30, 45)
             else:
@@ -246,7 +247,7 @@ def getCard(posX, posY):
     return next((x for x in cards if x.pos == (posX, posY)), None)
 
 def loadImages():
-    global background_img, background_animation_images, home_img, home2_img, artifact_img, artifact2_img, verder_img, verder_paars_img, verder_paars2_img, info_img, info2_img
+    global background_img, background_animation_images, home_img, home2_img, artifact_img, artifact2_img, verder_img, verder_paars_img, verder_paars2_img, info_img, info2_img, regels_img, regels2_img
     global delete_mode_img, verwijder_img, verwijder2_img, delete_popup_img, delete_popup2_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card, no_cards_card, tutorial_img, star_covers_img
     
     home_img = loadImage('assets/buttons/Home.png')
@@ -260,6 +261,8 @@ def loadImages():
     info2_img = loadImage('assets/buttons/Info2.png')
     verwijder_img = loadImage('assets/buttons/Verwijder.png')
     verwijder2_img = loadImage('assets/buttons/Verwijder2.png')
+    regels_img = loadImage('assets/images/Regels.png')
+    regels2_img = loadImage('assets/images/Regels2.png')
     delete_popup_img = loadImage('assets/buttons/verwijder_popup.png')
     delete_popup2_img = loadImage('assets/buttons/verwijder_popup2.png')
     delete_mode_img = loadImage('assets/misc/delete_mode.png')
