@@ -22,10 +22,6 @@ def draw():
     
     players = globals.players
     
-    print([x.name for x in players])
-    print(screen)
-    print()
-    
     cycleBackground()  
     mouseHoverHandler()
     imageShow(home_img, home2_img, 10,10,130,55)
@@ -116,7 +112,7 @@ def keyTyped():
     if key == ENTER and len(words) > 0:
         player = Player(words)
         if screen <= len(players):
-            [player.cards.append(x) for x in players[screen - 1].cards]
+            player.cards = list([x for x in players[screen - 1].cards])
             players[screen - 1] = player
         else:
             players.append(player)
@@ -126,7 +122,7 @@ def keyTyped():
 interval = 250
         
 def cycleBackground():
-    global bg_index, interval, play_stars_animation, player
+    global bg_index, interval, play_stars_animation
     
     if interval <= 0:
         if bg_index < len(background_animation_images):            
@@ -141,33 +137,34 @@ def cycleBackground():
     interval -= 1
 
 def mousePressed():
-    global screen, words, players, player
+    global screen, words, players
     
     #Start knop
     if screen == 6 and isMouseOnButton(1070, 650, 165, 55):
         main_game.setTurnPlayer()
         globals.scherm = 'main'
-        return
             
     # Als je op -verder- drukt op scherm 3/4/5 en je hebt input staan in de box, ga naar scherm 6 en sla de input op als speler
     if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55):
         if len(words) > 0:
             player = Player(words)
-            players.append(player)
+            if screen <= len(players):
+                player.cards = list([x for x in players[screen - 1].cards])
+                players[screen - 1] = player
+            else:
+                players.append(player)
         screen = 6
         words = ''
     
     #HOME button
     if isMouseOnButton(10,10,130,55):
-        screen = 1
         globals.scherm = 'home'
                         
-    #Pijltje verder, zorg ervoor dat de lengte vd naam > 0 moet zijn
-            
+    #Pijltje verder, zorg ervoor dat de lengte vd naam > 0 moet zijn            
     if screen != 6 and isMouseOnButton(890, 350, 100, 100) and len(words) > 0:
         player = Player(words)
         if screen <= len(players):
-            [player.cards.append(x) for x in players[screen - 1].cards]
+            player.cards = list([x for x in players[screen - 1].cards])
             players[screen - 1] = player
         else:
             players.append(player)
