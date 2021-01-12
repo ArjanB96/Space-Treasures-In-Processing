@@ -335,6 +335,8 @@ def mousePressed():
             pagina = 0
         elif isMouseOnButton(640, 100, 390, 110, True): # Regel button
             screen = 2
+        elif isMouseOnButton(1075, 10, 195, 55) and game_in_progress: # Hervat button
+            globals.scherm = 'main'
         elif isMouseOnButton(220, 180, 330, 80): # H1
             screen = 2 
             pagina = 0
@@ -438,7 +440,7 @@ def mouseHoverHandler():
             cursor(HAND)
         elif isMouseOnButton(770, 565, 330, 80): # H8
             cursor(HAND)
-        elif isMouseOnButton(1075, 10, 195, 55): # Hervat
+        elif isMouseOnButton(1075, 10, 195, 55) and game_in_progress: # Hervat
             cursor(HAND)
         else:
             cursor(ARROW)
