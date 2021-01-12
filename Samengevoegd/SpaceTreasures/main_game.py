@@ -14,7 +14,7 @@ show_help = True
 delete_mode = False
 
 #Called once at start
-def setup():    
+def setup():
     loadImages()
     
     # Buttons
@@ -28,6 +28,7 @@ def setup():
 #Called every frame
 def draw():
     global players, turn_player_index
+    
     players = globals.players
     turn_player_index = turn_player_index if turn_player_index < len(players) else 0
     
