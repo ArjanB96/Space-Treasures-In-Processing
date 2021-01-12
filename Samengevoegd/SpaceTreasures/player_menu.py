@@ -115,7 +115,7 @@ def keyTyped():
 interval = 250
         
 def cycleBackground():
-    global bg_index, interval, play_stars_animation
+    global bg_index, interval, play_stars_animation, player
     
     if interval <= 0:
         if bg_index < len(background_animation_images):            
@@ -130,7 +130,7 @@ def cycleBackground():
     interval -= 1
 
 def mousePressed():
-    global screen, words, players
+    global screen, words, players, player
     
     #Start knop
     if screen == 6 and isMouseOnButton(1070, 650, 165, 55):
@@ -161,20 +161,19 @@ def mousePressed():
         screen += 1
         player = Player(words)
         players.append(player)
-        words = ''
+        words = '' + Player(words)
        
     #Pijltje terug
     if screen != 1 and screen != 6 and isMouseOnButton(290, 350, 100, 100):
         screen -= 1
-        players.pop(screen - 1)
-        words = ''
+        words = 'poepkutje'
+
         
     #terug knop op scherm 6, bij 5 spelers, 4 spelers, 3 spelers en 2 spelers
         
     if screen == 6 and isMouseOnButton(10, 655, 165, 55):
-        screen = 1
-        del players [:]
-        words = ''
+        screen = len(players)
+        players.pop(screen - 1)
         
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   if centered:
