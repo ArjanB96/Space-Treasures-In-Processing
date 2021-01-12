@@ -56,12 +56,12 @@ def draw():
         
         #Spelers
         if spelerIndex == 0:
-            image(PijlTerugIdle, 435, 150, 55, 55)
-        else: image(PijlTerug, 435, 150, 55, 55)
+            image(PijlTerugIdle, 435, 130, 55, 55)
+        else: image(PijlTerug, 435, 130, 55, 55)
         
         if spelerIndex == 4:
-            image(PijlVerderIdle, 815, 150, 55, 55)
-        else: image(PijlVerder, 815, 150, 55, 55)
+            image(PijlVerderIdle, 815, 130, 55, 55)
+        else: image(PijlVerder, 815, 130, 55, 55)
                 #Artefacten
         if artefactIndex == 0:
             image(PijlTerugIdle, 435, 250, 55, 55)
@@ -72,17 +72,17 @@ def draw():
         else: image(PijlVerder, 815, 250, 55, 55)
                 #Elementen
         if elementIndex == 0:
-            image(PijlTerugIdle, 435, 350, 55, 55)
-        else: image(PijlTerug, 435, 350, 55, 55)
+            image(PijlTerugIdle, 435, 370, 55, 55)
+        else: image(PijlTerug, 435, 370, 55, 55)
     
         if elementIndex == 2:
-            image(PijlVerderIdle, 815, 350, 55, 55)
-        else: image(PijlVerder, 815, 350, 55, 55)
+            image(PijlVerderIdle, 815, 370, 55, 55)
+        else: image(PijlVerder, 815, 370, 55, 55)
         
         #Variabelen en text, images
-        image(LeegVak, 495, 150, 315, 55)
+        image(LeegVak, 495, 130, 315, 55)
         image(LeegVak, 495, 250, 315, 55)
-        image(LeegVak, 495, 350, 315, 55)
+        image(LeegVak, 495, 370, 315, 55)
         image(TerugKnop, 10, 655, 165, 55)
         image(ToevoegenKnop, 530, 450, 240, 55)
         image(dices[display_dice], 90, 220, 200, 200)
@@ -136,13 +136,13 @@ def draw():
         tint(255)
         fill(240)
         textSize(17)
-        text('Speler:', 600 , 120, 300, 250)
+        text('Speler:', 600 , 100, 300, 250)
         text('Kies het artefact:', 505, 220, 500, 500)
-        text('Kies het element:', 505, 325, 300, 250)
+        text('Kies het element:', 505, 340, 300, 250)
         textAlign(CENTER)
-        text(spelers[spelerIndex], 505, 170, 300, 50)
+        text(spelers[spelerIndex], 505, 150, 300, 50)
         text(artefacts[artefactIndex], 505, 270, 300, 150)
-        text(elements[elementIndex], 505, 370, 300, 250)
+        text(elements[elementIndex], 505, 390, 300, 250)
         textAlign(CORNER)
         #muis en image knoppen veranderen wanneer muis op knop
            #terug knop
@@ -154,11 +154,11 @@ def draw():
             image(ToevoegenKnop2, 530, 450, 240, 55)
             cursor(HAND)
            #player knoppen
-        elif isMouseOnButton(435, 150, 55, 55) and spelerIndex > 0:
-            image(PijlTerug2, 435, 150, 55, 55)
+        elif isMouseOnButton(435, 130, 55, 55) and spelerIndex > 0:
+            image(PijlTerug2, 435, 130, 55, 55)
             cursor(HAND)
-        elif isMouseOnButton(815, 150, 55, 55) and spelerIndex < 4:
-            image(PijlVerder2, 815, 150, 55, 55)
+        elif isMouseOnButton(815, 130, 55, 55) and spelerIndex < 4:
+            image(PijlVerder2, 815, 130, 55, 55)
             cursor(HAND)
            #artefact knoppen
         elif isMouseOnButton(435, 250, 55, 55) and artefactIndex > 0:
@@ -168,11 +168,11 @@ def draw():
             image(PijlVerder2, 815, 250, 55, 55)
             cursor(HAND)
            #element knoppen
-        elif isMouseOnButton(435, 350, 55, 55) and elementIndex > 0:
-            image(PijlTerug2, 435, 350, 55, 55)
+        elif isMouseOnButton(435, 370, 55, 55) and elementIndex > 0:
+            image(PijlTerug2, 435, 370, 55, 55)
             cursor(HAND)
-        elif isMouseOnButton(815, 350, 55, 55) and elementIndex < 2:
-            image(PijlVerder2, 815, 350, 55, 55)
+        elif isMouseOnButton(815, 370, 55, 55) and elementIndex < 2:
+            image(PijlVerder2, 815, 370, 55, 55)
             cursor(HAND)
         elif isMouseOnButton(90, 200, 200, 200):
             cursor(HAND)
@@ -191,11 +191,11 @@ def mousePressed():
             print('au')
         
         #Speler selecteer knoppen
-        if isMouseOnButton(435, 150, 55, 55):
+        if isMouseOnButton(435, 130, 55, 55):
             if spelerIndex == 0:
                 spelerIndex = spelerIndex
             else: spelerIndex -= 1
-        if isMouseOnButton(815, 150, 55, 55):
+        if isMouseOnButton(815, 130, 55, 55):
             if spelerIndex == 4:
                 spelerIndex = spelerIndex
             else: spelerIndex += 1        
@@ -209,11 +209,11 @@ def mousePressed():
                 artefactIndex = artefactIndex
             else: artefactIndex += 1        
         #Element selecteer knoppen
-        if isMouseOnButton(435, 350, 55, 55):
+        if isMouseOnButton(435, 370, 55, 55):
             if elementIndex == 0:
                 elementIndex = elementIndex
             else: elementIndex -= 1        
-        if isMouseOnButton(815, 350, 55, 55):
+        if isMouseOnButton(815, 370, 55, 55):
             if elementIndex == 2:
                 elementIndex = elementIndex
             else: elementIndex += 1                
