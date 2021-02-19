@@ -57,20 +57,20 @@ def draw():
 def mousePressed():
     global StappenzettenPopUp
     if (StappenzettenPopUp == False):
-    #regels knop
+        #regels knop
         if isMouseOnButton(10, 10, 175, 55):
             print("naar regels toe")
-    #stappen zetten knop
+        #stappen zetten knop
         if isMouseOnButton(80, 400, 300, 200):
             StappenzettenPopUp = True
-    #artefact toevoegen knop
+        #artefact toevoegen knop
         if isMouseOnButton(480, 400, 300, 200):
             print("naar artefact toevoeg scherm")    
-    #element maken knop    
+        #element maken knop    
         if isMouseOnButton(880, 400, 300, 200):
             print("element maak scherm")
     elif (StappenzettenPopUp == True):
-        print("door naar volgende beurt ")
+        print("naar ander scherm, door naar volgende beurt ")
         StappenzettenPopUp = False
         
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
