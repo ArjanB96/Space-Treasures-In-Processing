@@ -1,6 +1,8 @@
 bg_index = 0
 interval = 250
-StappenzettenPopUp = False
+stappenzettenPopUp = False
+kanElementMaken = False
+kanGeenElementMakenPopUp = False
 def setup():
     size(1280, 720)
     frameRate(30)
@@ -17,7 +19,7 @@ def draw():
     image(GrootLeegvak, 480, 400, 300, 200)
     image(GrootLeegvak, 880, 400, 300, 200)
     
-    if (StappenzettenPopUp == False):
+    if (stappenzettenPopUp == False and kanGeenElementMakenPopUp == False):
         if isMouseOnButton(10, 10, 175, 55):
             image(Regels2, 10, 10, 175, 55)
             cursor(HAND)
@@ -40,7 +42,7 @@ def draw():
     text("Artefact\npakken", 515, 500)
     text("Element\nmaken", 925, 500)
     
-    if (StappenzettenPopUp == True):
+    if (stappenzettenPopUp == True):
         image(GrootLeegvak, 250, 50, 800, 500)
         image(PijlVerder, 950, 450, 55, 55)
         if isMouseOnButton(950, 450, 55, 55):
@@ -53,25 +55,42 @@ def draw():
         text("Zet nu je stappen", 375, 200)
         textSize(15)  
         text("Wanneer je op een brandstof icoontje staat moet\nje een nieuwe planeet neerleggen naast\nde planeet waar je nu op staat\ndit kan 1 keer per planeet", 285, 300)
+        
+    if (kanGeenElementMakenPopUp == True):
+        image(GrootLeegvak, 250, 250, 800, 300)
+        image(PijlVerder, 950, 450, 55, 55)
+        if isMouseOnButton(950, 450, 55, 55):
+            image(PijlVerder2, 950, 450, 55, 55)
+            cursor(HAND)
+        else:
+            cursor(ARROW)
+        textSize(22)  
+        text("Kan geen element maken\nje hebt minimaal drie artefacten\nnodig met hetzelfde element.", 290, 350)
     
 def mousePressed():
-    global StappenzettenPopUp
-    if (StappenzettenPopUp == False):
+    global stappenzettenPopUp, kanGeenElementMakenPopUp
+    if (stappenzettenPopUp == False and kanGeenElementMakenPopUp == False):
         #regels knop
         if isMouseOnButton(10, 10, 175, 55):
             print("naar regels toe")
         #stappen zetten knop
         if isMouseOnButton(80, 400, 300, 200):
-            StappenzettenPopUp = True
+            stappenzettenPopUp = True
         #artefact toevoegen knop
         if isMouseOnButton(480, 400, 300, 200):
             print("naar artefact toevoeg scherm")    
         #element maken knop    
-        if isMouseOnButton(880, 400, 300, 200):
+        if isMouseOnButton(880, 400, 300, 200) and kanElementMaken == True :
             print("element maak scherm")
-    elif (StappenzettenPopUp == True):
-        print("naar ander scherm, door naar volgende beurt ")
-        StappenzettenPopUp = False
+        elif isMouseOnButton(880, 400, 300, 200) and kanElementMaken == False :
+            kanGeenElementMakenPopUp = True
+    elif stappenzettenPopUp == True:
+        if isMouseOnButton(950, 450, 55, 55):
+            print("naar ander scherm, door naar volgende beurt ")
+            stappenzettenPopUp = False
+    elif kanGeenElementMakenPopUp == True:
+        if isMouseOnButton(950, 450, 55, 55):
+            kanGeenElementMakenPopUp = False
         
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   if centered:
