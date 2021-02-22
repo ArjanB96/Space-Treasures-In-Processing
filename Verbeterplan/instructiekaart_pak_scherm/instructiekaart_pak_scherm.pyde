@@ -52,7 +52,7 @@ def draw():
             cursor(ARROW)
         
         textSize(30)
-        text("Zet nu je stappen", 375, 200)
+        text("Zet nu het aantal stappen\naangegeven op de kaart", 375, 200)
         textSize(15)  
         text("Wanneer je op een brandstof icoontje staat moet\nje een nieuwe planeet neerleggen naast\nde planeet waar je nu op staat\ndit kan 1 keer per planeet", 285, 300)
         
@@ -109,7 +109,6 @@ def cycleBackground():
                 bg_index = 0
     else:
         background(background_img)
-
     interval -= 1     
     
 def loadImages():
