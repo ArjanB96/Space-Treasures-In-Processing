@@ -1,6 +1,8 @@
 bg_index = 0
 interval = 250
-StappenzettenPopUp = False
+stappenzettenPopUp = False
+kanElementMaken = False
+kanGeenElementMakenPopUp = False
 def setup():
     size(1280, 720)
     frameRate(30)
@@ -13,22 +15,22 @@ def draw():
     
     #images
     image(Regels, 10, 10, 175, 55)
-    image(GrootLeegvak, 80, 400, 300, 200)
-    image(GrootLeegvak, 480, 400, 300, 200)
-    image(GrootLeegvak, 880, 400, 300, 200)
+    image(GrootLeegvak, 80, 430, 295, 140)
+    image(GrootLeegvak, 480, 430, 295, 140)
+    image(GrootLeegvak, 880, 430, 295, 140)
     
-    if (StappenzettenPopUp == False):
+    if (stappenzettenPopUp == False and kanGeenElementMakenPopUp == False):
         if isMouseOnButton(10, 10, 175, 55):
             image(Regels2, 10, 10, 175, 55)
             cursor(HAND)
-        elif isMouseOnButton(80, 400, 300, 200):
-            image(GrootLeegvak2, 80, 400, 300, 200)
+        elif isMouseOnButton(80, 430, 295, 140):
+            image(GrootLeegvak2, 80, 430, 295, 140)
             cursor(HAND)
-        elif isMouseOnButton(480, 400, 300, 200):
-            image(GrootLeegvak2, 480, 400, 300, 200)
+        elif isMouseOnButton(480, 430, 295, 140):
+            image(GrootLeegvak2, 480, 430, 295, 140)
             cursor(HAND)
-        elif isMouseOnButton(880, 400, 300, 200):
-            image(GrootLeegvak2, 880, 400, 300, 200)
+        elif isMouseOnButton(880, 430, 295, 140):
+            image(GrootLeegvak2, 880, 430, 295, 140)
             cursor(HAND)
         else: cursor(ARROW)
         
@@ -40,7 +42,7 @@ def draw():
     text("Artefact\npakken", 515, 500)
     text("Element\nmaken", 925, 500)
     
-    if (StappenzettenPopUp == True):
+    if (stappenzettenPopUp == True):
         image(GrootLeegvak, 250, 50, 800, 500)
         image(PijlVerder, 950, 450, 55, 55)
         if isMouseOnButton(950, 450, 55, 55):
@@ -49,29 +51,46 @@ def draw():
         else:
             cursor(ARROW)
         
-        textSize(30)
-        text("Zet nu je stappen", 375, 200)
+        textSize(29)
+        text("Zet nu het aantal stappen\naangegeven op de kaart", 285, 200)
         textSize(15)  
-        text("Wanneer je op een brandstof icoontje staat moet\nje een nieuwe planeet neerleggen naast\nde planeet waar je nu op staat\ndit kan 1 keer per planeet", 285, 300)
+        text("Als je op een brandstof icoontje staat moet\nje een nieuwe planeet neerleggen naast\nde planeet waar je nu op staat\ndit kan 1 keer per planeet", 285, 300)
+        
+    if (kanGeenElementMakenPopUp == True):
+        image(GrootLeegvak, 250, 250, 800, 300)
+        image(PijlVerder, 950, 450, 55, 55)
+        if isMouseOnButton(950, 450, 55, 55):
+            image(PijlVerder2, 950, 450, 55, 55)
+            cursor(HAND)
+        else:
+            cursor(ARROW)
+        textSize(22)  
+        text("Kan geen element maken\nje hebt minimaal drie artefacten\nnodig met hetzelfde element.", 290, 350)
     
 def mousePressed():
-    global StappenzettenPopUp
-    if (StappenzettenPopUp == False):
+    global stappenzettenPopUp, kanGeenElementMakenPopUp
+    if (stappenzettenPopUp == False and kanGeenElementMakenPopUp == False):
         #regels knop
         if isMouseOnButton(10, 10, 175, 55):
-            print("naar regels toe")
+            print("naar regels toe") #<-- naar regels to
         #stappen zetten knop
         if isMouseOnButton(80, 400, 300, 200):
-            StappenzettenPopUp = True
+            stappenzettenPopUp = True 
         #artefact toevoegen knop
         if isMouseOnButton(480, 400, 300, 200):
-            print("naar artefact toevoeg scherm")    
+            print("naar artefact toevoeg scherm")    #<-- naar artefact toevoegen scherm
         #element maken knop    
-        if isMouseOnButton(880, 400, 300, 200):
-            print("element maak scherm")
-    elif (StappenzettenPopUp == True):
-        print("naar ander scherm, door naar volgende beurt ")
-        StappenzettenPopUp = False
+        if isMouseOnButton(880, 400, 300, 200) and kanElementMaken == True :
+            print("element maak scherm") #<--- naar element maken scherm
+        elif isMouseOnButton(880, 400, 300, 200) and kanElementMaken == False :
+            kanGeenElementMakenPopUp = True
+    elif stappenzettenPopUp == True:
+        if isMouseOnButton(950, 450, 55, 55):
+            print("naar ander scherm, door naar volgende beurt ")
+            stappenzettenPopUp = False # naar volgende beurt
+    elif kanGeenElementMakenPopUp == True:
+        if isMouseOnButton(950, 450, 55, 55):
+            kanGeenElementMakenPopUp = False
         
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   if centered:
@@ -90,7 +109,6 @@ def cycleBackground():
                 bg_index = 0
     else:
         background(background_img)
-
     interval -= 1     
     
 def loadImages():
