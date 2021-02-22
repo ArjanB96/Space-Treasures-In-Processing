@@ -51,7 +51,7 @@ def draw():
             cursor(HAND)
         else:
             cursor(ARROW)
-        
+            
         textSize(30)
         text("Pak een kaart", 475, 200)
         textSize(15)  
@@ -74,10 +74,10 @@ def draw():
         
 def mousePressed():
     global kaart_pakken_popup, artefact_gebruiken_popup
-    if (kaart_pakken_popup == False):
-        #regels knop
-        if isMouseOnButton(10, 10, 175, 55):
-            print("Regels") # <-------------------- Ga naar regelscherm
+    if kaart_pakken_popup == False and artefact_gebruiken_popup == False:
+        
+        if isMouseOnButton(10, 10, 175, 55):                                #regels knop
+            print("Regels")                                                 #Ga naar regelscherm
             
         if isMouseOnButton(290, 430, 295, 140): #Kaarten pak knop
             kaart_pakken_popup = True
@@ -88,7 +88,7 @@ def mousePressed():
     elif kaart_pakken_popup == True:
         if isMouseOnButton(950, 450, 55, 55):
             print("Scherm Jeffrey")   
-            kaarten_pakken_popup = False              # !!!Ga naar het scherm van Jeffrey met Stappen zetten / artefact toevoegen / element maken!!!
+            kaart_pakken_popup = False              # !!!Ga naar het scherm van Jeffrey met Stappen zetten / artefact toevoegen / element maken!!!
             
     elif artefact_gebruiken_popup == True:
         if isMouseOnButton(950, 450, 55, 55):
