@@ -35,8 +35,7 @@ def draw():
         else: cursor(ARROW)
         
     fill(255)        
-    textSize(30)        
-    text("Pak een kaart van de stapel", 225, 145)
+    textSize(30)       
     text("Wat wil je doen?", 385, 305)
     text("Stappen\nzetten", 125, 500)
     text("Artefact\npakken", 515, 500)
