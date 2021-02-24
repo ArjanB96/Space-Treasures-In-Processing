@@ -86,8 +86,8 @@ def mousePressed():
             kanGeenElementMakenPopUp = True
     elif stappenzettenPopUp == True:
         if isMouseOnButton(950, 450, 55, 55):
-            print("naar ander scherm, door naar volgende beurt ")
-            stappenzettenPopUp = False # naar volgende beurt
+            stappenzettenPopUp = False
+            print("naar ander scherm, door naar volgende beurt ") #<-- naar volgende beurt/huidige speler scherm
     elif kanGeenElementMakenPopUp == True:
         if isMouseOnButton(950, 450, 55, 55):
             kanGeenElementMakenPopUp = False
