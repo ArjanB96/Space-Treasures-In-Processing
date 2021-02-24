@@ -35,8 +35,7 @@ def draw():
         else: cursor(ARROW)
         
     fill(255)        
-    textSize(30)        
-    text("Pak een kaart van de stapel", 225, 145)
+    textSize(30)       
     text("Wat wil je doen?", 385, 305)
     text("Stappen\nzetten", 125, 500)
     text("Artefact\npakken", 515, 500)
@@ -86,8 +85,8 @@ def mousePressed():
             kanGeenElementMakenPopUp = True
     elif stappenzettenPopUp == True:
         if isMouseOnButton(950, 450, 55, 55):
-            print("naar ander scherm, door naar volgende beurt ")
-            stappenzettenPopUp = False # naar volgende beurt
+            stappenzettenPopUp = False
+            print("naar ander scherm, door naar volgende beurt ") #<-- naar volgende beurt/huidige speler scherm
     elif kanGeenElementMakenPopUp == True:
         if isMouseOnButton(950, 450, 55, 55):
             kanGeenElementMakenPopUp = False
