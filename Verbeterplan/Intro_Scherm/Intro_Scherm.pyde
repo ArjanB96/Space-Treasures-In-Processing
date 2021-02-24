@@ -21,6 +21,12 @@ def draw():
     pijlVerderPaars = loadImage('data/PijlVerderPaars.png')
     pijlVerder2Paars = loadImage('data/PijlVerder2Paars.png')
     pijlVerderIdle = loadImage('data/PijlVerderIdle.png')
+    alleFiches = loadImage('data/alle_fiches.jpg')
+    fuelFiche = loadImage('data/fuel_fiche.png')
+    kaarten = loadImage('data/kaarten.jpeg')
+    planeetAarde = loadImage('data/planeet_aarde.jpg')
+    planeten = loadImage('data/planeten.jpg')
+    ruimteschepen = loadImage('data/ruimteschepen.png')
 
     
     if screen == 0:
@@ -45,7 +51,10 @@ def draw():
         fill(255, 255, 255)
         textSize(25)
         textAlign(CENTER, CENTER)
-        text('Stap 1: Open de speeldoos van\n Space Treasures en leg het\n bordstuk Aarde neer.\n\n Pak vervolgens het brandstof\n fiche en leg die in het midden\n van het bordstuk Aarde.', 640, 375)
+        text('Stap 1: Open de speeldoos van\n Space Treasures en leg het\n bordstuk Aarde neer.\n\n Pak vervolgens het brandstof\n fiche en leg die in het midden\n van het bordstuk Aarde.', 640, 300)
+        
+        image(planeetAarde, 550, 550, width / 4, height / 4)
+        image(fuelFiche, 840, 550)
         
     if screen == 2:
         
@@ -57,7 +66,9 @@ def draw():
         fill(255, 255, 255)
         textSize(25)
         textAlign(CENTER, CENTER)
-        text('Stap 2: Schud de stapel\n van de overige\n bordstukken en bewaar\n ze voor later in het\n spel.', 640, 375)
+        text('Stap 2: Schud de stapel\n van de overige\n bordstukken en bewaar\n ze voor later in het\n spel.', 640, 300)
+        
+        image(planeten, 640, 550, width / 4, height / 4)
         
     if screen == 3:
         
@@ -69,7 +80,9 @@ def draw():
         fill(255, 255, 255)
         textSize(25)
         textAlign(CENTER, CENTER)
-        text('Stap 3: Iedere speler pakt\n een ruimteschip. Vervolgens\n kiest elke speler een van de\n zes buitenste hoeken en\n plaatst daar zijn pionnen.', 640, 375)
+        text('Stap 3: Iedere speler pakt\n een ruimteschip. Vervolgens\n kiest elke speler een van de\n zes buitenste vakjes en\n plaatst daar zijn pion.', 640, 300)
+        
+        image(ruimteschepen, 640, 550)
     
     if screen == 4:
         
@@ -81,7 +94,9 @@ def draw():
         fill(255, 255, 255)
         textSize(25)
         textAlign(CENTER, CENTER)
-        text('Stap 4: Schud de\n instructiekaarten en leg\n deze naast het bordstuk.', 640, 375)
+        text('Stap 4: Schud de\n instructiekaarten en leg\n deze naast het bordstuk.', 640, 300)
+        
+        image(kaarten, 640, 550, width / 2.5 , height / 2.5)
         
     if screen == 5:
         
@@ -93,7 +108,9 @@ def draw():
         fill(255, 255, 255)
         textSize(25)
         textAlign(CENTER, CENTER)
-        text('Stap 5: Geef elke speler\n fysiek een fiche van elk\n element.\n\n De fiches worden naast\n elkaar neergelegd. Deze\n fiches hebben het doel om\n de artefacten te sorteren\n op basis van elementen.\n\n Bij het verkrijgen van een\n artefact leg je het\n artefact neer bij het\n bijbehorende fiche.', 640, 375)
+        text('Stap 5: Geef elke speler\n fysiek een fiche van elk\n element.', 640, 300)
+        
+        image(alleFiches, 640, 550, width / 2.5, height / 2.5)
         
           
     tint(255)     
@@ -184,7 +201,6 @@ def mouseHoverHandler():
     
     if isMouseOnButton(50, 360, 84, 78, True) and screen != 0:
         cursor(HAND)   
-
     elif isMouseOnButton(1230, 360, 84, 78, True) and screen != 5:
         cursor(HAND)
     else:
