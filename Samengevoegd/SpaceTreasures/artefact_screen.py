@@ -1,4 +1,4 @@
-import globals, main_game
+import globals, main_game, new_turn
 from globals import Player, Card
 
 artefacts = ['Swap','Haste','Eyedrop','Skip','Exchange','Blockade']
@@ -144,7 +144,7 @@ def mousePressed():
     
     #terug knop
     if isMouseOnButton(10, 655, 165, 55):
-        globals.scherm = 'main'
+        globals.scherm = 'new_turn'
         return
     
     #Speler selecteer knoppen
@@ -190,11 +190,15 @@ def mousePressed():
             [ply.cards.append(card) for card in spelers[spelerIndex].cards]
             ply.cards.append(Card(name=artefact_name, cooldown=cooldown, element=elements[elementIndex]))
             spelers[spelerIndex] = ply
-            globals.scherm = 'main'
+            globals.scherm = 'new_turn'
         elif len(spelers[spelerIndex].cards) >= 5:
             opacityTooManyCardsMsg = 255
         else:
-            globals.scherm = 'main'
+            globals.scherm = 'new_turn'
+            
+        spelerIndex = spelerIndex + 1 if spelerIndex < len(spelers) - 1 else 0
+        main_game.turn_player_index = spelerIndex
+        new_turn.player = spelers[spelerIndex]
             
 def setSpelerIndex(index):
     global spelerIndex
