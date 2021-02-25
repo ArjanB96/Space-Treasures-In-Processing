@@ -8,10 +8,6 @@ possess_artefact = False            # <-- Als je een artefact krijgt, moet deze 
                                     #       Als de len. van player.cards > 1 --> possess_artefact = True ?                                    
 player = None                     # <-- hier kan je fixen dat de spelersnaam per beurt naar een andere speler gaat
 
-
-alles_op_cooldown = False
-
-
 def setup():
     size(1280, 720)
     frameRate(30)
@@ -22,6 +18,13 @@ def draw():
     global artefact_gebruiken_popup
     
     cycleBackground()
+    
+    # Eerste argument is de speler van wie je de kaarten wilt laten zien.
+    # Tweede argument is de grootte van de kaarten als tuple. (width, height)
+    # Derde argument is de positie van de kaarten als tuple. (x, y)
+    # Deze functie kun je vinden op lijn 271 van main_game.py
+    main_game.drawCards(player, (180, 90))
+    
     textFont(createFont('data/PressStart2P.ttf', 5))
     
     possess_artefact = len(player.cards) > 0
@@ -60,7 +63,9 @@ def draw():
     text(player.name, 650, 140)                      # line met de variable van de huidige speler , check line 4!!!
     textAlign(LEFT)
     
-    if alles_op_cooldown:                            # als al je artefacten cooldown hebben
+    alles_op_cooldown = len(filter(lambda x: not x.on_cooldown, player.cards)) == 0 and len(player.cards) > 0
+    
+    if alles_op_cooldown and artefact_gebruiken_popup:                  # als al je artefacten cooldown hebben
         image(GrootLeegvak, 250, 50, 800, 500)
         image(PijlVerder, 950, 450, 55, 55)
         if isMouseOnButton(950, 450, 55, 55):
@@ -68,15 +73,12 @@ def draw():
             cursor(HAND)
         else:
             cursor(ARROW)    
-        textSize(30)
-        text("Al je artefacten staan op coooldown", 475, 200)
-        textSize(15)  
-        text("Wat wil je hier voor tekst hebben?", 285, 300)
+        textSize(20)
+        text("Al je artefacten staan op cooldown", 300, 200)
+        textSize(16)  
+        text("Je kunt momenteel geen artefact gebruiken.", 295, 300)
     
-    
-    
-    
-    if not(alles_op_cooldown) and kaart_pakken_popup:               
+    if kaart_pakken_popup:               
         image(GrootLeegvak, 250, 50, 800, 500)
         image(PijlVerder, 950, 450, 55, 55)
         if isMouseOnButton(950, 450, 55, 55):
@@ -89,7 +91,7 @@ def draw():
         textSize(15)  
         text("Pak een kaart, moet hier nog extra tekst bij?\n IDK maar de optie is er in ieder geval ", 285, 300)
 
-    if not(alles_op_cooldown) and artefact_gebruiken_popup:   
+    if not alles_op_cooldown and artefact_gebruiken_popup:   
         if not possess_artefact:
             image(GrootLeegvak, 250, 50, 800, 500)
             image(PijlVerder, 950, 450, 55, 55)
@@ -134,10 +136,8 @@ def mousePressed():
             artefact_gebruiken_popup = False
             
     elif artefact_gebruiken_popup == True and possess_artefact == False:
-        if isMouseOnButton(950, 450, 55, 55):
-            print("Geen artefact!!")                           # !!!Ga Terug naar hetzelfde scherm, je kan alleen op 'kaart pakken' drukken todat je een artefact hebt!!!
-            artefact_gebruiken_popup = False
-            
+        if isMouseOnButton(950, 450, 55, 55):        
+            artefact_gebruiken_popup = False  # !!!Ga Terug naar hetzelfde scherm, je kan alleen op 'kaart pakken' drukken todat je een artefact hebt!!!
         
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   if centered:
