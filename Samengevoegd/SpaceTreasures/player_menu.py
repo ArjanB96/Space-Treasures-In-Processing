@@ -1,4 +1,4 @@
-import main_game, globals
+import main_game, new_turn, globals
 
 bg_index = 0
 frame = 1
@@ -141,8 +141,8 @@ def mousePressed():
     
     #Start knop
     if screen == 6 and isMouseOnButton(1070, 650, 165, 55):
-        main_game.setTurnPlayer()
-        globals.scherm = 'main'
+        new_turn.player = players[0]
+        globals.scherm = 'new_turn'
             
     # Als je op -verder- drukt op scherm 3/4/5 en je hebt input staan in de box, ga naar scherm 6 en sla de input op als speler
     if (screen == 3 or screen == 4 or screen == 5) and isMouseOnButton(1070, 650, 195, 55):
