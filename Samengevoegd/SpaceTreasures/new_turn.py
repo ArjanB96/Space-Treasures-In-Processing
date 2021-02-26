@@ -37,7 +37,10 @@ def draw():
     image(GrootLeegvak, 290, 400, 295, 140)       # leeg vlak voor "Kaart pakken"           ------ was eerst 430, test met 400
     image(GrootLeegvak, 710, 400, 295, 140)       # leeg vlak voor "Artefact gebruiken"     ------ was eerst 430, test met 400
     image(GrootLeegvak, 360, 60, 595, 120)        # leeg vlak voor welke speler aan de beurt is
-    
+    fill(0)
+    rect(350,220,655,130)                         # leeg zwart vlak achter bovenste tekst
+    fill(0)
+    rect(60,565,575,100)                          # leeg zwart vlak achter onderste tekst
     
     if not kaart_pakken_popup and not artefact_gebruiken_popup:
         if isMouseOnButton(10, 10, 175, 55):
