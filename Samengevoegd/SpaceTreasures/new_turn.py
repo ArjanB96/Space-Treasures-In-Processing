@@ -34,8 +34,8 @@ def draw():
     
     #images
     image(Regels, 10, 10, 175, 55)
-    image(GrootLeegvak, 290, 430, 295, 140)       # leeg vlak voor "Kaart pakken"
-    image(GrootLeegvak, 710, 430, 295, 140)       # leeg vlak voor "Artefact gebruiken"
+    image(GrootLeegvak, 290, 400, 295, 140)       # leeg vlak voor "Kaart pakken"           ------ was eerst 430, test met 400
+    image(GrootLeegvak, 710, 400, 295, 140)       # leeg vlak voor "Artefact gebruiken"     ------ was eerst 430, test met 400
     image(GrootLeegvak, 360, 60, 595, 120)        # leeg vlak voor welke speler aan de beurt is
     
     
@@ -43,22 +43,23 @@ def draw():
         if isMouseOnButton(10, 10, 175, 55):
             image(Regels2, 10, 10, 175, 55)
             cursor(HAND)
-        elif isMouseOnButton(290, 430, 295, 140):
-            image(GrootLeegvak2, 290, 430, 295, 140)
+        elif isMouseOnButton(290, 400, 295, 140):
+            image(GrootLeegvak2, 290, 400, 295, 140)
             cursor(HAND)
             cursor(HAND)
-        elif isMouseOnButton(710, 430, 295, 140):
-            image(GrootLeegvak2, 710, 430, 295, 140)
+        elif isMouseOnButton(710, 400, 295, 140):
+            image(GrootLeegvak2, 710, 400, 295, 140)
             cursor(HAND)
         else: cursor(ARROW)
         
     fill(255)        
     textSize(30)
     textAlign(LEFT)  
-    text("Kies wat wil je doen", 385, 305)
-    text("Kaart\npakken", 345, 500)
+    text("Huidige kaarten : ", 100, 660)
+    text("Kies wat je wilt doen", 360, 305)
+    text("Kaart\npakken", 345, 470)
     textSize(27)
-    text("Artefact\ngebruiken", 735, 500)
+    text("Artefact\ngebruiken", 735, 470)
     textAlign(CENTER)
     text(player.name, 650, 140)                      # line met de variable van de huidige speler , check line 4!!!
     textAlign(LEFT)
@@ -118,10 +119,10 @@ def mousePressed():
             home_screen.screen = 1
             globals.scherm = 'home'                                         #Ga naar regelscherm
             
-        if isMouseOnButton(290, 430, 295, 140):                             #Kaarten pak knop
+        if isMouseOnButton(290, 400, 295, 140):                             #Kaarten pak knop
             kaart_pakken_popup = True                                  
             
-        if isMouseOnButton(710, 430, 295, 140):                             #Artefact gebruiken knop
+        if isMouseOnButton(710, 400, 295, 140):                             #Artefact gebruiken knop
             artefact_gebruiken_popup = True
             
     elif kaart_pakken_popup == True:

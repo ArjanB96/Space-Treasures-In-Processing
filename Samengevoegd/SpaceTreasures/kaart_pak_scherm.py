@@ -19,22 +19,22 @@ def draw():
     
     #images
     image(Regels, 10, 10, 175, 55)
-    image(GrootLeegvak, 80, 430, 295, 140)
-    image(GrootLeegvak, 480, 430, 295, 140)
-    image(GrootLeegvak, 880, 430, 295, 140)
+    image(GrootLeegvak, 80, 400, 295, 140)
+    image(GrootLeegvak, 480, 400, 295, 140)
+    image(GrootLeegvak, 880, 400, 295, 140)
     
     if (stappenzettenPopUp == False and kanGeenElementMakenPopUp == False):
         if isMouseOnButton(10, 10, 175, 55):
             image(Regels2, 10, 10, 175, 55)
             cursor(HAND)
-        elif isMouseOnButton(80, 430, 295, 140):
-            image(GrootLeegvak2, 80, 430, 295, 140)
+        elif isMouseOnButton(80, 400, 295, 140):
+            image(GrootLeegvak2, 80, 400, 295, 140)
             cursor(HAND)
-        elif isMouseOnButton(480, 430, 295, 140):
-            image(GrootLeegvak2, 480, 430, 295, 140)
+        elif isMouseOnButton(480, 400, 295, 140):
+            image(GrootLeegvak2, 480, 400, 295, 140)
             cursor(HAND)
-        elif isMouseOnButton(880, 430, 295, 140):
-            image(GrootLeegvak2, 880, 430, 295, 140)
+        elif isMouseOnButton(880, 400, 295, 140):
+            image(GrootLeegvak2, 880, 400, 295, 140)
             cursor(HAND)
         else: cursor(ARROW)
         
@@ -43,9 +43,9 @@ def draw():
     textAlign(LEFT)
     text("Pak een kaart van de stapel", 225, 145)
     text("Wat wil je doen?", 385, 305)
-    text("Stappen\nzetten", 125, 500)
-    text("Artefact\npakken", 515, 500)
-    text("Element\nmaken", 925, 500)    
+    text("Stappen\nzetten", 125, 470)
+    text("Artefact\npakken", 515, 470)
+    text("Element\nmaken", 925, 470)    
     
     if (stappenzettenPopUp == True):
         image(GrootLeegvak, 250, 50, 800, 500)

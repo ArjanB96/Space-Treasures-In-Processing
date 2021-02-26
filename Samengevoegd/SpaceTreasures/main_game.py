@@ -268,7 +268,7 @@ def drawAllCards(highlight_card = None):
                 text_to_draw += '\nAfkoeltijd: ' + str(cooldown_left)
             drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + (15 if not card.on_cooldown else 10)), (width, height), (0, 0, 0) if player == players[turn_player_index] or delete_mode or exchange_mode else (145, 145, 145), 16 if player == players[turn_player_index] else 14)
 
-def drawCards(player, card_size = (200, 100), card_pos = (540, 600), font_size = 14):
+def drawCards(player, card_size = (200, 100), card_pos = (700, 600), font_size = 14):
     if len(player.cards) == 0:
             image(no_cards_card if player == players[turn_player_index] else no_cards_white_card, card_pos[0], card_pos[1], card_size[0], card_size[1])
         
@@ -277,7 +277,7 @@ def drawCards(player, card_size = (200, 100), card_pos = (540, 600), font_size =
         if cooldown_left == card.cooldown and not card.on_cooldown or cooldown_left <= 0 or not card.on_cooldown:
             cooldown_left = 0            
                     
-        card.pos = (card_pos[0] + (115 * c_index), card_pos[1] + (5 * c_index))
+        card.pos = (card_pos[0] + (85 * c_index), card_pos[1] + (5 * c_index))
         
         card_img = amaterasu_card if card.element == 'Amaterasu' else aqua_card if card.element == 'Aqua' else kaytsak_card
         
