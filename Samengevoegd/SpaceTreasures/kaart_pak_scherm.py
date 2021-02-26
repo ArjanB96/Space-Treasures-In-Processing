@@ -41,7 +41,6 @@ def draw():
     fill(255)        
     textSize(30)
     textAlign(LEFT)
-    text("Pak een kaart van de stapel", 225, 145)
     text("Wat wil je doen?", 385, 305)
     text("Stappen\nzetten", 125, 470)
     text("Artefact\npakken", 515, 470)
