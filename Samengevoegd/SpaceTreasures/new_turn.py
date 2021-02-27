@@ -33,6 +33,7 @@ def draw():
         home_screen.game_in_progress = True
     
     #images
+    imageMode(CORNER)
     image(Regels, 10, 10, 175, 55)
     image(GrootLeegvak, 290, 400, 295, 140)       # leeg vlak voor "Kaart pakken"           ------ was eerst 430, test met 400
     image(GrootLeegvak, 710, 400, 295, 140)       # leeg vlak voor "Artefact gebruiken"     ------ was eerst 430, test met 400
