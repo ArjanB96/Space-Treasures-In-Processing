@@ -336,7 +336,7 @@ def mousePressed():
         elif isMouseOnButton(640, 100, 390, 110, True): # Regel button
             screen = 2
         elif isMouseOnButton(1075, 10, 195, 55) and game_in_progress: # Hervat button
-            globals.scherm = 'main'
+            globals.scherm = 'new_turn'
         elif isMouseOnButton(220, 180, 330, 80): # H1
             screen = 2 
             pagina = 0

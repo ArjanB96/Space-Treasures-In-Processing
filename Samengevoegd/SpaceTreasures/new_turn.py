@@ -8,10 +8,6 @@ possess_artefact = False            # <-- Als je een artefact krijgt, moet deze 
                                     #       Als de len. van player.cards > 1 --> possess_artefact = True ?                                    
 player = None                     # <-- hier kan je fixen dat de spelersnaam per beurt naar een andere speler gaat
 
-
-alles_op_cooldown = False
-
-
 def setup():
     size(1280, 720)
     frameRate(30)
@@ -22,6 +18,13 @@ def draw():
     global artefact_gebruiken_popup
     
     cycleBackground()
+    
+    # Eerste argument is de speler van wie je de kaarten wilt laten zien.
+    # Tweede argument is de grootte van de kaarten als tuple. (width, height)
+    # Derde argument is de positie van de kaarten als tuple. (x, y)
+    # Deze functie kun je vinden op lijn 271 van main_game.py
+    main_game.drawCards(player, (180, 90))
+    
     textFont(createFont('data/PressStart2P.ttf', 5))
     
     possess_artefact = len(player.cards) > 0
@@ -31,36 +34,42 @@ def draw():
     
     #images
     image(Regels, 10, 10, 175, 55)
-    image(GrootLeegvak, 290, 430, 295, 140)       # leeg vlak voor "Kaart pakken"
-    image(GrootLeegvak, 710, 430, 295, 140)       # leeg vlak voor "Artefact gebruiken"
+    image(GrootLeegvak, 290, 400, 295, 140)       # leeg vlak voor "Kaart pakken"           ------ was eerst 430, test met 400
+    image(GrootLeegvak, 710, 400, 295, 140)       # leeg vlak voor "Artefact gebruiken"     ------ was eerst 430, test met 400
     image(GrootLeegvak, 360, 60, 595, 120)        # leeg vlak voor welke speler aan de beurt is
-    
+    fill(0)
+    rect(350,220,655,130)                         # leeg zwart vlak achter bovenste tekst
+    fill(0)
+    rect(60,565,575,100)                          # leeg zwart vlak achter onderste tekst
     
     if not kaart_pakken_popup and not artefact_gebruiken_popup:
         if isMouseOnButton(10, 10, 175, 55):
             image(Regels2, 10, 10, 175, 55)
             cursor(HAND)
-        elif isMouseOnButton(290, 430, 295, 140):
-            image(GrootLeegvak2, 290, 430, 295, 140)
+        elif isMouseOnButton(290, 400, 295, 140):
+            image(GrootLeegvak2, 290, 400, 295, 140)
             cursor(HAND)
             cursor(HAND)
-        elif isMouseOnButton(710, 430, 295, 140):
-            image(GrootLeegvak2, 710, 430, 295, 140)
+        elif isMouseOnButton(710, 400, 295, 140):
+            image(GrootLeegvak2, 710, 400, 295, 140)
             cursor(HAND)
         else: cursor(ARROW)
         
     fill(255)        
     textSize(30)
     textAlign(LEFT)  
-    text("Kies wat wil je doen", 385, 305)
-    text("Kaart\npakken", 345, 500)
+    text("Huidige kaarten : ", 100, 660)
+    text("Kies wat je wilt doen", 360, 305)
+    text("Kaart\npakken", 345, 470)
     textSize(27)
-    text("Artefact\ngebruiken", 735, 500)
+    text("Artefact\ngebruiken", 735, 470)
     textAlign(CENTER)
     text(player.name, 650, 140)                      # line met de variable van de huidige speler , check line 4!!!
     textAlign(LEFT)
     
-    if alles_op_cooldown:                            # als al je artefacten cooldown hebben
+    alles_op_cooldown = len(filter(lambda x: not x.on_cooldown, player.cards)) == 0 and len(player.cards) > 0
+    
+    if alles_op_cooldown and artefact_gebruiken_popup:                  # als al je artefacten cooldown hebben
         image(GrootLeegvak, 250, 50, 800, 500)
         image(PijlVerder, 950, 450, 55, 55)
         if isMouseOnButton(950, 450, 55, 55):
@@ -68,15 +77,12 @@ def draw():
             cursor(HAND)
         else:
             cursor(ARROW)    
-        textSize(30)
-        text("Al je artefacten staan op coooldown", 475, 200)
-        textSize(15)  
-        text("Wat wil je hier voor tekst hebben?", 285, 300)
+        textSize(20)
+        text("Al je artefacten staan op cooldown", 300, 200)
+        textSize(16)  
+        text("Je kunt momenteel geen artefact gebruiken.", 295, 300)
     
-    
-    
-    
-    if not(alles_op_cooldown) and kaart_pakken_popup:               
+    if kaart_pakken_popup:               
         image(GrootLeegvak, 250, 50, 800, 500)
         image(PijlVerder, 950, 450, 55, 55)
         if isMouseOnButton(950, 450, 55, 55):
@@ -89,7 +95,7 @@ def draw():
         textSize(15)  
         text("Pak een kaart, moet hier nog extra tekst bij?\n IDK maar de optie is er in ieder geval ", 285, 300)
 
-    if not(alles_op_cooldown) and artefact_gebruiken_popup:   
+    if not alles_op_cooldown and artefact_gebruiken_popup:   
         if not possess_artefact:
             image(GrootLeegvak, 250, 50, 800, 500)
             image(PijlVerder, 950, 450, 55, 55)
@@ -116,10 +122,10 @@ def mousePressed():
             home_screen.screen = 1
             globals.scherm = 'home'                                         #Ga naar regelscherm
             
-        if isMouseOnButton(290, 430, 295, 140):                             #Kaarten pak knop
+        if isMouseOnButton(290, 400, 295, 140):                             #Kaarten pak knop
             kaart_pakken_popup = True                                  
             
-        if isMouseOnButton(710, 430, 295, 140):                             #Artefact gebruiken knop
+        if isMouseOnButton(710, 400, 295, 140):                             #Artefact gebruiken knop
             artefact_gebruiken_popup = True
             
     elif kaart_pakken_popup == True:
@@ -134,10 +140,8 @@ def mousePressed():
             artefact_gebruiken_popup = False
             
     elif artefact_gebruiken_popup == True and possess_artefact == False:
-        if isMouseOnButton(950, 450, 55, 55):
-            print("Geen artefact!!")                           # !!!Ga Terug naar hetzelfde scherm, je kan alleen op 'kaart pakken' drukken todat je een artefact hebt!!!
-            artefact_gebruiken_popup = False
-            
+        if isMouseOnButton(950, 450, 55, 55):        
+            artefact_gebruiken_popup = False  # !!!Ga Terug naar hetzelfde scherm, je kan alleen op 'kaart pakken' drukken todat je een artefact hebt!!!
         
 def isMouseOnButton(posX, posY, buttonWidth, buttonHeight, centered = False):
   if centered:

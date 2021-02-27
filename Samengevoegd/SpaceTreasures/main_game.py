@@ -1,4 +1,4 @@
-import globals, home_screen, artefact_screen
+import globals, home_screen, artefact_screen, new_turn
 from globals import Player, Card, Button
 
 bg_index = 0
@@ -50,15 +50,12 @@ def draw():
     if show_help and not next((x for x in buttons if x.name == 'delete_popup'), None).visible:
         image(tutorial_img, 0, 0)
     
-    if not home_screen.game_in_progress:
-        home_screen.game_in_progress = True
-    
     if delete_mode:
         image(delete_mode_img, 0, 0)
             
-def setTurnPlayer():
-    global turn_player
-    turn_player = players[0]
+def setTurnPlayerIndex(i):
+    global turn_player_index
+    turn_player_index = i
     
 def mousePressed():
     global turn, turn_player_index, current_screen, show_help, first_turn, delete_mode, buttons, exchange_mode, exchange_card
@@ -135,7 +132,9 @@ def mousePressed():
         if first_turn:
             show_help = False
         first_turn = False
-        turn_player_index = turn_player_index + 1 if turn_player_index < len(players) - 1 else 0     
+        turn_player_index = turn_player_index + 1 if turn_player_index < len(players) - 1 else 0
+        new_turn.player = players[turn_player_index]
+        globals.scherm = 'new_turn' 
         
 def mouseHoverHandler():
     global hovered_card
@@ -269,6 +268,29 @@ def drawAllCards(highlight_card = None):
                 text_to_draw += '\nAfkoeltijd: ' + str(cooldown_left)
             drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + (15 if not card.on_cooldown else 10)), (width, height), (0, 0, 0) if player == players[turn_player_index] or delete_mode or exchange_mode else (145, 145, 145), 16 if player == players[turn_player_index] else 14)
 
+def drawCards(player, card_size = (200, 100), card_pos = (700, 600), font_size = 14):
+    if len(player.cards) == 0:
+            image(no_cards_card if player == players[turn_player_index] else no_cards_white_card, card_pos[0], card_pos[1], card_size[0], card_size[1])
+        
+    for c_index, card in enumerate(player.cards):                      
+        cooldown_left = card.cooldown - (turn - card.turn)
+        if cooldown_left == card.cooldown and not card.on_cooldown or cooldown_left <= 0 or not card.on_cooldown:
+            cooldown_left = 0            
+                    
+        card.pos = (card_pos[0] + (85 * c_index), card_pos[1] + (5 * c_index))
+        
+        card_img = amaterasu_card if card.element == 'Amaterasu' else aqua_card if card.element == 'Aqua' else kaytsak_card
+        
+        image(card_img, card.pos[0], card.pos[1], card_size[0], card_size[1])
+        
+        if card.on_cooldown:
+            image(red_card, card.pos[0], card.pos[1], card_size[0], card_size[1])
+            
+        text_to_draw = card.name + '\n' + card.element
+        if cooldown_left > 0:
+            text_to_draw += '\nAfkoeltijd: ' + str(cooldown_left)
+        drawText(text_to_draw, (card.pos[0] + 15, card.pos[1] + (15 if not card.on_cooldown else 10)), (width, height), (0, 0, 0), font_size)
+        
 def drawCardInfo():
     name = hovered_card.name
     image(groot_leeg_vak_img, width - 300, 50, 250, 400)
