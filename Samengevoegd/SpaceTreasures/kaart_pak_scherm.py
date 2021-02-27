@@ -3,7 +3,7 @@ import artefact_screen, home_screen, new_turn, main_game, globals
 bg_index = 0
 interval = 250
 stappenzettenPopUp = False
-kanElementMaken = False
+kanElementMaken = True
 kanGeenElementMakenPopUp = False
 
 def setup():
@@ -13,9 +13,18 @@ def setup():
     loadImages()
     
 def draw():
+    global kanElementMaken
+    
     cycleBackground()
     
     textFont(createFont('data/PressStart2P.ttf', 5))
+    
+    cards = new_turn.player.cards
+    elements = ['Amaterasu', 'Aqua', 'Kaytsak']
+    for e in elements:
+        if len(filter(lambda x: x.element == e, cards)) >= 3:
+            kanElementMaken = True
+            break
     
     #images
     image(Regels, 10, 10, 175, 55)
@@ -87,7 +96,7 @@ def mousePressed():
             globals.scherm = 'artifact'
         #element maken knop    
         if isMouseOnButton(880, 400, 300, 200) and kanElementMaken == True :
-            print("element maak scherm") #<--- naar element maken scherm
+            globals.scherm = 'create_element'
         elif isMouseOnButton(880, 400, 300, 200) and kanElementMaken == False :
             kanGeenElementMakenPopUp = True
     elif stappenzettenPopUp == True:
