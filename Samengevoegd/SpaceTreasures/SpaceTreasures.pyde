@@ -1,4 +1,4 @@
-import home_screen, player_menu, main_game, artefact_screen, new_turn, kaart_pak_scherm, intro, globals
+import home_screen, player_menu, main_game, artefact_screen, new_turn, kaart_pak_scherm, create_element, intro, globals
 
 def setup():
     frameRate(30)
@@ -10,6 +10,7 @@ def setup():
     intro.setup()
     new_turn.setup()
     kaart_pak_scherm.setup()
+    create_element.setup()
     main_game.setup()
     artefact_screen.setup()
     
@@ -24,6 +25,8 @@ def draw():
         new_turn.draw()
     elif globals.scherm == 'kaart_pak':
         kaart_pak_scherm.draw()
+    elif globals.scherm == 'create_element':
+        create_element.draw()
     elif globals.scherm == 'main':
         main_game.draw()
     elif globals.scherm == 'artifact':
@@ -40,6 +43,8 @@ def mousePressed():
         new_turn.mousePressed()
     elif globals.scherm == 'kaart_pak':
         kaart_pak_scherm.mousePressed()
+    elif globals.scherm == 'create_element':
+        create_element.mousePressed()
     elif globals.scherm == 'main':
         main_game.mousePressed()
     elif globals.scherm == 'artifact':
