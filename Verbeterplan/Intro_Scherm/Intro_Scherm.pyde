@@ -21,7 +21,7 @@ def draw():
     pijlVerderPaars = loadImage('data/PijlVerderPaars.png')
     pijlVerder2Paars = loadImage('data/PijlVerder2Paars.png')
     pijlVerderIdle = loadImage('data/PijlVerderIdle.png')
-    alleFiches = loadImage('data/alle_fiches.jpg')
+    alleFiches = loadImage('data/unknown.png')
     fuelFiche = loadImage('data/fuel_fiche.png')
     kaarten = loadImage('data/kaarten.jpeg')
     planeetAarde = loadImage('data/planeet_aarde.jpg')
