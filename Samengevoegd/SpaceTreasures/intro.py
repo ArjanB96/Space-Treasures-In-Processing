@@ -198,7 +198,7 @@ def mouseHoverHandler():
     
     if isMouseOnButton(50, 360, 84, 78, True) and screen != 0:
         cursor(HAND)   
-    elif isMouseOnButton(1230, 360, 84, 78, True) and screen != 5:
+    elif isMouseOnButton(1230, 360, 84, 78, True):
         cursor(HAND)
     else:
         cursor(ARROW)
