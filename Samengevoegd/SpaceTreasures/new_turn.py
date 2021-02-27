@@ -23,7 +23,7 @@ def draw():
     # Tweede argument is de grootte van de kaarten als tuple. (width, height)
     # Derde argument is de positie van de kaarten als tuple. (x, y)
     # Deze functie kun je vinden op lijn 271 van main_game.py
-    main_game.drawCards(player, (180, 90))
+    main_game.drawCards(player, (180, 90), (655, 595))
     
     textFont(createFont('data/PressStart2P.ttf', 5))
     
