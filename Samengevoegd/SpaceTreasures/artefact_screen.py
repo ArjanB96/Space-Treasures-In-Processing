@@ -144,6 +144,8 @@ def mousePressed():
     
     #terug knop
     if isMouseOnButton(10, 655, 165, 55):
+        main_game.turn_player_index = main_game.turn_player_index + 1 if main_game.turn_player_index < len(globals.players) - 1 else 0
+        new_turn.player = globals.players[main_game.turn_player_index]
         globals.scherm = 'new_turn'
         return
     
