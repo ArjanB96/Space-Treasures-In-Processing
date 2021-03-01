@@ -94,7 +94,7 @@ def draw():
         textSize(30)
         text("Pak een kaart", 475, 200)
         textSize(15)  
-        text("Pak een kaart, moet hier nog extra tekst bij?\n IDK maar de optie is er in ieder geval ", 285, 300)
+        text("Pak een kaart van de stapel", 285, 300)
 
     if not alles_op_cooldown and artefact_gebruiken_popup:   
         if not possess_artefact:
@@ -109,7 +109,7 @@ def draw():
             textSize(30)
             text("Je hebt geen artefacten", 315, 200)
             textSize(15)  
-            text("Ga eerst eentje halen gap", 285, 300)
+            text("Je kunt pas een artefact gebruiken als je \ner minimaal 1 beschikt.", 285, 300)
         else:
             artefact_gebruiken_popup = False
             main_game.turn_player_index = globals.players.index(player)
