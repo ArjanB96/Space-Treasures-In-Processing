@@ -16,7 +16,9 @@ def setup():
     
     # Buttons
     buttons.append(Button('info', info_img, info2_img, (10, height - 69), (60, 60)))
+    buttons.append(Button('opnieuw', opnieuw_img, opnieuw2_img, (width // 2 - opnieuw_img.width // 2, 500), (235, 55)))
     buttons.append(Button('delete_popup', delete_popup_img, delete_popup2_img, (width // 2 - delete_popup_img.width // 2, height // 2 - delete_popup_img.height // 2), (767, 432)))
+    buttons.append(Button('element_success', element_success_img, element_success2_img, (width // 2 - element_success_img.width // 2, height // 2 - element_success_img.height // 2), (767, 432), False))
 
 #Called every frame
 def draw():
@@ -33,16 +35,16 @@ def draw():
         if selected_cards[0].element == selected_cards[1].element == selected_cards[2].element:
             for card in selected_cards:
                 new_turn.player.cards.remove(card)
-            main_game.turn_player_index = main_game.turn_player_index + 1 if main_game.turn_player_index < len(globals.players) - 1 else 0
-            new_turn.player = globals.players[main_game.turn_player_index]
-            globals.scherm = 'new_turn'
+            next((x for x in buttons if x.name == 'element_success'), None).visible = True
         
         selected_cards = []
 
     mouseHoverHandler()
     
 def mousePressed():
-    if not next((x for x in buttons if x.name == 'delete_popup'), None).visible:
+    global selected_cards
+    
+    if not next((x for x in buttons if x.name == 'delete_popup'), None).visible and not next((x for x in buttons if x.name == 'element_success'), None).visible:
         # Cards 
         for card in reversed(new_turn.player.cards):
             if isMouseOnButton(posX=card.pos[0], posY=card.pos[1], buttonWidth=card.size[0], buttonHeight=card.size[1]) and card not in selected_cards:
@@ -51,15 +53,24 @@ def mousePressed():
 
     for button in [x for x in buttons if x.visible]:
         if isMouseOnButton(button.pos[0], button.pos[1], button.size[0], button.size[1]):
+            if button.name == 'opnieuw' and (next((x for x in buttons if x.name == 'delete_popup'), None).visible or next((x for x in buttons if x.name == 'element_success'), None).visible):
+                continue
             if button.name == 'info':
-                pass
+                next((x for x in buttons if x.name == 'delete_popup'), None).visible = True
             elif button.name == 'delete_popup':
                 button.visible = False
+            elif button.name == 'element_success':
+                main_game.turn_player_index = main_game.turn_player_index + 1 if main_game.turn_player_index < len(globals.players) - 1 else 0
+                new_turn.player = globals.players[main_game.turn_player_index]
+                button.visible = False
+                globals.scherm = 'new_turn'
+            elif button.name == 'opnieuw':
+                selected_cards = []                
         
 def mouseHoverHandler():
     card_hover = False
     
-    if not next((x for x in buttons if x.name == 'delete_popup'), None).visible:
+    if not next((x for x in buttons if x.name == 'delete_popup'), None).visible and not next((x for x in buttons if x.name == 'element_success'), None).visible:
         # Cards
         for card in reversed(new_turn.player.cards):
             if hasattr(card, 'pos') and isMouseOnButton(posX=card.pos[0], posY=card.pos[1], buttonWidth=card.size[0], buttonHeight=card.size[1]):
@@ -71,6 +82,8 @@ def mouseHoverHandler():
         
     # Buttons
     for button in [x for x in buttons if x.visible]:
+        if button.name == 'opnieuw' and (next((x for x in buttons if x.name == 'delete_popup'), None).visible or next((x for x in buttons if x.name == 'element_success'), None).visible):
+            continue
         if isMouseOnButton(button.pos[0], button.pos[1], button.size[0], button.size[1]):
             image(button.hover_img, button.pos[0], button.pos[1], button.size[0], button.size[1])
             cursor(HAND)
@@ -140,7 +153,7 @@ def getCard(posX, posY):
 def loadImages():
     global background_img, background_animation_images, home_img, home2_img, artifact_img, artifact2_img, verder_img, verder_paars_img, verder_paars2_img, info_img, info2_img, regels_img, regels2_img
     global delete_mode_img, verwijder_img, verwijder2_img, delete_popup_img, delete_popup2_img, amaterasu_card, kaytsak_card, aqua_card, red_card, black_card, white_card, no_cards_card, no_cards_white_card, tutorial_img, star_covers_img
-    global groot_leeg_vak_img
+    global groot_leeg_vak_img, element_success_img, element_success2_img, opnieuw_img, opnieuw2_img
     
     home_img = loadImage('assets/buttons/Home.png')
     home2_img = loadImage('assets/buttons/Home2.png')
@@ -157,6 +170,10 @@ def loadImages():
     regels2_img = loadImage('assets/images/Regels2.png')
     delete_popup_img = loadImage('assets/buttons/element_popup.png')
     delete_popup2_img = loadImage('assets/buttons/element_popup2.png')
+    element_success_img = loadImage('assets/buttons/element_success.png')
+    element_success2_img = loadImage('assets/buttons/element_success2.png')
+    opnieuw_img = loadImage('assets/buttons/opnieuw.png')
+    opnieuw2_img = loadImage('assets/buttons/opnieuw2.png')
     delete_mode_img = loadImage('assets/misc/delete_mode.png')
     amaterasu_card = loadImage('assets/cards/Amaterasu_card_flipped.png')
     kaytsak_card = loadImage('assets/cards/Kaytsak_card_flipped.png')
