@@ -44,7 +44,7 @@ def draw():
 
     mouseHoverHandler()
     
-    if hovered_card and not show_help:
+    if hovered_card:
         drawCardInfo()
     
     if show_help and not next((x for x in buttons if x.name == 'delete_popup'), None).visible:
