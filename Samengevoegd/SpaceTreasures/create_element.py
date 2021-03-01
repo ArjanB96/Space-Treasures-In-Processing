@@ -20,7 +20,7 @@ def setup():
 
 #Called every frame
 def draw():
-    global players
+    global players, selected_cards
     
     players = globals.players
     
@@ -28,6 +28,16 @@ def draw():
     
     drawCards(new_turn.player, None, (250, 125), (width / 2 - 300, height / 2 - 50))
     drawButtons()
+    
+    if len(selected_cards) >= 3:
+        if selected_cards[0].element == selected_cards[1].element == selected_cards[2].element:
+            for card in selected_cards:
+                new_turn.player.cards.remove(card)
+            main_game.turn_player_index = main_game.turn_player_index + 1 if main_game.turn_player_index < len(globals.players) - 1 else 0
+            new_turn.player = globals.players[main_game.turn_player_index]
+            globals.scherm = 'new_turn'
+        
+        selected_cards = []
 
     mouseHoverHandler()
     
@@ -35,7 +45,7 @@ def mousePressed():
     if not next((x for x in buttons if x.name == 'delete_popup'), None).visible:
         # Cards 
         for card in reversed(new_turn.player.cards):
-            if isMouseOnButton(posX=card.pos[0], posY=card.pos[1], buttonWidth=card.size[0], buttonHeight=card.size[1]):
+            if isMouseOnButton(posX=card.pos[0], posY=card.pos[1], buttonWidth=card.size[0], buttonHeight=card.size[1]) and card not in selected_cards:
                 artifactClick(card)
                 break
 
@@ -52,10 +62,11 @@ def mouseHoverHandler():
     if not next((x for x in buttons if x.name == 'delete_popup'), None).visible:
         # Cards
         for card in reversed(new_turn.player.cards):
-            if isMouseOnButton(posX=card.pos[0], posY=card.pos[1], buttonWidth=card.size[0], buttonHeight=card.size[1]):
+            if hasattr(card, 'pos') and isMouseOnButton(posX=card.pos[0], posY=card.pos[1], buttonWidth=card.size[0], buttonHeight=card.size[1]):
                 drawCards(new_turn.player, card, (250, 125), (width / 2 - 300, height / 2 - 50))
-                cursor(HAND)
-                card_hover = True
+                if card not in selected_cards:
+                    cursor(HAND)
+                    card_hover = True
                 break
         
     # Buttons
@@ -70,8 +81,8 @@ def mouseHoverHandler():
         cursor(ARROW)
         
 def artifactClick(card):
-    pass
-    
+    global selected_cards
+    selected_cards.append(card)
 
 def drawCards(player, highlight_card = None, card_size = (200, 100), card_pos = (700, 600), font_size = 18):  
     for c_index, card in enumerate(player.cards):
@@ -88,8 +99,11 @@ def drawCards(player, highlight_card = None, card_size = (200, 100), card_pos = 
         if card.on_cooldown:
             image(red_card, card.pos[0], card.pos[1], card_size[0], card_size[1])
             
-        if card == highlight_card:
+        if card == highlight_card and card not in selected_cards:
             image(white_card, card.pos[0], card.pos[1], card_size[0], card_size[1])
+        
+        if card in selected_cards:
+            image(black_card, card.pos[0], card.pos[1], card_size[0], card_size[1])
             
         text_to_draw = card.name + '\n' + card.element
         if cooldown_left > 0:
