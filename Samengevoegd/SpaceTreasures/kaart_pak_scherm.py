@@ -3,7 +3,7 @@ import artefact_screen, home_screen, new_turn, main_game, globals
 bg_index = 0
 interval = 250
 stappenzettenPopUp = False
-kanElementMaken = True
+kanElementMaken = False
 kanGeenElementMakenPopUp = False
 
 def setup():
