@@ -71,7 +71,7 @@ def draw():
     alles_op_cooldown = len(filter(lambda x: not x.on_cooldown, player.cards)) == 0 and len(player.cards) > 0
     
     if alles_op_cooldown and artefact_gebruiken_popup:                  # als al je artefacten cooldown hebben
-        image(GrootLeegvak, 250, 50, 800, 500)
+        image(GrootLeegvak, 250, 250, 800, 300)
         image(PijlVerder, 950, 450, 55, 55)
         if isMouseOnButton(950, 450, 55, 55):
             image(PijlVerder2, 950, 450, 55, 55)
@@ -79,12 +79,12 @@ def draw():
         else:
             cursor(ARROW)    
         textSize(20)
-        text("Al je artefacten staan op cooldown", 300, 200)
+        text("Al je artefacten staan op cooldown!", 300, 320)
         textSize(16)  
-        text("Je kunt momenteel geen artefact gebruiken.", 295, 300)
+        text("Je kunt momenteel geen artefact gebruiken.", 295, 420)
     
     if kaart_pakken_popup:               
-        image(GrootLeegvak, 250, 50, 800, 500)
+        image(GrootLeegvak, 250, 250, 800, 300)
         image(PijlVerder, 950, 450, 55, 55)
         if isMouseOnButton(950, 450, 55, 55):
             image(PijlVerder2, 950, 450, 55, 55)
@@ -92,13 +92,13 @@ def draw():
         else:
             cursor(ARROW)    
         textSize(30)
-        text("Pak een kaart", 475, 200)
+        text("Pak een kaart", 475, 300)
         textSize(15)  
-        text("Pak een kaart, moet hier nog extra tekst bij?\n IDK maar de optie is er in ieder geval ", 285, 300)
+        text("Pak een kaart van de stapel", 285, 400)
 
     if not alles_op_cooldown and artefact_gebruiken_popup:   
         if not possess_artefact:
-            image(GrootLeegvak, 250, 50, 800, 500)
+            image(GrootLeegvak, 250, 250, 800, 300)
             image(PijlVerder, 950, 450, 55, 55)
             if isMouseOnButton(950, 450, 55, 55):
                 image(PijlVerder2, 950, 450, 55, 55)
@@ -107,9 +107,9 @@ def draw():
                 cursor(ARROW)
     
             textSize(30)
-            text("Je hebt geen artefacten", 315, 200)
+            text("Je hebt geen artefacten", 315, 320)
             textSize(15)  
-            text("Ga eerst eentje halen gap", 285, 300)
+            text("Je kunt pas een artefact gebruiken als je \ner minimaal 1 hebt.", 285, 400)
         else:
             artefact_gebruiken_popup = False
             main_game.turn_player_index = globals.players.index(player)

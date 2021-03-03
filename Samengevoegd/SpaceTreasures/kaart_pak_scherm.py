@@ -77,8 +77,13 @@ def draw():
             cursor(HAND)
         else:
             cursor(ARROW)
-        textSize(22)  
-        text("Kan geen element maken\nje hebt minimaal drie artefacten\nnodig met hetzelfde element.", 290, 350)
+        textSize(20)  
+        text("Kan geen element maken!", 300, 320)
+        textSize(16)  
+        text("Je hebt minimaal drie artefacten nodig \nmet hetzelfde element.", 295,420)
+        
+
+    
     
 def mousePressed():
     global stappenzettenPopUp, kanGeenElementMakenPopUp
